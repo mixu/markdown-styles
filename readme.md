@@ -8,7 +8,7 @@ Copy the assets folder from the layout you want to use.
 
 ## Screenshots
 
-Note: webfonts are missing right now, I think I'll need to switch to phantomJS to get full support for screenshots.
+Note: webfonts may be slightly different the screenshots are via the command line.
 
 ### jasonm23-dark
 
