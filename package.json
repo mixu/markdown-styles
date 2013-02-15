@@ -1,0 +1,15 @@
+{
+  "name": "markdown-styles",
+  "description": "CSS stylesheets for markdown content",
+  "version": "1.0.0",
+  "author": {
+    "name": "Mikito Takada",
+    "email": "mixu@mixu.net",
+    "url": "http://blog.mixu.net/"
+    },
+  "main": "generate.js",
+  "dependencies": {
+    "marked": "~0.2.5"
+  }
+}
+
