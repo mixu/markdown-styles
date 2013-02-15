@@ -1,0 +1,51 @@
+#!/usr/bin/env node
+var fs = require('fs'),
+    path = require('path');
+
+var cwd = process.cwd();
+
+if(!fs.existsSync('./input/')) {
+  console.log('./input/ does not exist');
+  process.exit();
+}
+
+// Recurse through ./input/**/*
+var inputs = ['./input/'],
+    files = [];
+
+function iterate(dir) {
+  var items = fs.readdirSync(dir);
+  items.forEach(function(item) {
+    item = path.normalize(dir+ '/' +item);
+
+    var stat = fs.statSync(item);
+    if(stat.isFile()) {
+      files.push(item);
+    }
+    // TODO recurse into directories
+    // TODO check that output directory exists
+
+  });
+}
+
+inputs.map(function(input) {
+  return path.normalize(cwd + '/' +input);
+}).forEach(iterate);
+
+console.log(files);
+
+// Load the layout: header, footer
+var layout = 'jasonm23-markdown',
+    header = (fs.existsSync(cwd + '/layouts/'+layout+'/header.html') ?
+                cwd + '/layouts/'+layout+'/header.html' : cwd + '/layouts/plain/header.html'),
+    footer = (fs.existsSync(cwd + '/layouts/'+layout+'/footer.html') ?
+                cwd + '/layouts/'+layout+'/footer.html' : cwd + '/layouts/plain/footer.html');
+
+console.log(header, footer);
+
+// run the generator for each directory
+
+Gen.header()
+   .footer()
+   .content()
+   .generate(cwd + '/')

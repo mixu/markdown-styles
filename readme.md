@@ -8,6 +8,29 @@ Copy the assets folder from the layout you want to use.
 
 To preview the styles in the browser, clone this repo locally and then open `./output/index.html`.
 
+## Using via npm
+
+This repo also includes a small tool for generating HTML files from Markdown files.
+
+The console tool is `generate-md`, e.g.
+
+    generate-md --layout jasonm23-foghorn
+
+Defaults:
+
+- checks `./input/` and all subdirectories for files ending with `.md` (other files are ignored)
+- if a folder named `./output/` exists, then files are placed there
+- subdirectories are preserved, but they are not created (if the `./output/foo/` does not exist, then files in `./input/foo/` are ignored)
+- if `./output/` does not exist, then output is written to the current directory
+
+Options:
+
+`--layout` specifies the layout to use.
+
+`--input` specifies the input directory.
+
+`--output` specifies the output directory.
+
 ## Screenshots
 
 Note: there may be minor differences in the rendering since these screenshots are generated via cutycapt rather than a browser.
