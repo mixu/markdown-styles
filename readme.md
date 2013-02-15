@@ -8,6 +8,8 @@ Copy the assets folder from the layout you want to use.
 
 ## Screenshots
 
+Note: webfonts are missing right now, I think I'll need to switch to phantomJS to get full support for screenshots.
+
 ### jasonm23-dark
 
 ![jasonm23-dark](https://github.com/mixu/markdown-styles/raw/master/screenshots/jasonm23-dark.png)
