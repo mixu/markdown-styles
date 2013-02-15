@@ -6,9 +6,11 @@ CSS stylesheets / themes for Markdown.
 
 Copy the assets folder from the layout you want to use.
 
+To preview the styles in the browser, open `./output/index.html`.
+
 ## Screenshots
 
-Note: webfonts may be slightly different the screenshots are via the command line.
+Note: there may be minor differences in the rendering since these screenshots are generated via cutycapt rather than a browser.
 
 ### jasonm23-dark
 
@@ -60,11 +62,14 @@ The switcher is an old school frameset, you need to add a link in `./output/menu
 
 To regenerate the pages, you need node:
 
-    git clone ...
+    git clone git://github.com/mixu/markdown-styles.git
     npm install
     node generate.js
 
-To regenerate the screenshots, you need cutycapt (or some other Webkit to image tool) and imagemagic:
+To regenerate the screenshots, you need cutycapt (or some other Webkit to image tool) and imagemagic.
 
+You also need to install the web fonts locally so that cutycapt will find them, run `node font-download.js` to get the commands you need to run.
+
+Finally, run:
 
     make screenshots
