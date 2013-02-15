@@ -6,7 +6,7 @@ CSS stylesheets / themes for Markdown.
 
 Copy the assets folder from the layout you want to use.
 
-To preview the styles in the browser, open `./output/index.html`.
+To preview the styles in the browser, clone this repo locally and then open `./output/index.html`.
 
 ## Screenshots
 
