@@ -3,23 +3,40 @@ var fs = require('fs'),
     path = require('path'),
     Gen = require('../lib/generate.js');
 
-var cwd = process.cwd();
+var cwd = process.cwd(),
+    args = require('argsparser').parse();
 
-if(!fs.existsSync('./input/')) {
-  console.log('./input/ does not exist');
+if(args['--layouts']) {
+  // show layouts
+  console.log('Available layouts:\n'+
+      fs.readdirSync(__dirname+'/../layouts/')
+        .sort(function(a, b) { return a.localeCompare(b); })
+        .map(function(name) { return '\t' + name})
+        .join('\n')
+    );
   process.exit();
 }
 
 // Load the layout: header, footer
-var layout = 'jasonm23-markdown',
+var layout = args['--layout'] || 'jasonm23-markdown',
+    input = args['--input'] || './input/',
+    output = args['--output'] || './output/',
     header = (fs.existsSync(cwd + '/layouts/'+layout+'/header.html') ?
                 cwd + '/layouts/'+layout+'/header.html' : cwd + '/layouts/plain/header.html'),
     footer = (fs.existsSync(cwd + '/layouts/'+layout+'/footer.html') ?
                 cwd + '/layouts/'+layout+'/footer.html' : cwd + '/layouts/plain/footer.html');
 
+if(!fs.existsSync(input)) {
+  console.log(input+' does not exist');
+  process.exit();
+}
+
+
 console.log('Layout: ' + layout);
 console.log('- header: ' + header);
 console.log('- footer: ' + footer);
+console.log('Input: ' + input);
+console.log('Output: ' + output);
 
 // read in the header and footer
 header = fs.readFileSync(header).toString();
@@ -34,14 +51,17 @@ function replace(items, str) {
 }
 
 // run the generator for each directory
-new Gen({ output: './output/'+layout+'/' })
+new Gen({
+    output: output,
+    layout: cwd + '/layouts/'+layout+'/'
+  })
   // Recurse through ./input/**/*
   .paths('./input/')
   // default metadata
   .defaultMeta({
     title: 'example'
   })
-
+  .copyAssets()
 //  .sort()
   .each(function(sourceFile, targetFile, content, meta) {
     var title = '';
