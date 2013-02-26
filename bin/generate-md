@@ -3,8 +3,7 @@ var fs = require('fs'),
     path = require('path'),
     Gen = require('../lib/generate.js');
 
-var cwd = process.cwd(),
-    args = require('argsparser').parse();
+var args = require('argsparser').parse();
 
 if(args['--layouts']) {
   // show layouts
@@ -18,19 +17,19 @@ if(args['--layouts']) {
 }
 
 // Load the layout: header, footer
-var layout = args['--layout'] || 'jasonm23-markdown',
+var layoutDir = __dirname + '/../layouts/',
+    layout = args['--layout'] || 'jasonm23-markdown',
     input = args['--input'] || './input/',
     output = args['--output'] || './output/',
-    header = (fs.existsSync(cwd + '/layouts/'+layout+'/header.html') ?
-                cwd + '/layouts/'+layout+'/header.html' : cwd + '/layouts/plain/header.html'),
-    footer = (fs.existsSync(cwd + '/layouts/'+layout+'/footer.html') ?
-                cwd + '/layouts/'+layout+'/footer.html' : cwd + '/layouts/plain/footer.html');
+    header = (fs.existsSync(layoutDir+layout+'/header.html') ?
+                layoutDir+layout+'/header.html' : layoutDir+'plain/header.html'),
+    footer = (fs.existsSync(layoutDir+layout+'/footer.html') ?
+                layoutDir+layout+'/footer.html' : layoutDir+'/plain/footer.html');
 
 if(!fs.existsSync(input)) {
   console.log(input+' does not exist');
   process.exit();
 }
-
 
 console.log('Layout: ' + layout);
 console.log('- header: ' + header);
@@ -53,7 +52,7 @@ function replace(items, str) {
 // run the generator for each directory
 new Gen({
     output: output,
-    layout: cwd + '/layouts/'+layout+'/'
+    layout: layoutDir+layout+'/'
   })
   // Recurse through ./input/**/*
   .paths('./input/')
