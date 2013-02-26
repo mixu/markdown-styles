@@ -1,3 +1,8 @@
+build:
+	for name in `find ./output -mindepth 1 -maxdepth 1 -type d | sed -e 's/.\/output\///'` ; do \
+		echo generate-md --layout $$name --output ./output/$$name/; \
+	done
+
 # Note: for fonts to render you need to download them first
 screenshots:
 	rm -f ./screenshots/*.png
@@ -12,4 +17,4 @@ screenshots:
 get-fonts:
 	node font-download.js
 
-.PHONY: screenshots screenshots-old get-fonts
+.PHONY: build screenshots get-fonts

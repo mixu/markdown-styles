@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 var fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    Gen = require('../lib/generate.js');
 
 var cwd = process.cwd();
 
@@ -9,31 +10,6 @@ if(!fs.existsSync('./input/')) {
   process.exit();
 }
 
-// Recurse through ./input/**/*
-var inputs = ['./input/'],
-    files = [];
-
-function iterate(dir) {
-  var items = fs.readdirSync(dir);
-  items.forEach(function(item) {
-    item = path.normalize(dir+ '/' +item);
-
-    var stat = fs.statSync(item);
-    if(stat.isFile()) {
-      files.push(item);
-    }
-    // TODO recurse into directories
-    // TODO check that output directory exists
-
-  });
-}
-
-inputs.map(function(input) {
-  return path.normalize(cwd + '/' +input);
-}).forEach(iterate);
-
-console.log(files);
-
 // Load the layout: header, footer
 var layout = 'jasonm23-markdown',
     header = (fs.existsSync(cwd + '/layouts/'+layout+'/header.html') ?
@@ -41,11 +17,43 @@ var layout = 'jasonm23-markdown',
     footer = (fs.existsSync(cwd + '/layouts/'+layout+'/footer.html') ?
                 cwd + '/layouts/'+layout+'/footer.html' : cwd + '/layouts/plain/footer.html');
 
-console.log(header, footer);
+console.log('Layout: ' + layout);
+console.log('- header: ' + header);
+console.log('- footer: ' + footer);
+
+// read in the header and footer
+header = fs.readFileSync(header).toString();
+footer = fs.readFileSync(footer).toString();
+
+function replace(items, str) {
+  var result = str;
+  Object.keys(items).forEach(function(key) {
+    result = result.replace(new RegExp('{{'+key+'}}'), items[key]);
+  });
+  return result;
+}
 
 // run the generator for each directory
+new Gen({ output: './output/'+layout+'/' })
+  // Recurse through ./input/**/*
+  .paths('./input/')
+  // default metadata
+  .defaultMeta({
+    title: 'example'
+  })
 
-Gen.header()
-   .footer()
-   .content()
-   .generate(cwd + '/')
+//  .sort()
+  .each(function(sourceFile, targetFile, content, meta) {
+    var title = '';
+    /*
+    var title = config.titles[path.basename(current.filename, '.md') ];
+    content = content.replace(/%chapter_number%/g, current.index);
+    */
+    console.log(sourceFile, '->', targetFile);
+
+    fs.writeFileSync(targetFile,
+      replace(meta, header) +
+      content +
+      replace(meta, footer)
+    );
+  });

@@ -87,7 +87,7 @@ To regenerate the pages, you need node:
 
     git clone git://github.com/mixu/markdown-styles.git
     npm install
-    node generate.js
+    make build
 
 To regenerate the screenshots, you need cutycapt (or some other Webkit to image tool) and imagemagic.
 
