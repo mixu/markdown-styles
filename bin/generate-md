@@ -3,7 +3,8 @@ var fs = require('fs'),
     path = require('path'),
     Gen = require('../lib/generate.js');
 
-var args = require('argsparser').parse();
+var args = require('argsparser').parse(),
+    cwd = process.cwd();
 
 if(args['--layouts']) {
   // show layouts
@@ -16,15 +17,13 @@ if(args['--layouts']) {
   process.exit();
 }
 
-// Load the layout: header, footer
+// Load the layout
 var layoutDir = __dirname + '/../layouts/',
     layout = args['--layout'] || 'jasonm23-markdown',
-    input = args['--input'] || './input/',
-    output = args['--output'] || './output/',
-    header = (fs.existsSync(layoutDir+layout+'/header.html') ?
-                layoutDir+layout+'/header.html' : layoutDir+'plain/header.html'),
-    footer = (fs.existsSync(layoutDir+layout+'/footer.html') ?
-                layoutDir+layout+'/footer.html' : layoutDir+'/plain/footer.html');
+    input = path.normalize(args['--input'] || './input/'),
+    output = path.normalize(args['--output'] || './output/'),
+    template = path.normalize(fs.existsSync(layoutDir+layout+'/page.html') ?
+                layoutDir+layout+'/page.html' : layoutDir+'plain/page.html');
 
 if(!fs.existsSync(input)) {
   console.log(input+' does not exist');
@@ -32,14 +31,11 @@ if(!fs.existsSync(input)) {
 }
 
 console.log('Layout: ' + layout);
-console.log('- header: ' + header);
-console.log('- footer: ' + footer);
-console.log('Input: ' + input);
-console.log('Output: ' + output);
+console.log('Input: ' + path.relative(cwd, input));
+console.log('Output: ' + path.relative(cwd, output));
 
-// read in the header and footer
-header = fs.readFileSync(header).toString();
-footer = fs.readFileSync(footer).toString();
+// read in the template
+template = fs.readFileSync(template).toString();
 
 function replace(items, str) {
   var result = str;
@@ -68,11 +64,9 @@ new Gen({
     var title = config.titles[path.basename(current.filename, '.md') ];
     content = content.replace(/%chapter_number%/g, current.index);
     */
-    console.log(sourceFile, '->', targetFile);
+    console.log(path.relative(cwd, sourceFile), '->', path.relative(cwd, targetFile));
 
-    fs.writeFileSync(targetFile,
-      replace(meta, header) +
-      content +
-      replace(meta, footer)
-    );
+    meta.content = content;
+
+    fs.writeFileSync(targetFile, replace(meta, template) );
   });

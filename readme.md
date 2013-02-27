@@ -14,22 +14,17 @@ This repo also includes a small tool for generating HTML files from Markdown fil
 
 The console tool is `generate-md`, e.g.
 
-    generate-md --layout jasonm23-foghorn
-
-Defaults:
-
-- checks `./input/` and all subdirectories for files ending with `.md` (other files are ignored)
-- if a folder named `./output/` exists, then files are placed there
-- subdirectories are preserved, but they are not created (if the `./output/foo/` does not exist, then files in `./input/foo/` are ignored)
-- if `./output/` does not exist, then output is written to the current directory
+    generate-md --layout jasonm23-foghorn --output ./test/
 
 Options:
 
 `--layout` specifies the layout to use.
 
-`--input` specifies the input directory.
+`--input` specifies the input directory (default: `./input/`).
 
-`--output` specifies the output directory.
+`--output` specifies the output directory (default: `./output/`).
+
+
 
 ## Screenshots
 
