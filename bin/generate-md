@@ -22,8 +22,18 @@ var layoutDir = __dirname + '/../layouts/',
     layout = args['--layout'] || 'jasonm23-markdown',
     input = path.normalize(args['--input'] || './input/'),
     output = path.normalize(args['--output'] || './output/'),
-    template = path.normalize(fs.existsSync(layoutDir+layout+'/page.html') ?
-                layoutDir+layout+'/page.html' : layoutDir+'plain/page.html');
+    template = path.normalize(path.resolve(cwd, layout));
+
+// template is one of:
+if(fs.existsSync(template)) {
+  // 1) the supplied argument (normalized)
+} else if(fs.existsSync(layoutDir+layout+'/page.html')) {
+  // 2) a preset layout from the layout dir
+  template = path.normalize(layoutDir+layout+'/page.html');
+} else {
+  // 3) the default layout
+  template = path.normalize(layoutDir+'plain/page.html');
+}
 
 if(!fs.existsSync(input)) {
   console.log(input+' does not exist');
@@ -31,6 +41,7 @@ if(!fs.existsSync(input)) {
 }
 
 console.log('Layout: ' + layout);
+console.log('Template file: ' + template);
 console.log('Input: ' + path.relative(cwd, input));
 console.log('Output: ' + path.relative(cwd, output));
 
@@ -48,7 +59,7 @@ function replace(items, str) {
 // run the generator for each directory
 new Gen({
     output: output,
-    layout: layoutDir+layout+'/'
+    layout: path.dirname(template) + path.sep
   })
   // Recurse through ./input/**/*
   .paths('./input/')

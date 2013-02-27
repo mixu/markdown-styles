@@ -308,7 +308,7 @@ footer {
 #toc-inner {
   position: absolute;
   width: 100%;
-  top: 50%;
+  top: 20%;
 }
 
 
@@ -324,8 +324,8 @@ div.clear {
   h5 { font-size: 1em;   line-height: 1; font-weight: bold; }
   h6 { font-size: 1em;   line-height: 1; font-weight: bold; }
 
-  h1, h2, h3, h4, h5, h6 { font-weight: normal; margin-top: 1.5em; margin-bottom: 1em; }
-  h1, h2 { margin-bottom: 0.75em; }
+  h1, h2, h3, h4, h5, h6 { font-weight: normal; margin-top: 1em; margin-bottom: 0.5em; }
+  h1, h2 { margin-bottom: 0.5em; }
 
 .post p {
   max-width: 580px;

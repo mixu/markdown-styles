@@ -20,6 +20,10 @@ Options:
 
 `--layout` specifies the layout to use.
 
+Note: the layout can also be a specific file. In this case, that file is used as the template, and if a `./assets/` directory exists in the same location as the layout, it is copied to the output directory. For example:
+
+      generate-md --layout ./layout/page.html --output ./test/
+
 `--input` specifies the input directory (default: `./input/`).
 
 `--output` specifies the output directory (default: `./output/`).
