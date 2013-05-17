@@ -46,7 +46,7 @@ console.log('Input: ' + path.relative(cwd, input));
 console.log('Output: ' + path.relative(cwd, output));
 
 // read in the template
-template = fs.readFileSync(template).toString();
+var templateContent = fs.readFileSync(template).toString();
 
 function replace(items, str) {
   var result = str;
@@ -79,5 +79,5 @@ new Gen({
 
     meta.content = content;
 
-    fs.writeFileSync(targetFile, replace(meta, template) );
+    fs.writeFileSync(targetFile, replace(meta, templateContent) );
   });
