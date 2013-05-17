@@ -8,6 +8,12 @@ Copy the assets folder from the layout you want to use.
 
 To preview the styles in the browser, clone this repo locally and then open `./output/index.html`.
 
+Or run:
+
+    make preview
+
+which just uses `open` (on OSX) or `xdg-open` (on Linux) to open `./output/index.html`.
+
 ## Using via npm
 
 This repo also includes a small tool for generating HTML files from Markdown files.
@@ -15,6 +21,10 @@ This repo also includes a small tool for generating HTML files from Markdown fil
 The console tool is `generate-md`, e.g.
 
     generate-md --layout jasonm23-foghorn --output ./test/
+
+[Here is an example](https://github.com/zendesk/radar/blob/gh-pages/Makefile) of how I generated the project docs for [Radar](https://github.com/zendesk/radar).
+
+Note how you can override / customize the theme easily since it's just a simple convention of what goes where.
 
 Options:
 
@@ -27,7 +37,6 @@ Note: the layout can also be a specific file. In this case, that file is used as
 `--input` specifies the input directory (default: `./input/`).
 
 `--output` specifies the output directory (default: `./output/`).
-
 
 
 ## Screenshots
@@ -86,7 +95,7 @@ Note: there may be minor differences in the rendering since these screenshots ar
 
 Create a new directory under `./output/themename`.
 
-If a files called `./layouts/themename/header.html` and `./layouts/themename/footer.html` exist, they are used, otherwise the default footer and header in `./layouts/plain/` are used.
+If a file called `./layouts/themename/page.html` exists, it is used, otherwise the default footer and header in `./layouts/plain/` are used.
 
 The switcher is an old school frameset, you need to add a link in `./output/menu.html`.
 

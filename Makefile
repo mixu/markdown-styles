@@ -1,7 +1,17 @@
+UNAME := $(shell uname)
+
 build:
 	for name in `find ./output -mindepth 1 -maxdepth 1 -type d | sed -e 's/.\/output\///'` ; do \
 		./bin/generate-md --layout $$name --output ./output/$$name/; \
 	done
+
+preview:
+ifeq ($(UNAME), Linux)
+	xdg-open output/index.html
+endif
+ifeq ($(UNAME), Darwin)
+	open output/index.html
+endif
 
 # Note: for fonts to render you need to download them first
 screenshots: build
