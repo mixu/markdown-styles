@@ -66,6 +66,14 @@ Note: there may be minor differences in the rendering since these screenshots ar
 
 ![mixu-radar](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-radar.png)
 
+### mixu-bootstrap (new!)
+
+![mixu-bootstrap](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-bootstrap.png)
+
+### mixu-bootstrap-2col (new!)
+
+![mixu-bootstrap-2col](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-bootstrap-2col.png)
+
 ### thomasf-solarizedcssdark
 
 ![thomasf-solarizedcssdark](https://github.com/mixu/markdown-styles/raw/master/screenshots/thomasf-solarizedcssdark.png)
@@ -88,9 +96,11 @@ To regenerate the pages, you need node:
     npm install
     make build
 
-To regenerate the screenshots, you need cutycapt (or some other Webkit to image tool) and imagemagic.
+To regenerate the screenshots, you need cutycapt (or some other Webkit to image tool) and imagemagic. On Ubuntu / Debian, that's:
 
-You also need to install the web fonts locally so that cutycapt will find them, run `node font-download.js` to get the commands you need to run.
+    sudo aptitude install cutycapt imagemagick
+
+You also need to install the web fonts locally so that cutycapt will find them, run `node font-download.js` to get the commands you need to run (basically a series of wget and fc-cache -fv commands).
 
 Finally, run:
 

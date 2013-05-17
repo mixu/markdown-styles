@@ -1,8 +1,14 @@
 var https = require('https'),
     child_process = require('child_process');
 
-https.get('https://api.github.com/repos/w0ng/googlefontdirectory/contents/fonts', function(res) {
+https.get({
+    hostname: 'api.github.com',
+    port: 443,
+    path: '/repos/w0ng/googlefontdirectory/contents/fonts',
+    headers: { 'user-agent': 'nodejs'}
+  }, function(res) {
   console.log("Got response: " + res.statusCode);
+  console.log(res.headers);
   var data = '';
   res.setEncoding('utf8');
   res.on('data', function (chunk) {
@@ -15,7 +21,7 @@ https.get('https://api.github.com/repos/w0ng/googlefontdirectory/contents/fonts'
       var items = content.filter(function(item) {
         return item.name.match(font);
       });
-      console.log('Run the following commands to get the fonts');
+      console.log('# Run the following commands to get the fonts: ');
       items.forEach(function(item) {
         console.log('cd ~/.fonts && wget -N https://github.com/w0ng/googlefontdirectory/raw/master/'+item.path);
       });

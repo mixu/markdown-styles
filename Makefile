@@ -4,7 +4,7 @@ build:
 	done
 
 # Note: for fonts to render you need to download them first
-screenshots:
+screenshots: build
 	rm -f ./screenshots/*.png
 	for name in `find ./output -mindepth 1 -maxdepth 1 -type d | sed -e 's/.\/output\///'` ; do \
 				cutycapt --url=file://$(CURDIR)/output/$$name/index.html --out=./screenshots/$$name.png ; \
