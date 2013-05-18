@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 var fs = require('fs'),
     path = require('path'),
+    marked = require('marked'),
     Gen = require('../lib/generate.js');
 
 var args = require('argsparser').parse(),
@@ -42,7 +43,7 @@ if(!fs.existsSync(input)) {
 
 console.log('Layout: ' + layout);
 console.log('Template file: ' + template);
-console.log('Input: ' + path.relative(cwd, input));
+console.log('Input: ' + input);
 console.log('Output: ' + path.relative(cwd, output));
 
 // read in the template
@@ -57,19 +58,25 @@ function replace(items, str) {
 }
 
 // run the generator for each directory
-new Gen({
+var gen = new Gen({
     output: output,
     layout: path.dirname(template) + path.sep
   })
   // Recurse through ./input/**/*
-  .paths('./input/')
+  .paths(input)
   // default metadata
   .defaultMeta({
     title: 'example'
   })
-  .copyAssets()
+  .copyAssets();
 //  .sort()
-  .each(function(sourceFile, targetFile, content, meta) {
+
+if(args['--each'] && fs.existsSync(args['--each'])) {
+  var eachFn = require(args['--each']);
+  gen.each = eachFn;
+}
+
+gen.each(function(sourceFile, targetFile, content, meta) {
     var title = '';
     /*
     var title = config.titles[path.basename(current.filename, '.md') ];
@@ -80,4 +87,4 @@ new Gen({
     meta.content = content;
 
     fs.writeFileSync(targetFile, replace(meta, templateContent) );
-  });
+  }, marked);
