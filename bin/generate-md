@@ -52,7 +52,7 @@ var templateContent = fs.readFileSync(template).toString();
 function replace(items, str) {
   var result = str;
   Object.keys(items).forEach(function(key) {
-    result = result.replace(new RegExp('{{'+key+'}}'), items[key]);
+    result = result.replace(new RegExp('{{'+key+'}}', 'g'), items[key]);
   });
   return result;
 }
