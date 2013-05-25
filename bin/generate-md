@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 var fs = require('fs'),
     path = require('path'),
-    marked = require('marked'),
-    Gen = require('../lib/generate.js');
+    List = require('minitask').list,
+    runner = require('../lib/runner.js');
 
 var args = require('argsparser').parse(),
     cwd = process.cwd();
@@ -46,45 +46,21 @@ console.log('Template file: ' + template);
 console.log('Input: ' + input);
 console.log('Output: ' + path.relative(cwd, output));
 
-// read in the template
-var templateContent = fs.readFileSync(template).toString();
+var list = new List(),
+    eachFn;
 
-function replace(items, str) {
-  var result = str;
-  Object.keys(items).forEach(function(key) {
-    result = result.replace(new RegExp('{{'+key+'}}', 'g'), items[key]);
-  });
-  return result;
-}
-
-// run the generator for each directory
-var gen = new Gen({
-    output: output,
-    layout: path.dirname(template) + path.sep
-  })
-  // Recurse through ./input/**/*
-  .paths(input)
-  // default metadata
-  .defaultMeta({
-    title: 'example'
-  })
-  .copyAssets();
-//  .sort()
+list.add(input);
 
 if(args['--each'] && fs.existsSync(args['--each'])) {
-  var eachFn = require(args['--each']);
-  gen.each = eachFn;
+  eachFn = require(args['--each']);
 }
 
-gen.each(function(sourceFile, targetFile, content, meta) {
-    var title = '';
-    /*
-    var title = config.titles[path.basename(current.filename, '.md') ];
-    content = content.replace(/%chapter_number%/g, current.index);
-    */
-    console.log(path.relative(cwd, sourceFile), '->', path.relative(cwd, targetFile));
-
-    meta.content = content;
-
-    fs.writeFileSync(targetFile, replace(meta, templateContent) );
-  }, marked);
+runner(list, {
+  output: output,
+  layout: path.dirname(template) + path.sep,
+  template: template,
+  defaultMeta: {
+    title: 'example'
+  },
+  eachFn: eachFn
+});
