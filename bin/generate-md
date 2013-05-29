@@ -21,8 +21,8 @@ if(args['--layouts']) {
 // Load the layout
 var layoutDir = __dirname + '/../layouts/',
     layout = args['--layout'] || 'jasonm23-markdown',
-    input = path.normalize(args['--input'] || './input/'),
-    output = path.normalize(args['--output'] || './output/'),
+    input = path.normalize(args['--input'] || path.resolve(process.cwd(), './input/')),
+    output = path.normalize(args['--output'] || path.resolve(process.cwd(), './output/')),
     template = path.normalize(path.resolve(cwd, layout));
 
 // template is one of:
@@ -51,16 +51,12 @@ var list = new List(),
 
 list.add(input);
 
-if(args['--each'] && fs.existsSync(args['--each'])) {
-  eachFn = require(args['--each']);
-}
-
 runner(list, {
+  input: input,
   output: output,
   layout: path.dirname(template) + path.sep,
   template: template,
   defaultMeta: {
     title: 'example'
-  },
-  eachFn: eachFn
+  }
 });
