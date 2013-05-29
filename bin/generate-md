@@ -2,12 +2,22 @@
 var fs = require('fs'),
     path = require('path'),
     List = require('minitask').list,
+    nopt = require('nopt'),
     runner = require('../lib/runner.js');
 
-var args = require('argsparser').parse(),
-    cwd = process.cwd();
+var knownOpts = {
+  // list layouts
+  'layouts': Boolean,
+  'layout': String,
+  // paths
+  'input': path,
+  'output': path,
+  'runner': path
+};
 
-if(args['--layouts']) {
+var parsed = nopt(knownOpts, {}, process.argv, 2);
+
+if(parsed.layouts) {
   // show layouts
   console.log('Available layouts:\n'+
       fs.readdirSync(__dirname+'/../layouts/')
@@ -18,45 +28,53 @@ if(args['--layouts']) {
   process.exit();
 }
 
-// Load the layout
-var layoutDir = __dirname + '/../layouts/',
-    layout = args['--layout'] || 'jasonm23-markdown',
-    input = path.normalize(args['--input'] || path.resolve(process.cwd(), './input/')),
-    output = path.normalize(args['--output'] || path.resolve(process.cwd(), './output/')),
-    template = path.normalize(path.resolve(cwd, layout));
+// defaults
+if(!parsed.input) {
+  parsed.input = path.resolve(process.cwd(), './input/');
+}
+if(!parsed.output) {
+  parsed.output = path.resolve(process.cwd(), './output/');
+}
+if(!parsed.layout) {
+  parsed.layout = 'jasonm23-markdown';
+}
+parsed.defaultMeta = { title: 'example' };
 
-// template is one of:
-if(fs.existsSync(template)) {
-  // 1) the supplied argument (normalized)
-} else if(fs.existsSync(layoutDir+layout+'/page.html')) {
-  // 2) a preset layout from the layout dir
-  template = path.normalize(layoutDir+layout+'/page.html');
-} else {
-  // 3) the default layout
-  template = path.normalize(layoutDir+'plain/page.html');
+// default runner
+if(parsed.runner) {
+  runner = require(parsed.runner);
 }
 
-if(!fs.existsSync(input)) {
-  console.log(input+' does not exist');
+// Load the layout
+var layoutDir = __dirname + '/../layouts/';
+
+// template is one of:
+if(fs.existsSync(parsed.layout)) {
+  // 1) the supplied argument (normalized)
+  parsed.template = parsed.layout;
+} else if(fs.existsSync(layoutDir+parsed.layout+'/page.html')) {
+  // 2) a preset layout from the layout dir
+  parsed.template = path.normalize(layoutDir+parsed.layout+'/page.html');
+} else {
+  // 3) the default layout
+  parsed.template = path.normalize(layoutDir+'plain/page.html');
+}
+
+if(!fs.existsSync(parsed.input)) {
+  console.log(parsed.input+' does not exist');
   process.exit();
 }
 
-console.log('Layout: ' + layout);
-console.log('Template file: ' + template);
-console.log('Input: ' + input);
-console.log('Output: ' + path.relative(cwd, output));
+console.log('Layout: ' + parsed.layout);
+console.log('Template file: ' + parsed.template);
+console.log('Input: ' + parsed.input);
+console.log('Output: ' + path.relative(process.cwd(), parsed.output));
 
 var list = new List(),
     eachFn;
 
-list.add(input);
+list.add(parsed.input);
 
-runner(list, {
-  input: input,
-  output: output,
-  layout: path.dirname(template) + path.sep,
-  template: template,
-  defaultMeta: {
-    title: 'example'
-  }
-});
+// console.log(parsed, list.files.map(function(i){ return i.name; }));
+
+runner(list, parsed);
