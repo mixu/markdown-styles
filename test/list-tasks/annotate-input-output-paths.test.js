@@ -11,16 +11,18 @@ exports['flat single directory input'] = function() {
     ]
   };
 
-  annotateInputOutputPaths(list, { basepath: '/input', input: '/input', output: '/output' });
+  annotateInputOutputPaths(list, { input: '/input', output: '/output/foo' });
+  //console.log(list);
+
   assert.deepEqual(list,{ files: [
      { name: '/input/index.md',
-       outputDir: '/output/',
-       outputFull: '/output/index.html',
+       outputDir: '/output/foo/',
+       outputFull: '/output/foo/index.html',
        relative: 'index.md',
        projectName: 'index' },
      { name: '/input/foo.md',
-       outputDir: '/output/',
-       outputFull: '/output/foo.html',
+       outputDir: '/output/foo/',
+       outputFull: '/output/foo/foo.html',
        relative: 'foo.md',
        projectName: 'foo' }
     ]});
@@ -35,7 +37,7 @@ exports['one level deep directory input'] = function() {
     ]
   };
 
-  annotateInputOutputPaths(list, { basepath: '/input', input: '/input', output: '/output' });
+  annotateInputOutputPaths(list, {  input: '/input', output: '/output' });
 
   assert.deepEqual(list, { files: [
      { name: '/input/index.md',
@@ -65,8 +67,7 @@ exports['more deep directory input'] = function() {
     ]
   };
 
-  annotateInputOutputPaths(list, { basepath: '/input', input: '/input', output: '/output' });
-  console.log(list);
+  annotateInputOutputPaths(list, { input: '/input', output: '/output' });
 
   assert.deepEqual(list, { files: [
      { name: '/input/index.md',

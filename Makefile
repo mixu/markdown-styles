@@ -1,7 +1,7 @@
 UNAME := $(shell uname)
 
 build:
-	for name in `find ./output -mindepth 1 -maxdepth 1 -type d | sed -e 's/.\/output\///'` ; do \
+	for name in `find ./layouts -mindepth 1 -maxdepth 1 -type d | sed -e 's/.\/layouts\///'` ; do \
 		./bin/generate-md --layout $$name --output ./output/$$name/; \
 	done
 
