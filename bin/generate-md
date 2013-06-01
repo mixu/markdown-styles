@@ -17,17 +17,6 @@ var knownOpts = {
 
 var parsed = nopt(knownOpts, {}, process.argv, 2);
 
-if(parsed.layouts) {
-  // show layouts
-  console.log('Available layouts:\n'+
-      fs.readdirSync(__dirname+'/../layouts/')
-        .sort(function(a, b) { return a.localeCompare(b); })
-        .map(function(name) { return '\t' + name})
-        .join('\n')
-    );
-  process.exit();
-}
-
 // defaults
 if(!parsed.input) {
   parsed.input = path.resolve(process.cwd(), './input/');
@@ -49,9 +38,9 @@ if(parsed.runner) {
 var layoutDir = __dirname + '/../layouts/';
 
 // template is one of:
-if(fs.existsSync(parsed.layout)) {
+if(fs.existsSync(__dirname + parsed.layout)) {
   // 1) the supplied argument (normalized)
-  parsed.template = parsed.layout;
+  parsed.template = __dirname + parsed.layout;
 } else if(fs.existsSync(layoutDir+parsed.layout+'/page.html')) {
   // 2) a preset layout from the layout dir
   parsed.template = path.normalize(layoutDir+parsed.layout+'/page.html');
@@ -60,8 +49,18 @@ if(fs.existsSync(parsed.layout)) {
   parsed.template = path.normalize(layoutDir+'plain/page.html');
 }
 
-if(!fs.existsSync(parsed.input)) {
-  console.log(parsed.input+' does not exist');
+
+if(parsed.layouts || !fs.existsSync(parsed.input)) {
+  if(!fs.existsSync(parsed.input)) {
+    console.log(parsed.input+' does not exist');
+  }
+  // show layouts
+  console.log('Available layouts:\n'+
+      fs.readdirSync(__dirname+'/../layouts/')
+        .sort(function(a, b) { return a.localeCompare(b); })
+        .map(function(name) { return '\t' + name})
+        .join('\n')
+    );
   process.exit();
 }
 
