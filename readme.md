@@ -83,6 +83,10 @@ Note: there may be minor differences in the rendering since these screenshots ar
 
 ![mixu-bootstrap-2col](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-bootstrap-2col.png)
 
+### mixu-gray (new!)
+
+![mixu-gray](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-gray.png)
+
 ### thomasf-solarizedcssdark
 
 ![thomasf-solarizedcssdark](https://github.com/mixu/markdown-styles/raw/master/screenshots/thomasf-solarizedcssdark.png)
