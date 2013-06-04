@@ -24,19 +24,6 @@
 <body>
   <div id="wrapper">
     <div id="header">
-    <!--
-      <div id="brand">
-        <h1>Mixu's Node book</h1>
-        <span>A book about using Node.js</span>
-      </div>
-      <div id="navi">
-        <form class="search" action="http://www.google.com/search">
-          <input type="hidden" name="as_sitesearch" value="book.mixu.net">
-          <input type="text" name="as_q" value="" class="search_field">
-          <input type="submit" value="Search" class="search_btn">
-        </form>
-      </div>
-      -->
     </div>
     <div class="clear">
       <hr>
@@ -59,9 +46,8 @@
         </div>
       </div>
       <div id="sidebar">
-        <h3><a href="index.html">Home</a></h3>
-        <h3><a href="{{prev}}.html">Previous Chapter</a></h3>
-        <h3><a href="{{next}}.html">Next Chapter</a></h3>
+        {{toc}}
+
       </div>
     <div class="clear">
     </div>

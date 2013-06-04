@@ -1,20 +1,20 @@
-# markdown-styles
+## Features
 
-CSS stylesheets / themes for Markdown.
+- Ready-made CSS stylesheets for Markdown, just copy the assets folder you want
+- Bundled with `generate-md`, a small tool that converts a folder of Markdown documents into a output folder of HTML documents, preserving the directory structure)
+- Use your own custom markup and CSS via `--layout`.
+- Support for relative paths to the assets folder via `{{assetsRelative}}` and document table of content generation via `{{toc}}`.
+- Support for generic metadata via a meta.json file
 
-## Using
+-----
 
-Copy the assets folder from the layout you want to use.
+## Using the CSS stylesheets
 
-To preview the styles in the browser, clone this repo locally and then open `./output/index.html`.
+If you just want the stylesheets, you can just copy the `./assets` folder from the layout you want.
 
-Or run:
+To preview the styles in the browser, clone this repo locally and then open `./output/index.html` or run `make preview` which opens that page in your default browser.
 
-    make preview
-
-which just uses `open` (on OSX) or `xdg-open` (on Linux) to open `./output/index.html`.
-
-## Using via npm
+## Using generate-md
 
 This repo also includes a small tool for generating HTML files from Markdown files.
 
@@ -22,26 +22,65 @@ The console tool is `generate-md`, e.g.
 
     generate-md --layout jasonm23-foghorn --output ./test/
 
-[Here is an example](https://github.com/zendesk/radar/blob/gh-pages/Makefile) of how I generated the project docs for [Radar](https://github.com/zendesk/radar).
-
-Note how you can override / customize the theme easily since it's just a simple convention of what goes where.
-
-Options:
-
-`--layout` specifies the layout to use.
-
-Note: the layout can also be a specific file. In this case, that file is used as the template, and if a `./assets/` directory exists in the same location as the layout, it is copied to the output directory. For example:
-
-      generate-md --layout ./layout/page.html --output ./test/
+[Here is an example](https://github.com/zendesk/radar/blob/gh-pages/Makefile) of how I generated the project docs for [Radar](https://github.com/zendesk/radar) using generate-md, a Makefile and a few custom assets.
 
 `--input` specifies the input directory (default: `./input/`).
 
 `--output` specifies the output directory (default: `./output/`).
 
+`--layout` specifies the layout to use. This can be either one of built in layouts, or a path to a custom template file with a set of custom assets.
 
-## Screenshots
+To override the layout, simply create a directory, such as `./my-theme/`, with the following structure:
 
-Note: there may be minor differences in the rendering since these screenshots are generated via cutycapt rather than a browser.
+````bash
+├── my-theme
+│   ├── assets
+│   │   ├── css
+│   │   ├── img
+│   │   └── js
+│   └── page.html
+
+````
+
+Then, running a command like:
+
+      generate-md --input ./input/ --layout ./my-theme/page.html --output ./test/
+
+will:
+
+1. convert all Markdown files in `./input` to HTML files under `./test`, preserving paths in `./input`.
+2. use the template `./my-theme/page.html`, replacing values such as `{{content}}`, `{{toc}}` and `{{assetsRelative}}` (see the layouts for examples on this)
+3. (recursively) copy over the assets from `./my-theme/assets` to `./test/assets`.
+
+This means that you could, for example, point a HTTP server at the root of `./test/` and be done with it.
+
+You can also use the current directory as the output (e.g. for Github pages).
+
+## Metadata support
+
+You can also add a file named `meta.json` to the folder from which you run `generate-md`.
+
+The metadata in that directory will be read and replacements will be made for corresponding `{{names}}` in the template.
+
+The metadata is scoped by the top-level directory in `./input`.
+
+For example:
+
+````json
+{
+  "foo": {
+    "repoUrl": "https://github.com/mixu/markdown-styles"
+  }
+}
+````
+
+would make the metadata value `{{repoUrl}}` available in the template, for all files that are in the directory `./input/foo`.
+
+This is rather imperfect, but works for small stuff, feel free to contribute improvements back.
+
+## Screenshots of the layouts
+
+Note: these screenshots are generate via cutycapt, so they look worse than they do in a real browser.
 
 ### jasonm23-dark
 
