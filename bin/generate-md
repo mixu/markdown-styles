@@ -38,9 +38,9 @@ if(parsed.runner) {
 var layoutDir = __dirname + '/../layouts/';
 
 // template is one of:
-if(fs.existsSync(__dirname + parsed.layout)) {
+if(fs.existsSync(process.cwd() + '/' + parsed.layout)) {
   // 1) the supplied argument (normalized)
-  parsed.template = __dirname + parsed.layout;
+  parsed.template = path.normalize(process.cwd() + '/' + parsed.layout);
 } else if(fs.existsSync(layoutDir+parsed.layout+'/page.html')) {
   // 2) a preset layout from the layout dir
   parsed.template = path.normalize(layoutDir+parsed.layout+'/page.html');
