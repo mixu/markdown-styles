@@ -56,6 +56,26 @@ This means that you could, for example, point a HTTP server at the root of `./te
 
 You can also use the current directory as the output (e.g. for Github pages).
 
+## New! Syntax highlighting support
+
+`generate-md` supports syntax highlighting during the Markdown-to-HTML conversion process.
+
+To enable the syntax highlighting support, install `highlight.js`:
+
+    npm install --save highlight.js markdown-styles
+
+Note that you need to install `markdown-styles` locally like shown above and invoke it as `./node_modules/.bin/generate-md`, so that `require('highlight.js')` will find the module we just installed locally.
+
+You will also need to include [one of the highlight.js CSS style sheets](http://softwaremaniacs.org/media/soft/highlight/test.html) in your assets folder/layout file CSS (e.g. by using a custom `--layout` file).
+
+## New! --command
+
+`--command <cmd>`: Pipe each Markdown file through a shell command and capture the output before converting. Useful for filtering the file, for example.
+
+## New! --asset-dir
+
+`--asset-dir <path>`: Normally, the asset directory is assumed to be `./assets/` in the same folder the `--layout` file is. You can override it to a different asset directory explicitly with `--asset-dir`, which is useful for builds where several directories use the same layout but different asset directories.
+
 ## Metadata support
 
 You can also add a file named `meta.json` to the folder from which you run `generate-md`.
