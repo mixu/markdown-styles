@@ -98,6 +98,14 @@ would make the metadata value `{{repoUrl}}` available in the template, for all f
 
 This is rather imperfect, but works for small stuff, feel free to contribute improvements back.
 
+## Acknowledgments
+
+I'd like to thank the authors the following CSS stylesheets:
+
+- jasonm23-dark, jasonm23-foghorn, jasonm23-markdown and jasonm23-swiss are based on https://github.com/jasonm23/markdown-css-themes by [jasonm23](https://github.com/jasonm23)
+- thomasf-solarizedcssdark and thomasf-solarizedcsslight are based on https://github.com/thomasf/solarized-css by [thomasf](https://github.com/thomasf)
+- markedapp-byword is based on the user-contributed stylesheet at http://bywordapp.com/extras/
+
 ## Screenshots of the layouts
 
 Note: these screenshots are generate via cutycapt, so they look worse than they do in a real browser.
