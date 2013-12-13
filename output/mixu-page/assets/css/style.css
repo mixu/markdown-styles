@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=PT+Sans);
+@import url(//fonts.googleapis.com/css?family=PT+Sans);
 
 body {
   padding:50px;
@@ -8,7 +8,7 @@ body {
   color: #333;
 
   background: url(../img/groovepaper.png) repeat top left;
-}}
+}
 
 h1, h2, h3, h4, h5, h6 {
   color:#222;

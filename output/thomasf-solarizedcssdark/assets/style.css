@@ -154,9 +154,9 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-@import url(http://fonts.googleapis.com/css?family=Inconsolata);
-@import url(http://fonts.googleapis.com/css?family=PT+Sans);
-@import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
+@import url(//fonts.googleapis.com/css?family=Inconsolata);
+@import url(//fonts.googleapis.com/css?family=PT+Sans);
+@import url(//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
 html {
   font-family: 'PT Sans', sans-serif;
 }
