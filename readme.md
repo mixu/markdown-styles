@@ -22,6 +22,8 @@ Create a markdown file and then convert it to html:
 
 Try out different layouts by changing the `--layout` parameter; screenshots at the bottom of this page.
 
+![montage](https://github.com/mixu/markdown-styles/raw/master/screenshots/montage.png)
+
 If you want to make use of the bundled layouts stylesheets as a basis for your own site, copy the ./assets folder and point `--layout` to your own layout.
 
 For example:

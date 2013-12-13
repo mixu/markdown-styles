@@ -22,6 +22,12 @@ screenshots: build
 				rm ./screenshots/$$name.png ; \
 				mv ./screenshots/$$name-cropped.png ./screenshots/$$name.png ; \
 	done
+	rm ./screenshots/montage.png || true
+	montage -tile 4x -label '%t'  -geometry 120x120\>+20+5  ./screenshots/*.png  ./screenshots/montage.png
+
+montage:
+	rm ./screenshots/montage.png || true
+	montage -tile 4x -label '%t'  -geometry 120x120\>+20+5  ./screenshots/*.png  ./screenshots/montage.png
 
 # Download google fonts for cutycapt
 get-fonts:
