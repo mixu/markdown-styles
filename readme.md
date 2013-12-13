@@ -7,16 +7,42 @@
 - Support for generic metadata via a meta.json file
 
 -----
+## Quickstart
 
-## Using the CSS stylesheets
+Install `generate-md` via npm:
 
-If you just want the stylesheets, you can just copy the `./assets` folder from the layout you want.
+    sudo npm install -g markdown-styles
+
+Create a markdown file and then convert it to html:
+
+    mkdir input/
+    echo "# Hello world\n YOLO" > input/index.md
+    generate-md --layout mixu-gray --input ./input --output ./output
+    google-chrome ./output/index.html
+
+Try out different layouts by changing the `--layout` parameter; screenshots at the bottom of this page.
+
+If you want to make use of the bundled layouts stylesheets as a basis for your own site, copy the ./assets folder and point `--layout` to your own layout.
+
+For example:
+
+    git clone https://github.com/mixu/markdown-styles.git ./markdown-styles
+    cp -Rv ./markdown-styles/layouts/mixu-gray ./my-layout
+    nano ./my-layout/page.html
+
+Now edit the files `./my-layout/page.html` and run:
+
+    generate-md --layout ./my-layout/page.html --input ./input --output ./output
+
+## Just using the stylesheets
+
+Alternatively, if you just want the stylesheets for your own project, you can just copy the `./assets` folder from the layout you want.
 
 To preview the styles in the browser, clone this repo locally and then open `./output/index.html` or run `make preview` which opens that page in your default browser.
 
 ## Using generate-md
 
-This repo also includes a small tool for generating HTML files from Markdown files.
+This project also includes a small tool for generating HTML files from Markdown files.
 
 The console tool is `generate-md`, e.g.
 
@@ -105,10 +131,27 @@ I'd like to thank the authors the following CSS stylesheets:
 - jasonm23-dark, jasonm23-foghorn, jasonm23-markdown and jasonm23-swiss are based on https://github.com/jasonm23/markdown-css-themes by [jasonm23](https://github.com/jasonm23)
 - thomasf-solarizedcssdark and thomasf-solarizedcsslight are based on https://github.com/thomasf/solarized-css by [thomasf](https://github.com/thomasf)
 - markedapp-byword is based on the user-contributed stylesheet at http://bywordapp.com/extras/
+- roryg-ghostwriter is based on https://github.com/roryg/ghostwriter
 
 ## Screenshots of the layouts
 
 Note: these screenshots are generate via cutycapt, so they look worse than they do in a real browser.
+
+### roryg-ghostwriter (new!)
+
+![roryg-ghostwriter](https://github.com/mixu/markdown-styles/raw/master/screenshots/roryg-ghostwriter.png)
+
+### mixu-bootstrap (new!)
+
+![mixu-bootstrap](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-bootstrap.png)
+
+### mixu-bootstrap-2col (new!)
+
+![mixu-bootstrap-2col](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-bootstrap-2col.png)
+
+### mixu-gray (new!)
+
+![mixu-gray](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-gray.png)
 
 ### jasonm23-dark
 
@@ -141,18 +184,6 @@ Note: these screenshots are generate via cutycapt, so they look worse than they 
 ### mixu-radar
 
 ![mixu-radar](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-radar.png)
-
-### mixu-bootstrap (new!)
-
-![mixu-bootstrap](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-bootstrap.png)
-
-### mixu-bootstrap-2col (new!)
-
-![mixu-bootstrap-2col](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-bootstrap-2col.png)
-
-### mixu-gray (new!)
-
-![mixu-gray](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-gray.png)
 
 ### thomasf-solarizedcssdark
 
