@@ -86,6 +86,6 @@ var list = new List(),
 
 list.add(argv.input);
 
-console.log(argv, list.files.map(function(i){ return i.name; }));
+// console.log(argv, list.files.map(function(i){ return i.name; }));
 
 runner(list, argv);
