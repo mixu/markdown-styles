@@ -14,7 +14,9 @@ var knownOpts = {
   'output': path,
   'runner': path,
   'command': String,
-  'asset-dir': String
+  'asset-dir': String,
+  // formatting
+  'number-toc': Boolean
 };
 
 var argv = nopt(knownOpts, {}, process.argv, 2);
@@ -84,6 +86,6 @@ var list = new List(),
 
 list.add(argv.input);
 
-// console.log(argv, list.files.map(function(i){ return i.name; }));
+console.log(argv, list.files.map(function(i){ return i.name; }));
 
 runner(list, argv);
