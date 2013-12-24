@@ -14,7 +14,9 @@ var knownOpts = {
   'output': path,
   'runner': path,
   'command': String,
-  'asset-dir': String
+  'asset-dir': String,
+  // formatting
+  'number-toc': Boolean
 };
 
 var argv = nopt(knownOpts, {}, process.argv, 2);

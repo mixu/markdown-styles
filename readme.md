@@ -104,6 +104,10 @@ You will also need to include [one of the highlight.js CSS style sheets](http://
 
 `--asset-dir <path>`: Normally, the asset directory is assumed to be `./assets/` in the same folder the `--layout` file is. You can override it to a different asset directory explicitly with `--asset-dir`, which is useful for builds where several directories use the same layout but different asset directories.
 
+## New! --number-toc
+
+`--number-toc`: Normally `{{toc}}` will produce a list of headings without any indication as to their rank. By providing this argument the generated Table of Contents will include numerical hierarchical descriptors on the left of each heading in the Table of Contents only.
+
 ## Metadata support
 
 You can also add a file named `meta.json` to the folder from which you run `generate-md`.
