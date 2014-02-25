@@ -71,6 +71,21 @@ if(argv['asset-dir']) {
   argv.assetDir = path.resolve(process.cwd() + '/' + argv['asset-dir']);
 }
 
+function findModule(name) {
+  var result = '';
+  try {
+    result = nodeResolve.sync(name, { basedir: process.cwd() });
+  } catch(e) {
+    try {
+      result = nodeResolve.sync(name, { basedir: __dirname });
+    } catch(e) {
+      console.error('Cannot find module ' + name + ' from ' + process.cwd()  + ' or ' + __dirname);
+      throw e;
+    }
+  }
+  return result;
+}
+
 // parse --highlight-<extension>
 var nodeResolve = require('resolve'),
     hl = {};
@@ -78,11 +93,11 @@ var nodeResolve = require('resolve'),
 Object.keys(argv).forEach(function(name) {
   var matched = (typeof name === 'string' ? name.match(/highlight\-(.*)/) : false);
   if(name == 'highlight') {
-    argv[name] = nodeResolve.sync(argv[name], { basedir: process.cwd() });
+    argv[name] = findModule(argv[name]);
     hl['default'] = require(argv[name]);
   } else if(matched) {
     var ext = matched[1];
-    argv[name] = nodeResolve.sync(argv[name], { basedir: process.cwd() });
+    argv[name] = findModule(argv[name]);
     hl[ext] = require(argv[name]);
   }
 });
