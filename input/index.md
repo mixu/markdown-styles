@@ -95,6 +95,14 @@ How about we throw some angle braces and ampersands in there?
         &copy; 2004 Foo Corporation
     </div>
 
+CSV:
+
+```csv
+Year,Make,Model,Length
+2/5/08,Ford,E350,2.34
+1/2/06,Mercury,Cougar,2.38
+```
+
 Set in stone
 ------------
 

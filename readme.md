@@ -84,7 +84,7 @@ This means that you could, for example, point a HTTP server at the root of `./te
 
 You can also use the current directory as the output (e.g. for Github pages).
 
-## New! Syntax highlighting support
+## Syntax highlighting support
 
 `generate-md` supports syntax highlighting during the Markdown-to-HTML conversion process.
 
@@ -96,11 +96,55 @@ Note that you need to install `markdown-styles` locally like shown above and inv
 
 You will also need to include [one of the highlight.js CSS style sheets](http://softwaremaniacs.org/media/soft/highlight/test.html) in your assets folder/layout file CSS (e.g. by using a custom `--layout` file).
 
-## New! --command
+## Syntax highlighting support
+
+Supported:
+
+- highlight.js via [mds-hljs]()
+- google-code-prettify via [mds-google-code-prettify]()
+
+Activate syntax highlighting by installing the wrapper module and then use `--highlight <module>` to activate the highlighter.
+
+For example, to use `highlight.js` to highlight all code blocks:
+
+    npm install -g markdown-styles mds-hljs
+    generate-md --highlight mds-hljs ...
+
+### Language-specific syntax highlighting and custom highlighters
+
+You can use `--highlight-<language> <module>` to override the syntax highlighter for a specific language. `<module>` can also be a path to a file.
+
+For example, you might use the `mds-csv` highlighter for csv code blocks. Input code block with language:
+
+    ```csv
+    "EmployeeID","EmployeeName","PhoneNumber","ZipCode"
+    "1048","Jimmy Adams",5559876543,12345
+    ```
+
+Command:
+
+    generate-md --highlight-csv mds-csv ...
+
+You can write your own syntax highlighter wrappers. These come in two flavors:
+
+Asynchronous (three parameters):
+
+    module.exports = function(code, lang, onDone) {
+        return onDone(null, result);
+    };
+
+Synchronous (two parameters):
+
+    module.exports = function(code, lang) {
+        return require('highlight.js').highlightAuto(code).value;
+    };
+
+
+## --command
 
 `--command <cmd>`: Pipe each Markdown file through a shell command and capture the output before converting. Useful for filtering the file, for example.
 
-## New! --asset-dir
+## --asset-dir
 
 `--asset-dir <path>`: Normally, the asset directory is assumed to be `./assets/` in the same folder the `--layout` file is. You can override it to a different asset directory explicitly with `--asset-dir`, which is useful for builds where several directories use the same layout but different asset directories.
 
@@ -139,19 +183,19 @@ I'd like to thank the authors the following CSS stylesheets:
 
 Note: these screenshots are generate via cutycapt, so they look worse than they do in a real browser.
 
-### roryg-ghostwriter (new!)
+### roryg-ghostwriter
 
 ![roryg-ghostwriter](https://github.com/mixu/markdown-styles/raw/master/screenshots/roryg-ghostwriter.png)
 
-### mixu-bootstrap (new!)
+### mixu-bootstrap
 
 ![mixu-bootstrap](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-bootstrap.png)
 
-### mixu-bootstrap-2col (new!)
+### mixu-bootstrap-2col
 
 ![mixu-bootstrap-2col](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-bootstrap-2col.png)
 
-### mixu-gray (new!)
+### mixu-gray
 
 ![mixu-gray](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-gray.png)
 

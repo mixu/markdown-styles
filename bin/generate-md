@@ -14,7 +14,9 @@ var knownOpts = {
   'output': path,
   'runner': path,
   'command': String,
-  'asset-dir': String
+  'asset-dir': String,
+  'highlight': String,
+  'highlight-csv': String
 };
 
 var argv = nopt(knownOpts, {}, process.argv, 2);
@@ -73,6 +75,24 @@ if(argv['command']) {
 if(argv['asset-dir']) {
   argv.assetDir = path.resolve(process.cwd() + '/' + argv['asset-dir']);
 }
+
+// parse --highlight-<extension>
+var nodeResolve = require('resolve'),
+    hl = {};
+
+Object.keys(argv).forEach(function(name) {
+  var matched = (typeof name === 'string' ? name.match(/highlight\-(.*)/) : false),
+      modulePath;
+  if(name == 'highlight') {
+    modulePath = nodeResolve.sync(argv[name], { basedir: process.cwd() });
+    hl['default'] = require(modulePath);
+  } else if(matched) {
+    var ext = matched[1];
+    modulePath = nodeResolve.sync(argv[name], { basedir: process.cwd() });
+    hl[ext] = require(modulePath);
+  }
+});
+argv['highlight'] = hl;
 
 console.log('Layout: ' + argv.layout);
 console.log('Template file: ' + argv.template);
