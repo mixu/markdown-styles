@@ -2,32 +2,26 @@
 var fs = require('fs'),
     path = require('path'),
     List = require('minitask').list,
-    nopt = require('nopt'),
+    opts = require('yargs'),
     runner = require('../lib/runner.js');
 
-var knownOpts = {
-  // list layouts
-  'layouts': Boolean,
-  'layout': String,
-  // paths
-  'input': path,
-  'output': path,
-  'runner': path,
-  'command': String,
-  'asset-dir': String,
-  'highlight': String,
-  'highlight-csv': String
-};
+opts.options({
+    'layouts': { },
+    'layout': { },
+    'input': { },
+    'output': { },
+    'runner': { },
+    'command': { },
+    'asset-dir': { },
+    'highlight': { }
+  })
+  .boolean('layouts');
 
-var argv = nopt(knownOpts, {}, process.argv, 2);
+var argv = opts.parse(process.argv);
 
 // defaults
-if(!argv.input) {
-  argv.input = path.resolve(process.cwd(), './input/');
-}
-if(!argv.output) {
-  argv.output = path.resolve(process.cwd(), './output/');
-}
+argv.input = path.resolve(process.cwd(), argv.input || './input/');
+argv.output = path.resolve(process.cwd(), argv.output || './output/');
 if(!argv.layout) {
   argv.layout = 'jasonm23-markdown';
 }
@@ -35,6 +29,7 @@ argv.defaultMeta = { title: 'example' };
 
 // default runner
 if(argv.runner) {
+  argv.runner = path.resolve(process.cwd(), argv.runner);
   runner = require(argv.runner);
 }
 
@@ -81,26 +76,33 @@ var nodeResolve = require('resolve'),
     hl = {};
 
 Object.keys(argv).forEach(function(name) {
-  var matched = (typeof name === 'string' ? name.match(/highlight\-(.*)/) : false),
-      modulePath;
+  var matched = (typeof name === 'string' ? name.match(/highlight\-(.*)/) : false);
   if(name == 'highlight') {
-    modulePath = nodeResolve.sync(argv[name], { basedir: process.cwd() });
-    hl['default'] = require(modulePath);
+    argv[name] = nodeResolve.sync(argv[name], { basedir: process.cwd() });
+    hl['default'] = require(argv[name]);
   } else if(matched) {
     var ext = matched[1];
-    modulePath = nodeResolve.sync(argv[name], { basedir: process.cwd() });
-    hl[ext] = require(modulePath);
+    argv[name] = nodeResolve.sync(argv[name], { basedir: process.cwd() });
+    hl[ext] = require(argv[name]);
   }
 });
-argv['highlight'] = hl;
 
 console.log('Layout: ' + argv.layout);
 console.log('Template file: ' + argv.template);
 console.log('Input: ' + argv.input);
 console.log('Output: ' + path.relative(process.cwd(), argv.output));
 
+if(Object.keys(hl).length > 0) {
+  console.log('Highlighters:');
+  Object.keys(hl).forEach(function(ext) {
+    console.log('\t' + ext, (ext === 'default' ? argv['highlight'] : argv['highlight-' + ext]));
+  });
+}
+
 var list = new List(),
     eachFn;
+
+argv['highlight'] = hl;
 
 list.add(argv.input);
 

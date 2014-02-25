@@ -86,29 +86,31 @@ You can also use the current directory as the output (e.g. for Github pages).
 
 ## Syntax highlighting support
 
-`generate-md` supports syntax highlighting during the Markdown-to-HTML conversion process.
 
-To enable the syntax highlighting support, install `highlight.js`:
+, install `highlight.js`:
 
     npm install --save highlight.js markdown-styles
 
 Note that you need to install `markdown-styles` locally like shown above and invoke it as `./node_modules/.bin/generate-md`, so that `require('highlight.js')` will find the module we just installed locally.
 
-You will also need to include [one of the highlight.js CSS style sheets](http://softwaremaniacs.org/media/soft/highlight/test.html) in your assets folder/layout file CSS (e.g. by using a custom `--layout` file).
 
 ## Syntax highlighting support
+
+`generate-md` supports syntax highlighting during the Markdown-to-HTML conversion process.
 
 Supported:
 
 - highlight.js via [mds-hljs]()
 - google-code-prettify via [mds-google-code-prettify]()
 
-Activate syntax highlighting by installing the wrapper module and then use `--highlight <module>` to activate the highlighter.
+To enable the syntax highlighting support, install the module (e.g. `mds-hljs`) and then use `--highlight` (e.g. `--highlight mds-hljs`) to activate the highlighter.
 
 For example, to use `highlight.js` to highlight all code blocks:
 
     npm install -g markdown-styles mds-hljs
     generate-md --highlight mds-hljs ...
+
+You will also need to include [one of the highlight.js CSS style sheets](http://softwaremaniacs.org/media/soft/highlight/test.html) in your assets folder/layout file CSS (e.g. by using a custom `--layout` file).
 
 ### Language-specific syntax highlighting and custom highlighters
 
