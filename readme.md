@@ -86,16 +86,6 @@ You can also use the current directory as the output (e.g. for Github pages).
 
 ## Syntax highlighting support
 
-
-, install `highlight.js`:
-
-    npm install --save highlight.js markdown-styles
-
-Note that you need to install `markdown-styles` locally like shown above and invoke it as `./node_modules/.bin/generate-md`, so that `require('highlight.js')` will find the module we just installed locally.
-
-
-## Syntax highlighting support
-
 `generate-md` supports syntax highlighting during the Markdown-to-HTML conversion process.
 
 Supported:
