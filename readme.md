@@ -36,6 +36,10 @@ Now edit the files `./my-layout/page.html` and run:
 
     generate-md --layout ./my-layout/page.html --input ./input --output ./output
 
+## What's new in v1.2.x
+
+Code syntax highlighting has been reworked so that syntax highlighters have become pluggable. See the relevant section below on how to use the new system.
+
 ## Just using the stylesheets
 
 Alternatively, if you just want the stylesheets for your own project, you can just copy the `./assets` folder from the layout you want.
@@ -84,13 +88,14 @@ This means that you could, for example, point a HTTP server at the root of `./te
 
 You can also use the current directory as the output (e.g. for Github pages).
 
-## Syntax highlighting support
+## Syntax highlighting support (changed in v1.2.x)
 
 `generate-md` supports syntax highlighting during the Markdown-to-HTML conversion process.
 
 Supported:
 
 - highlight.js via [mds-hljs](https://github.com/mixu/mds-hljs)
+- csv (using highlight.js css classes) via [mds-csv](https://github.com/mixu/mds-csv)
 
 To enable the syntax highlighting support, install the module (e.g. `mds-hljs`) and then use `--highlight` (e.g. `--highlight mds-hljs`) to activate the highlighter.
 
@@ -116,7 +121,7 @@ Command:
 
     generate-md --highlight-csv mds-csv ...
 
-You can write your own syntax highlighter wrappers. These come in two flavors:
+You can write your own syntax highlighter wrappers. Have a look at [mds-hljs](https://github.com/mixu/mds-hljs) and [mds-csv](https://github.com/mixu/mds-csv) for examples. These come in two flavors:
 
 Asynchronous (three parameters):
 
@@ -129,7 +134,6 @@ Synchronous (two parameters):
     module.exports = function(code, lang) {
         return require('highlight.js').highlightAuto(code).value;
     };
-
 
 ## --command
 
