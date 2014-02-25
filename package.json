@@ -1,6 +1,6 @@
 {
   "name": "markdown-styles",
-  "description": "CSS stylesheets for markdown content",
+  "description": "Markdown to HTML generator and multiple CSS themes for Markdown",
   "version": "1.1.5",
   "author": {
     "name": "Mikito Takada",
@@ -14,6 +14,7 @@
   "bin": {
     "generate-md": "./bin/generate-md"
   },
+  "keywords": ["markdown", "markup", "html", "documentation", "docs", "static", "highlight"],
   "main": "lib/index.js",
   "dependencies": {
     "marked": "0.2.9",

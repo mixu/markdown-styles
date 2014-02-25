@@ -1,7 +1,7 @@
 ## Features
 
 - Ready-made CSS stylesheets for Markdown, just copy the assets folder you want
-- Bundled with `generate-md`, a small tool that converts a folder of Markdown documents into a output folder of HTML documents, preserving the directory structure)
+- Bundled with `generate-md`, a small tool that converts a folder of Markdown documents into a output folder of HTML documents, preserving the directory structure
 - Use your own custom markup and CSS via `--layout`.
 - Support for relative paths to the assets folder via `{{assetsRelative}}` and document table of content generation via `{{toc}}`.
 - Support for generic metadata via a meta.json file
@@ -90,8 +90,7 @@ You can also use the current directory as the output (e.g. for Github pages).
 
 Supported:
 
-- highlight.js via [mds-hljs]()
-- google-code-prettify via [mds-google-code-prettify]()
+- highlight.js via [mds-hljs](https://github.com/mixu/mds-hljs)
 
 To enable the syntax highlighting support, install the module (e.g. `mds-hljs`) and then use `--highlight` (e.g. `--highlight mds-hljs`) to activate the highlighter.
 
