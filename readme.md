@@ -38,7 +38,9 @@ Now edit the files `./my-layout/page.html` and run:
 
 ## What's new in v1.2.x
 
-Code syntax highlighting has been reworked so that syntax highlighters have become pluggable. See the relevant section below on how to use the new system.
+`v1.2.0`: Code syntax highlighting has been reworked so that syntax highlighters have become pluggable. See the relevant section below on how to use the new system.
+
+`v1.2.1`: added the `bootstrap3` style, thanks @MrJuliuss!
 
 ## Just using the stylesheets
 
