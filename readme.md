@@ -234,6 +234,10 @@ Note: these screenshots are generate via cutycapt, so they look worse than they 
 
 ![thomasf-solarizedcsslight](https://github.com/mixu/markdown-styles/raw/master/screenshots/thomasf-solarizedcsslight.png)
 
+### bootstrap3
+
+![bootstrap3](https://github.com/mixu/markdown-styles/raw/master/screenshots/bootstrap3.png)
+
 ## Adding new styles
 
 Create a new directory under `./output/themename`.
