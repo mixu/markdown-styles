@@ -1,9 +1,53 @@
 #!/usr/bin/env node
 var fs = require('fs'),
     path = require('path'),
-    List = require('minitask').list,
-    opts = require('yargs'),
-    runner = require('../lib/runner.js');
+    subarg = require('subarg'),
+    glob = require('wildglob'),
+    through = require('through2');
+
+var parseHeader = require('../lib/parse-header.js'),
+    parseMd = require('../lib/parse-md.js'),
+    annotateMarkdownHeadings = require('../lib/annotate-md-headings.js'),
+    convertMd = require('../lib/convert-md.js'),
+    headingsToToc = require('../lib/headings-to-toc.js'),
+    template = require('../lib/template'),
+    dest = require('../lib/dest'),
+    outputPaths = require('../lib/output-paths');
+
+var argv = subarg(process.argv.slice(2));
+console.log(argv);
+
+
+glob.stream(argv.input)
+  .pipe(through.obj(function(file, enc, onDone) {
+    var stat = fs.statSync(file);
+    if (stat.isFile()) {
+      this.push({
+        path: file,
+        stat: stat,
+        contents: fs.readFileSync(file).toString()
+      });
+    }
+    onDone();
+  }))
+  .pipe(parseHeader())
+  .pipe(parseMd())
+  .pipe(annotateMarkdownHeadings())
+  .pipe(convertMd())
+  .pipe(headingsToToc())
+  .pipe(template({ file: })
+  .pipe(outputPaths({ basepath: __dirname, input: __dirname + '/input/', output: __dirname + '/output/' }))
+  .pipe(through.obj(function(file, enc, onDone) {
+    console.log(file);
+    // push to next transform
+    this.push(file);
+    onDone();
+  }))
+  .pipe(dest(__dirname + '/output'))
+
+
+/*
+
 
 opts.options({
     'layouts': { },
@@ -124,3 +168,4 @@ list.add(argv.input);
 // console.log(argv, list.files.map(function(i){ return i.name; }));
 
 runner(list, argv);
+*/
