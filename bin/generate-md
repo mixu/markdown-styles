@@ -2,101 +2,38 @@
 var fs = require('fs'),
     path = require('path'),
     subarg = require('subarg'),
-    glob = require('wildglob'),
-    through = require('through2');
-
-var parseHeader = require('../lib/parse-header.js'),
-    parseMd = require('../lib/parse-md.js'),
-    annotateMarkdownHeadings = require('../lib/annotate-md-headings.js'),
-    convertMd = require('../lib/convert-md.js'),
-    headingsToToc = require('../lib/headings-to-toc.js'),
-    template = require('../lib/template'),
-    dest = require('../lib/dest'),
-    outputPaths = require('../lib/output-paths');
+    API = require('../lib/index.js');
 
 var argv = subarg(process.argv.slice(2));
 console.log(argv);
 
-
-glob.stream(argv.input)
-  .pipe(through.obj(function(file, enc, onDone) {
-    var stat = fs.statSync(file);
-    if (stat.isFile()) {
-      this.push({
-        path: file,
-        stat: stat,
-        contents: fs.readFileSync(file).toString()
-      });
-    }
-    onDone();
-  }))
-  .pipe(parseHeader())
-  .pipe(parseMd())
-  .pipe(annotateMarkdownHeadings())
-  .pipe(convertMd())
-  .pipe(headingsToToc())
-  .pipe(template({ file: })
-  .pipe(outputPaths({ basepath: __dirname, input: __dirname + '/input/', output: __dirname + '/output/' }))
-  .pipe(through.obj(function(file, enc, onDone) {
-    console.log(file);
-    // push to next transform
-    this.push(file);
-    onDone();
-  }))
-  .pipe(dest(__dirname + '/output'))
-
-
-/*
-
-
-opts.options({
-    'layouts': { },
-    'layout': { },
-    'input': { },
-    'output': { },
-    'runner': { },
-    'command': { },
-    'asset-dir': { },
-    'highlight': { }
-  })
-  .boolean('layouts');
-
-var argv = opts.parse(process.argv);
-
 // defaults
-argv.input = path.resolve(process.cwd(), argv.input || './input/');
-argv.output = path.resolve(process.cwd(), argv.output || './output/');
-if(!argv.layout) {
-  argv.layout = 'jasonm23-markdown';
-}
-argv.defaultMeta = { title: 'example' };
 
-// default runner
-if(argv.runner) {
-  argv.runner = path.resolve(process.cwd(), argv.runner);
-  runner = require(argv.runner);
+var config = {
+  input: path.resolve(process.cwd(), argv.input || './input/'),
+  output: path.resolve(process.cwd(), argv.output || './output/')
+};
+
+if (!argv.layout) {
+  argv.layout = 'jasonm23-markdown';
 }
 
 // Load the layout
 var layoutDir = __dirname + '/../layouts/';
 
 // template is one of:
-if(fs.existsSync(process.cwd() + '/' + argv.layout)) {
+if (fs.existsSync(process.cwd() + '/' + argv.layout)) {
   // 1) the supplied argument (normalized)
-  argv.template = path.normalize(process.cwd() + '/' + argv.layout);
-} else if(fs.existsSync(layoutDir+argv.layout+'/page.html')) {
+  config.template = path.normalize(process.cwd() + '/' + argv.layout);
+} else if(fs.existsSync(layoutDir + argv.layout +'/page.html')) {
   // 2) a preset layout from the layout dir
-  argv.template = path.normalize(layoutDir+argv.layout+'/page.html');
+  config.template = path.normalize(layoutDir + argv.layout + '/page.html');
 } else {
   // 3) the default layout
-  argv.template = path.normalize(layoutDir+'plain/page.html');
+  config.template = path.normalize(layoutDir + 'plain/page.html');
 }
 
-
-if(argv.layouts || !fs.existsSync(argv.input)) {
-  if(!fs.existsSync(argv.input)) {
-    console.log(argv.input+' does not exist');
-  }
+if (argv.layouts) {
   // show layouts
   console.log('Available layouts:\n'+
       fs.readdirSync(__dirname+'/../layouts/')
@@ -107,13 +44,41 @@ if(argv.layouts || !fs.existsSync(argv.input)) {
   process.exit();
 }
 
-if(argv['command']) {
-  argv['command'] = argv['command'].split(' ');
+if (argv['command']) {
+  config['command'] = argv['command'].split(' ');
 }
 
-if(argv['asset-dir']) {
-  argv.assetDir = path.resolve(process.cwd() + '/' + argv['asset-dir']);
+if (argv['asset-dir']) {
+  config['asset-dir'] = path.resolve(process.cwd() + '/' + argv['asset-dir']);
 }
+
+var gen = new API();
+gen.set(config);
+gen.run();
+
+/*
+
+
+opts.options({
+    'runner': { },
+    'command': { },
+    'asset-dir': { },
+    'highlight': { }
+  })
+  .boolean('layouts');
+
+var argv = opts.parse(process.argv);
+
+argv.defaultMeta = { title: 'example' };
+
+// default runner
+if(argv.runner) {
+  argv.runner = path.resolve(process.cwd(), argv.runner);
+  runner = require(argv.runner);
+}
+
+
+
 
 function findModule(name) {
   var result = '';

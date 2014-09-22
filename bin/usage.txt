@@ -1,0 +1,24 @@
+USAGE
+
+    generate-md --input <file/dir ...> {OPTIONS}
+
+BASIC
+
+  --input <path>  Path to import. Can specify multiple paths.
+
+  --output <dir>  Path to write to.
+
+  --layout <path>  Layout file to use. A layout consists of a HTML file and a `./assets` folder in the same folder. The template will be applied and assets folder will be copied into the output path.
+
+PLUGINS
+
+--plugin mds-hljs
+
+
+MISC
+
+  --layouts       Shows a list of all the built-in layouts.
+
+  --help          Shows this help.
+
+
