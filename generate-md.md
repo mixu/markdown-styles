@@ -34,4 +34,3 @@ Next, add the `--template engine` option:
 
 ### Index page generation
 
-

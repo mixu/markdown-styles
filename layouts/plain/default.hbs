@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>{{meta_title}}</title>
+  <meta name="description" content="{{meta_description}}" />
+  <link rel="stylesheet" type="text/css" href="{{asset "style.css"}}"></link>
+  {{ghost_head}}
+</head>
+<body class="{{body_class}}">
+
+  {{{body}}}
+
+  <footer class="site-footer">
+    <div class="inner">
+     <section class="copyright">&copy; <a href="{{@blog.url}}/">{{@blog.title}}</a></section>
+   </div>
+ </footer>
+
+ {{ghost_foot}}
+
+</body>
+</html>

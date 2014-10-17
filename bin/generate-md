@@ -14,25 +14,6 @@ var config = {
   output: path.resolve(process.cwd(), argv.output || './output/')
 };
 
-if (!argv.layout) {
-  argv.layout = 'jasonm23-markdown';
-}
-
-// Load the layout
-var layoutDir = __dirname + '/../layouts/';
-
-// template is one of:
-if (fs.existsSync(process.cwd() + '/' + argv.layout)) {
-  // 1) the supplied argument (normalized)
-  config.template = path.normalize(process.cwd() + '/' + argv.layout);
-} else if(fs.existsSync(layoutDir + argv.layout +'/page.html')) {
-  // 2) a preset layout from the layout dir
-  config.template = path.normalize(layoutDir + argv.layout + '/page.html');
-} else {
-  // 3) the default layout
-  config.template = path.normalize(layoutDir + 'plain/page.html');
-}
-
 if (argv.layouts) {
   // show layouts
   console.log('Available layouts:\n'+
@@ -51,6 +32,11 @@ if (argv['command']) {
 if (argv['asset-dir']) {
   config['asset-dir'] = path.resolve(process.cwd() + '/' + argv['asset-dir']);
 }
+
+console.log('Layout: ' + config.layout);
+console.log('Template file: ' + config.template);
+console.log('Input: ' + config.input);
+console.log('Output: ' + path.relative(process.cwd(), config.output));
 
 var gen = new API();
 gen.set(config);
@@ -111,10 +97,6 @@ Object.keys(argv).forEach(function(name) {
   }
 });
 
-console.log('Layout: ' + argv.layout);
-console.log('Template file: ' + argv.template);
-console.log('Input: ' + argv.input);
-console.log('Output: ' + path.relative(process.cwd(), argv.output));
 
 if(Object.keys(hl).length > 0) {
   console.log('Highlighters:');
