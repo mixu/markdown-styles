@@ -42,6 +42,8 @@ Now edit the files `./my-layout/page.html` and run:
 
 `v1.2.1`: added the `bootstrap3` style, thanks @MrJuliuss!
 
+`v1.2.2`: added the `github` style, based on [sindresorhus/github-markdown-css](https://github.com/sindresorhus/github-markdown-css).
+
 ## Just using the stylesheets
 
 Alternatively, if you just want the stylesheets for your own project, you can just copy the `./assets` folder from the layout you want.
@@ -175,6 +177,7 @@ I'd like to thank the authors the following CSS stylesheets:
 - thomasf-solarizedcssdark and thomasf-solarizedcsslight are based on https://github.com/thomasf/solarized-css by [thomasf](https://github.com/thomasf)
 - markedapp-byword is based on the user-contributed stylesheet at http://bywordapp.com/extras/
 - roryg-ghostwriter is based on https://github.com/roryg/ghostwriter
+- github is based on [sindresorhus/github-markdown-css](https://github.com/sindresorhus/github-markdown-css) (sorry, sindresorhus-github is too long to type as a layout name!)
 
 ## Screenshots of the layouts
 
