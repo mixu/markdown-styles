@@ -13,6 +13,7 @@ opts.options({
     'runner': { },
     'command': { },
     'asset-dir': { },
+    'partials': { },
     'highlight': { }
   })
   .boolean('layouts');

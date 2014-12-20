@@ -26,6 +26,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "async": "~0.2.10",
+    "filewalker": "^0.1.2",
     "handlebars": "^2.0.0",
     "marked": "0.2.9",
     "minitask": "0.0.0",
