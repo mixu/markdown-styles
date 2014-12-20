@@ -68,6 +68,43 @@ The console tool is `generate-md`, e.g.
 
 `--partials` specifies the partials directory. Partials are html files that can be included via handlebars `{{> partialName}}` style. Usually they are .html files. For example, if `footer.html` resides in the partials directory, `{{> footer}}` will be replaced with `footer.html`'s content. For more advanced topics, see [handlebars partials documentation](https://github.com/wycats/handlebars.js#partials).
 
+`--helpers` specifies the helpers directory. Helpers are functions that you can use throughout the template. See [handlebars helpers ](https://github.com/wycats/handlebars.js#helpers).
+For example, add `linkTo.js` to the specified helpers directory:
+
+```js
+var Handlebars = require('handlebars');
+module.exports = function(){
+  return new Handlebars.SafeString("<a href='" + Handlebars.Utils.escapeExpression(this.url) + "'>" + Handlebars.Utils.escapeExpression(this.body) + "</a>");
+};
+```
+
+In your `meta.json`
+```json
+{
+  "foo": {
+    "links": [
+      {"url": "/hello", "body": "Hello"},
+      {"url": "/world", "body": "World!"}
+    ]
+  }
+}
+```
+Somewhere in your template:
+```html
+<ul>{{#links}}<li>{{linkTo}}</li>{{/links}}</ul>
+```
+
+The result:
+```html
+<ul>
+  <li>
+    <a href='/hello'>Hello</a>
+  </li>
+  <li>
+    <a href='/world'>World!</a>
+  </li>
+</ul>
+```
 
 To override the layout, simply create a directory, such as `./my-theme/`, with the following structure:
 
@@ -154,7 +191,7 @@ Synchronous (two parameters):
 
 You can also add a file named `meta.json` to the folder from which you run `generate-md`.
 
-The metadata in that directory will be read and replacements will be made for corresponding `{{names}}` in the template. 
+The metadata in that directory will be read and replacements will be made for corresponding `{{names}}` in the template.
 
 The metadata is scoped by the top-level directory in `./input`.
 
@@ -170,7 +207,7 @@ For example:
 
 would make the metadata value `{{repoUrl}}` available in the template, for all files that are in the directory `./input/foo`.
 
-[Handlebars](https://github.com/wycats/handlebars.js) is used as the template compiler engine. For example, you may add a tags array to the meta.json: 
+[Handlebars](https://github.com/wycats/handlebars.js) is used as the template compiler engine. For example, you may add a tags array to the meta.json:
 
 ```json
 {
@@ -180,7 +217,7 @@ would make the metadata value `{{repoUrl}}` available in the template, for all f
 }
 ```
 
-While in the html you may: 
+While in the html you may:
 
 ```html
 <ul>
