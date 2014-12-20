@@ -85,7 +85,7 @@ Then, running a command like:
 will:
 
 1. convert all Markdown files in `./input` to HTML files under `./test`, preserving paths in `./input`.
-2. use the template `./my-theme/page.html`, replacing values such as `{{content}}`, `{{toc}}` and `{{assetsRelative}}` (see the layouts for examples on this)
+2. use the template `./my-theme/page.html`, replacing values such as `{{{content}}}`, `{{{toc}}}` and `{{assetsRelative}}` (see the layouts for examples on this)
 3. (recursively) copy over the assets from `./my-theme/assets` to `./test/assets`.
 
 This means that you could, for example, point a HTTP server at the root of `./test/` and be done with it.
