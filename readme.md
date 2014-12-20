@@ -66,7 +66,7 @@ The console tool is `generate-md`, e.g.
 
 `--layout` specifies the layout to use. This can be either one of built in layouts, or a path to a custom template file with a set of custom assets.
 
-`--partials` specifies the partials directory. Partials are html files that can be included via handlebars `{{> partialName}}` style. Usually they are .html files. For example, if `footer.html` resides in the partials directory, `{{> footer}}` will be replaced with `footer.html`'s content. For more advanced topics, see [handlebars partials documentation](https://github.com/wycats/handlebars.js#partials).
+`--partials` specifies the partials directory. Partials are html files that can be included via handlebars `{{> partialName}}` style. Usually they are .html files. For example, if `footer.html` resides in the partials directory, `{{> footer}}` will be replaced with `footer.html`'s content. For more advanced topics, see [handlebars partials documentation](https://github.com/wycats/handlebars.js#partials). Don't use `content.html`, it is reserved to the html generated from the markdown.
 
 `--helpers` specifies the helpers directory. Helpers are functions that you can use throughout the template. See [handlebars helpers ](https://github.com/wycats/handlebars.js#helpers).
 For example, add `linkTo.js` to the specified helpers directory:
@@ -125,7 +125,7 @@ Then, running a command like:
 will:
 
 1. convert all Markdown files in `./input` to HTML files under `./test`, preserving paths in `./input`.
-2. use the template `./my-theme/page.html`, replacing values such as `{{{content}}}`, `{{{toc}}}` and `{{assetsRelative}}` (see the layouts for examples on this)
+2. use the template `./my-theme/page.html`, replacing values such as `{{> content}}`, `{{{toc}}}` and `{{assetsRelative}}` (see the layouts for examples on this)
 3. (recursively) copy over the assets from `./my-theme/assets` to `./test/assets`.
 
 This means that you could, for example, point a HTTP server at the root of `./test/` and be done with it.
