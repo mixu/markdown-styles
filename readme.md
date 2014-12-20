@@ -66,6 +66,9 @@ The console tool is `generate-md`, e.g.
 
 `--layout` specifies the layout to use. This can be either one of built in layouts, or a path to a custom template file with a set of custom assets.
 
+`--partials` specifies the partials directory. Partials are html files that can be included via handlebars `{{> partialName}}` style. Usually they are .html files. For example, if `footer.html` resides in the partials directory, `{{> footer}}` will be replaced with `footer.html`'s content. For more advanced topics, see [handlebars partials documentation](https://github.com/wycats/handlebars.js#partials).
+
+
 To override the layout, simply create a directory, such as `./my-theme/`, with the following structure:
 
 ````bash
@@ -151,7 +154,7 @@ Synchronous (two parameters):
 
 You can also add a file named `meta.json` to the folder from which you run `generate-md`.
 
-The metadata in that directory will be read and replacements will be made for corresponding `{{names}}` in the template.
+The metadata in that directory will be read and replacements will be made for corresponding `{{names}}` in the template. 
 
 The metadata is scoped by the top-level directory in `./input`.
 
@@ -167,7 +170,25 @@ For example:
 
 would make the metadata value `{{repoUrl}}` available in the template, for all files that are in the directory `./input/foo`.
 
-This is rather imperfect, but works for small stuff, feel free to contribute improvements back.
+[Handlebars](https://github.com/wycats/handlebars.js) is used as the template compiler engine. For example, you may add a tags array to the meta.json: 
+
+```json
+{
+  "foo": {
+    "tags": ["handlebars", "template"]
+  }
+}
+```
+
+While in the html you may: 
+
+```html
+<ul>
+{{#each tags}}
+    <li>{{ this }}</li>
+{{/each}}
+</ul>
+```
 
 ## Acknowledgments
 
