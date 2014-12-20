@@ -66,9 +66,9 @@ The console tool is `generate-md`, e.g.
 
 `--layout` specifies the layout to use. This can be either one of built in layouts, or a path to a custom template file with a set of custom assets.
 
-`--partials` specifies the [partials](https://github.com/iamdoron/markdown-styles/blob/master/readme.md#partials) directory. 
+`--partials` specifies the [partials](#partials) directory. 
 
-`--helpers` specifies the [helpers](https://github.com/iamdoron/markdown-styles/blob/master/readme.md#helpers) directory. 
+`--helpers` specifies the [helpers](#helpers) directory. 
 
 To override the layout, simply create a directory, such as `./my-theme/`, with the following structure:
 
