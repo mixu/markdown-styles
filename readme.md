@@ -66,6 +66,10 @@ The console tool is `generate-md`, e.g.
 
 `--layout` specifies the layout to use. This can be either one of built in layouts, or a path to a custom template file with a set of custom assets.
 
+`--partials` specifies the [partials](#partials) directory. 
+
+`--helpers` specifies the [helpers](#helpers) directory. 
+
 To override the layout, simply create a directory, such as `./my-theme/`, with the following structure:
 
 ````bash
@@ -85,7 +89,7 @@ Then, running a command like:
 will:
 
 1. convert all Markdown files in `./input` to HTML files under `./test`, preserving paths in `./input`.
-2. use the template `./my-theme/page.html`, replacing values such as `{{content}}`, `{{toc}}` and `{{assetsRelative}}` (see the layouts for examples on this)
+2. use the template `./my-theme/page.html`, replacing values such as `{{> content}}`, `{{{toc}}}` and `{{assetsRelative}}` (see the layouts for examples on this)
 3. (recursively) copy over the assets from `./my-theme/assets` to `./test/assets`.
 
 This means that you could, for example, point a HTTP server at the root of `./test/` and be done with it.
@@ -109,6 +113,103 @@ For example, to use `highlight.js` to highlight all code blocks:
     generate-md --highlight mds-hljs ...
 
 You will also need to include [one of the highlight.js CSS style sheets](http://softwaremaniacs.org/media/soft/highlight/test.html) in your assets folder/layout file CSS (e.g. by using a custom `--layout` file).
+
+
+### Template Evaluation
+
+The [handlebars.js](https://github.com/wycats/handlebars.js) template language is used to evaluate both the template and the markdown. Together with the `meta.json`, partials and helpers both template and markdown can be enhanced.
+
+#### `meta.json`
+You can add a file named `meta.json` to the folder from which you run `generate-md`.
+
+The metadata in that directory will be read and replacements will be made for corresponding `{{names}}` in the template.
+
+The metadata is scoped by the top-level directory in `./input`.
+
+For example:
+
+````json
+{
+  "foo": {
+    "repoUrl": "https://github.com/mixu/markdown-styles"
+  }
+}
+````
+
+would make the metadata value `{{repoUrl}}` available in the template, for all files that are in the directory `./input/foo`.
+
+Using [handlebars.js](https://github.com/wycats/handlebars.js) we can go event farther. For example, you may add a tags array to the meta.json:
+
+```json
+{
+  "foo": {
+    "tags": ["handlebars", "template"]
+  }
+}
+```
+
+While in the html you may:
+
+```html
+<ul>
+{{#each tags}}
+    <li>{{ this }}</li>
+{{/each}}
+</ul>
+```
+
+Which will result in 
+
+```html
+<ul>
+    <li>handlebars</li>
+    <li>template</li>
+</ul>
+```
+
+#### Partials
+
+Partials are html files that can be included via handlebars `{{> partialName}}` style. Usually they are .html files. For example, if `footer.html` resides in the partials directory, `{{> footer}}` will be replaced with `footer.html`'s content. For more advanced topics, see [handlebars partials documentation](https://github.com/wycats/handlebars.js#partials). Don't use `content.html`, it is reserved to the html generated from the markdown.
+
+#### Helpers
+
+Helpers are functions that you can use throughout the template. See [handlebars helpers ](https://github.com/wycats/handlebars.js#registering-helpers).
+For example, add `linkTo.js` to the specified helpers directory:
+
+```js
+var Handlebars = require('handlebars');
+module.exports = function(){
+  return new Handlebars.SafeString("<a href='" + Handlebars.Utils.escapeExpression(this.url) + "'>" + Handlebars.Utils.escapeExpression(this.body) + "</a>");
+};
+```
+
+In your `meta.json`
+```json
+{
+  "foo": {
+    "links": [
+      {"url": "/hello", "body": "Hello"},
+      {"url": "/world", "body": "World!"}
+    ]
+  }
+}
+```
+Somewhere in your template:
+```html
+<ul>{{#links}}<li>{{linkTo}}</li>{{/links}}</ul>
+```
+
+The result:
+```html
+<ul>
+  <li>
+    <a href='/hello'>Hello</a>
+  </li>
+  <li>
+    <a href='/world'>World!</a>
+  </li>
+</ul>
+```
 
 ### Language-specific syntax highlighting and custom highlighters
 
@@ -146,28 +247,6 @@ Synchronous (two parameters):
 ## --asset-dir
 
 `--asset-dir <path>`: Normally, the asset directory is assumed to be `./assets/` in the same folder the `--layout` file is. You can override it to a different asset directory explicitly with `--asset-dir`, which is useful for builds where several directories use the same layout but different asset directories.
-
-## Metadata support
-
-You can also add a file named `meta.json` to the folder from which you run `generate-md`.
-
-The metadata in that directory will be read and replacements will be made for corresponding `{{names}}` in the template.
-
-The metadata is scoped by the top-level directory in `./input`.
-
-For example:
-
-````json
-{
-  "foo": {
-    "repoUrl": "https://github.com/mixu/markdown-styles"
-  }
-}
-````
-
-would make the metadata value `{{repoUrl}}` available in the template, for all files that are in the directory `./input/foo`.
-
-This is rather imperfect, but works for small stuff, feel free to contribute improvements back.
 
 ## Acknowledgments
 
