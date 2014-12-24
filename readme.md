@@ -1,3 +1,9 @@
+# markdown-styles
+
+Converts Markdown files to HTML, with over a dozen builtin themes.
+
+Looking for something to generate a blog from Markdown files? Check out [ghost-render](https://github.com/mixu/ghost-render).
+
 ## Features
 
 - Ready-made CSS stylesheets for Markdown, just copy the assets folder you want
@@ -7,6 +13,21 @@
 - Support for generic metadata via a meta.json file
 
 -----
+
+## 2.0 changes
+
+- deprecated `--command`
+- metadata is now stored directly in each file, or alternatively in the top level meta.json
+- highlighting is now enabled by default
+    - language-specific highlighting still works
+- all layouts now ship with a default highlight theme
+- the default layout is now `github` 
+- better spec for layout authoring:
+    - `{{content}}`: renders the markdown content
+    - `{{asset "asset-path"}}`: renders a specific asset path (previously `{{assetsRelative}}` / `{{styles}}`)
+    - `{{toc}}`: renders the table of contents
+    - `{{title}}`: renders the title
+
 ## Quickstart
 
 Install `generate-md` via npm:
@@ -239,10 +260,6 @@ Synchronous (two parameters):
     module.exports = function(code, lang) {
         return require('highlight.js').highlightAuto(code).value;
     };
-
-## --command
-
-`--command <cmd>`: Pipe each Markdown file through a shell command and capture the output before converting. Useful for filtering the file, for example.
 
 ## --asset-dir
 

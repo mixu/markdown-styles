@@ -2,8 +2,7 @@
 var fs = require('fs'),
     path = require('path'),
     List = require('minitask').list,
-    opts = require('yargs'),
-    runner = require('../lib/runner.js');
+    opts = require('yargs');
 
 opts.options({
     'layouts': { },
@@ -73,33 +72,17 @@ if(argv['asset-dir']) {
   argv.assetDir = path.resolve(process.cwd() + '/' + argv['asset-dir']);
 }
 
-function findModule(name) {
-  var result = '';
-  try {
-    result = nodeResolve.sync(name, { basedir: process.cwd() });
-  } catch(e) {
-    try {
-      result = nodeResolve.sync(name, { basedir: __dirname });
-    } catch(e) {
-      console.error('Cannot find module ' + name + ' from ' + process.cwd()  + ' or ' + __dirname);
-      throw e;
-    }
-  }
-  return result;
-}
-
 // parse --highlight-<extension>
-var nodeResolve = require('resolve'),
-    hl = {};
+var hl = {};
 
 Object.keys(argv).forEach(function(name) {
   var matched = (typeof name === 'string' ? name.match(/highlight\-(.*)/) : false);
   if(name == 'highlight') {
-    argv[name] = findModule(argv[name]);
+    argv[name] = findModule(argv[name], [ process.cwd, __dirname ]);
     hl['default'] = require(argv[name]);
   } else if(matched) {
     var ext = matched[1];
-    argv[name] = findModule(argv[name]);
+    argv[name] = findModule(argv[name], [ process.cwd, __dirname ]);
     hl[ext] = require(argv[name]);
   }
 });
@@ -116,13 +99,8 @@ if(Object.keys(hl).length > 0) {
   });
 }
 
-var list = new List(),
-    eachFn;
-
 argv['highlight'] = hl;
 
-list.add(argv.input);
+var runner = require('../lib2/runner.js');
 
-// console.log(argv, list.files.map(function(i){ return i.name; }));
-
-runner(list, argv);
+runner(argv);
