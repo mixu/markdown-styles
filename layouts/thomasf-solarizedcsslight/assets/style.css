@@ -154,7 +154,6 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-@import url(//fonts.googleapis.com/css?family=Inconsolata);
 @import url(//fonts.googleapis.com/css?family=PT+Sans);
 @import url(//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
 html {
@@ -162,7 +161,7 @@ html {
 }
 pre,
 code {
-  font-family: 'Inconsolata', sans-serif;
+  font-family: monospace, sans-serif;
 }
 h1,
 h2,

@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Bootstrap</title>
-    <link type="text/css" rel="stylesheet" href="{{assetsRelative}}/css/bootstrap.css"/>
+    <title>{{title}}</title>
+    <link type="text/css" rel="stylesheet" href="{{asset 'css/bootstrap.css'}}"/>
     <style>
       body {
-        background: url('{{assetsRelative}}/img/textured_paper.png') repeat top left;
+        background: url('{{asset "img/textured_paper.png"}}') repeat top left;
         background-color: #f6f6f6;
       }
       .main {
@@ -27,23 +27,23 @@
         line-height: 30px;
       }
     </style>
-    <link type="text/css" rel="stylesheet" href="{{assetsRelative}}/css/bootstrap-responsive.css"/>
-    {{styles}}
+    <link type="text/css" rel="stylesheet" href="{{asset 'css/bootstrap-responsive.css'}}"/>
+    <link type="text/css" rel="stylesheet" href="{{asset 'css/hljs-github.min.css'}}"/>
   </head>
 <body>
 
   <div class="container-fluid">
     <div class="row-fluid">
       <div class="span3">
-        {{{toc}}}
+        {{~> toc }}
       </div>
       <div class="span9 main">
-        {{> content}}
+        {{~> content}}
       </div>
     </div>
   </div>
 
-  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script type="text/javascript" src="{{assetsRelative}}/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript" src="{{asset 'js/bootstrap.min.js'}}"></script>
 </body>
 </html>

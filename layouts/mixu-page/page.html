@@ -3,28 +3,20 @@
   <head>
     <title>{{title}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="{{assetsRelative}}/css/style.css">
-    <link type="text/css" rel="stylesheet" href="{{assetsRelative}}/css/prettify.css"/>
-    {{styles}}
-
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript" src="{{assetsRelative}}/js/prettify.js"></script>
+    <link rel="stylesheet" href="{{asset 'css/style.css'}}">
+    <link type="text/css" rel="stylesheet" href="{{asset 'css/hljs-github.min.css'}}"/>
 
   </head>
-<body onload="prettyPrint()">
+<body>
 
   <div id="wrapper">
     <div id="header">
-
     </div>
 
     <div class="clear"></div>
     <div id="main">
       <div id="content" class="post">
-
-        {{> content}}
-
-<!-- end content -->
+        {{~> content}}
       </div>
     </div>
 

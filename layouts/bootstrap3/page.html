@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Bootstrap 3</title>
-    <link type="text/css" rel="stylesheet" href="{{assetsRelative}}/css/bootstrap.min.css"/>
-    {{styles}}
+    <title>{{title}}</title>
+    <link type="text/css" rel="stylesheet" href="{{asset 'css/bootstrap.min.css'}}"/>
+    <link type="text/css" rel="stylesheet" href="{{asset 'css/hljs-github.min.css'}}"/>
   </head>
 <body>
 
@@ -55,10 +55,10 @@
   </nav>
 
   <div class="container">
-    {{> content}}
+    {{~> content}}
   </div>
 
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script type="text/javascript" src="{{assetsRelative}}/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="{{asset '/js/bootstrap.min.js'}}"></script>
 </body>
 </html>

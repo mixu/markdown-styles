@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
     <title>{{title}}</title>
-    <link rel="stylesheet" href="{{assetsRelative}}/css/github-markdown.css">
+    <link type="text/css" rel="stylesheet" href="{{asset 'css/github-markdown.css'}}">
+    <link type="text/css" rel="stylesheet" href="{{asset 'css/hljs-github.min.css'}}"/>
     <style>
       body {
         min-width: 200px;
@@ -16,7 +17,7 @@
   </head>
   <body>
     <article class="markdown-body">
-      {{> content}}
+      {{~> content}}
     </article>
   </body>
 </html>

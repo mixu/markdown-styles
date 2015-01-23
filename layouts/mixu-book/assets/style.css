@@ -196,8 +196,8 @@ list-style-type: disc;
 }
 
 .post pre, .post code, .post tt {
-font: 0.8em 'droid sans mono', 'lucida console', monospace;
-line-height: 1.5;
+  font-family: 'droid sans mono', 'lucida console', monospace;
+  line-height: 1.5;
 }
 
 .post h3 {
