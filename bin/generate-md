@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 var fs = require('fs'),
     path = require('path'),
-    List = require('minitask').list,
-    opts = require('yargs');
+    opts = require('yargs'),
+    resolveArgs = require('../lib/resolve-args'),
+    render = require('../lib/render');
 
 opts.options({
     'layouts': { },
@@ -20,35 +21,9 @@ opts.options({
 
 var argv = opts.parse(process.argv);
 
-// defaults
-argv.input = path.resolve(process.cwd(), argv.input || './input/');
-argv.output = path.resolve(process.cwd(), argv.output || './output/');
-if(!argv.layout) {
-  argv.layout = 'jasonm23-markdown';
-}
-argv.defaultMeta = { title: 'example' };
+argv = resolveArgs(argv);
 
-// default runner
-if(argv.runner) {
-  argv.runner = path.resolve(process.cwd(), argv.runner);
-  runner = require(argv.runner);
-}
-
-// Load the layout
 var layoutDir = __dirname + '/../layouts/';
-
-// template is one of:
-if(fs.existsSync(process.cwd() + '/' + argv.layout)) {
-  // 1) the supplied argument (normalized)
-  argv.template = path.normalize(process.cwd() + '/' + argv.layout);
-} else if(fs.existsSync(layoutDir+argv.layout+'/page.html')) {
-  // 2) a preset layout from the layout dir
-  argv.template = path.normalize(layoutDir+argv.layout+'/page.html');
-} else {
-  // 3) the default layout
-  argv.template = path.normalize(layoutDir+'plain/page.html');
-}
-
 
 if(argv.layouts || !fs.existsSync(argv.input)) {
   if(!fs.existsSync(argv.input)) {
@@ -56,7 +31,7 @@ if(argv.layouts || !fs.existsSync(argv.input)) {
   }
   // show layouts
   console.log('Available layouts:\n'+
-      fs.readdirSync(__dirname+'/../layouts/')
+      fs.readdirSync(layoutDir)
         .sort(function(a, b) { return a.localeCompare(b); })
         .map(function(name) { return '\t' + name})
         .join('\n')
@@ -64,43 +39,18 @@ if(argv.layouts || !fs.existsSync(argv.input)) {
   process.exit();
 }
 
-if(argv['command']) {
-  argv['command'] = argv['command'].split(' ');
-}
-
-if(argv['asset-dir']) {
-  argv.assetDir = path.resolve(process.cwd() + '/' + argv['asset-dir']);
-}
-
-// parse --highlight-<extension>
-var hl = {};
-
-Object.keys(argv).forEach(function(name) {
-  var matched = (typeof name === 'string' ? name.match(/highlight\-(.*)/) : false);
-  if(name == 'highlight') {
-    argv[name] = findModule(argv[name], [ process.cwd, __dirname ]);
-    hl['default'] = require(argv[name]);
-  } else if(matched) {
-    var ext = matched[1];
-    argv[name] = findModule(argv[name], [ process.cwd, __dirname ]);
-    hl[ext] = require(argv[name]);
-  }
-});
-
 console.log('Layout: ' + argv.layout);
 console.log('Template file: ' + argv.template);
 console.log('Input: ' + argv.input);
-console.log('Output: ' + path.relative(process.cwd(), argv.output));
+console.log('Output: ' + argv.output);
 
+/*
 if(Object.keys(hl).length > 0) {
   console.log('Highlighters:');
   Object.keys(hl).forEach(function(ext) {
     console.log('\t' + ext, (ext === 'default' ? argv['highlight'] : argv['highlight-' + ext]));
   });
 }
+*/
 
-argv['highlight'] = hl;
-
-var runner = require('../lib2/runner.js');
-
-runner(argv);
+render(argv);

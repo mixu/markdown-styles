@@ -1,6 +1,6 @@
 var assert = require('assert'),
     pi = require('pipe-iterators'),
-    setOutputPath = require('../lib2/set-output-path');
+    setOutputPath = require('../lib/set-output-path');
 
 describe('set output path', function() {
 

@@ -88,8 +88,9 @@ I am a robot
 Maybe you want to print `robot` to the console 1000 times. Why not?
 
 ```ruby
-def robot_invasion
-  puts("robot " * 1000)
+class Car < ActiveRecord::Base
+  has_many :wheels, class_name: 'Wheel', foreign_key: 'car_id'
+  scope :available, -> { where(available: true) }
 end
 ```
 You see, that was formatted as code because it's been indented by four spaces.
