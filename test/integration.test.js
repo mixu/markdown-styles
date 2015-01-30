@@ -12,7 +12,7 @@ describe('integration tests', function() {
 
   describe('metadata tests', function() {
 
-    var templateDir = fixture.dir({
+    var layoutDir = fixture.dir({
       'page.html': '"{{title}}" by {{author}}\n{{> content}}'
     });
 
@@ -32,7 +32,7 @@ describe('integration tests', function() {
       mds.render({
         input: dir,
         output: out,
-        template: templateDir + '/page.html'
+        layout: layoutDir
       }, function() {
         assert.equal(fs.readFileSync(out + '/foo.html', 'utf8'), [
             '"Hello world" by Anonymous',
@@ -55,7 +55,7 @@ describe('integration tests', function() {
       mds.render({
         input: dir,
         output: out,
-        template: templateDir + '/page.html'
+        layout: layoutDir
       }, function() {
         assert.equal(fs.readFileSync(out + '/foo.html', 'utf8'), [
             '"Some title" by ',
@@ -74,31 +74,31 @@ describe('integration tests', function() {
           foo: { pn: 'foo' },
           'abc/bar': { pn: 'abc/bar' }
         }),
-        'foo.md': 'foo', // projectName foo
-        'foo/bar.md': 'bar', // projectName foo
-        'abc/bar/baz.md': 'baz' // projectName abc/bar
+        'foo.md': 'pn: aaa\nbase: keep\n---\nfoo', // projectName foo
+        'foo/bar.md': 'pn: bbb\n---\nbar', // projectName foo
+        'abc/bar/baz.md': 'pn: ccc\n---\nbaz' // projectName abc/bar
       });
 
-      var templateDir = fixture.dir({
-        'page.html': '"{{pn}}"\n{{> content}}'
+      var layoutDir = fixture.dir({
+        'page.html': '"{{pn}}","{{base}}"\n{{> content}}'
       });
       var out = fixture.dirname();
 
       mds.render({
         input: dir,
         output: out,
-        template: templateDir + '/page.html'
+        layout: layoutDir
       }, function() {
         assert.equal(fs.readFileSync(out + '/foo.html', 'utf8'), [
-            '"foo"',
+            '"foo","keep"',
             '<p>foo</p>\n'
           ].join('\n'));
         assert.equal(fs.readFileSync(out + '/foo/bar.html', 'utf8'), [
-            '"foo"',
+            '"foo",""',
             '<p>bar</p>\n'
           ].join('\n'));
         assert.equal(fs.readFileSync(out + '/abc/bar/baz.html', 'utf8'), [
-            '"abc/bar"',
+            '"abc/bar",""',
             '<p>baz</p>\n'
           ].join('\n'));
         done();

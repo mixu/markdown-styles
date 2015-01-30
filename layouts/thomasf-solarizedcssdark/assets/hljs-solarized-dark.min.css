@@ -8,7 +8,7 @@ Orginal Style from ethanschoonover.com/solarized (c) Jeremy Hull <sourdrums@gmai
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-  background: #fdf6e3;
+  /* background: #fdf6e3; */
   color: #657b83;
   -webkit-text-size-adjust: none;
 }

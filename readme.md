@@ -1,13 +1,13 @@
 # markdown-styles
 
-Converts Markdown files to HTML, with over a dozen builtin themes. The new `v2.0` release (Jan 2014) includes a ton of enhancements!
+Converts Markdown files to HTML, with over a dozen builtin themes. The new `v2.0` release includes a ton of enhancements!
 
 Looking for something to generate a blog from Markdown files? Check out [ghost-render](https://github.com/mixu/ghost-render).
 
 ## Features
 
 - `v2.0` is a major rewrite, with significant usability improvements; the core has been rewritten to use object mode streams via [pipe-iterators](https://github.com/mixu/pipe-iterators).
-- Includes 15+ ready-made CSS stylesheets for Markdown, see the bottom of the readme for screenshot.
+- Includes 15+ ready-made CSS stylesheets for Markdown, see the bottom of the readme for screenshots.
 - Reuse the stylesheets or use the `generate-md` tool to convert a folder of Markdown files to HTML using one of the built-in layouts or a custom layout.
 - Completely static output is easy to host anywhere.
 - Metadata support: Each file can include additional metadata in a header section (new in 2.0!), such as the page title and author name which can then be used in the layout.
@@ -18,7 +18,7 @@ Looking for something to generate a blog from Markdown files? Check out [ghost-r
   - Automatically detects the document title from the first heading in the Markdown markup (new in 2.0!)
 - Easier to get started with a custom layout via `--exports`, which exports a built in layout as a starting point for your custom layout (new in 2.0).
 - Create your own layout based on an existing layout via `--layout` with:
-  - Full Handlebars support for layouts, helpers and partials (new in 2.0!)
+  - Full [Handlebars](http://handlebarsjs.com/) support for layouts, helpers and partials (new in 2.0!)
   - Fully customizable table of contents template via the `toc` partial (new in 2.0!)
   - Support for relative path generation via the `{{asset 'path'}}` helper
 - API support: `markdown-styles` now has a public API (new in 2.0!)
@@ -161,7 +161,7 @@ Here is a list of all the built in features:
 - `{{~> toc}}`: renders the table of contents
 - `{{title}}`: renders the title from the metadata section
 
-Any metadata fields you have defined in the page's metadata section can be referenced in `page.html` by name. For example, `{{title}}` is replaced with the value of the `title` field when the template is rendered.
+Any metadata fields you have defined in the page's metadata section can be referenced in `page.html` by name. For example, `{{title}}` is replaced with the value of the `title` metadata field when the template is rendered.
 
 You can include your own helpers and partials in your custom layout as shown below.
 
@@ -225,17 +225,15 @@ will result in:
 </ul>
 ```
 
-### Template Evaluation
+### `meta.json`
 
+If you want to apply additional metadata to all Markdown files in a particular folder, you can add a file named `meta.json` to the input folder. (Note: in `v1.x`, `meta.json` was read from `process.cwd()`, e.g. the folder from which you ran `generate-md`).
 
-#### `meta.json`
-You can add a file named `meta.json` to the folder from which you run `generate-md`.
-
-The metadata in that directory will be read and replacements will be made for corresponding `{{names}}` in the template.
+`meta.json` will be read, and the values in it are added to the regular metadata. The values from `meta.json` act like default values, e.g. the per-file metadata section values will override the values from `meta.json`.
 
 The metadata is scoped by the top-level directory in `./input`.
 
-For example:
+For example, a `./input/meta.json` file like this:
 
 ````json
 {
@@ -245,14 +243,17 @@ For example:
 }
 ````
 
-would make the metadata value `{{repoUrl}}` available in the template, for all files that are in the directory `./input/foo`.
+would make the metadata value `{{repoUrl}}` available in the template, for all files that are in the directory `./input/foo`. If any markdown file in `./input/foo/` defines a metadata value called `repoUrl`, then that value will override the value from `meta.json`.
 
+### API
 
+It exists, and uses the same options as `generate-md`. Docs TODO, see `bin/generate-md` and `test/api.test.js` for now.
 
 ## Acknowledgments
 
-I'd like to thank the authors the following CSS stylesheets:
+I'd like to thank the following people for either contributing to markdown-styles directly or making CSS stylesheets available with a permissive open source license:
 
+- @iamdoron for contributing the initial implementation of the Handlebars templating integration
 - the `github` style is based on [sindresorhus/github-markdown-css](https://github.com/sindresorhus/github-markdown-css)
 - the `bootstrap3` style was contributed by @MrJuliuss
 - jasonm23-dark, jasonm23-foghorn, jasonm23-markdown and jasonm23-swiss are based on https://github.com/jasonm23/markdown-css-themes by [jasonm23](https://github.com/jasonm23)
