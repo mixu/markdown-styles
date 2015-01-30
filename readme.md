@@ -6,27 +6,30 @@ Looking for something to generate a blog from Markdown files? Check out [ghost-r
 
 ## Features
 
-- Ready-made CSS stylesheets for Markdown, just copy the assets folder you want
-- Bundled with `generate-md`, a small tool that converts a folder of Markdown documents into a output folder of HTML documents, preserving the directory structure
-- Use your own custom markup and CSS via `--layout`.
-- Support for relative paths to the assets folder via `{{assetsRelative}}` and document table of content generation via `{{toc}}`.
-- Support for generic metadata via a meta.json file
+- `v2.0` is a major rewrite, with significant usability improvements; the core has been rewritten to use object mode streams via [pipe-iterators](https://github.com/mixu/pipe-iterators)
+- Includes 15+ ready-made CSS stylesheets for Markdown
+- Reuse the stylesheets or use `generate-md` to convert a folder of Markdown documents to HTML, preserving the directory structure
+- Completely static output is easy to host anywhere
+- Metadata support: Each file can include additional metadata, such as the title and author name which can then be used in the layout (new in 2.0!)
+- Layout features:
+  - Built in support for syntax highlighting via highlight.js (new in 2.0!)
+  - All layouts now include a Github-style code highlighting theme (v2.0!)
+  - Built in table of contents generation from Markdown headings
+  - Automatically detects the document title from the first heading in the Markdown markup (new in 2.0!)
+- Easier to get started with a custom layout via `--exports`, which exports a built in layout as a starting point (new in 2.0).
+- Create your own layout based on an existing layout via `--layout` with:
+  - Full Handlebars support for layouts, helpers and partials (new in 2.0!)
+  - Fully customizable table of contents template via the `toc` partial (new in 2.0!)
+  - Support for relative path generation via the `{{asset 'path'}}` helper
+- API support: `markdown-styles` now has a public API
+- Changes in 2.0:
+  - Deprecated `--command`, `{{styles}}`, `--template`, `--asset-dir`, `--partials`, `--helpers`, `--runner`.
+  - Improved highlighter support, including adding a default hl.js style in every layout and enabling highlighting by default
+  - Layout partials and helpers have been renamed: `{{content}}` -> `{{> content}}`, `{{toc}}` -> `{{> toc}}`, `{{assetsRelative}}` -> `{{asset 'path'}}`
+  - The default layout is now `github`
+
 
 -----
-
-## 2.0 changes
-
-- deprecated `--command`
-- metadata is now stored directly in each file, or alternatively in the top level meta.json
-- highlighting is now enabled by default
-    - language-specific highlighting still works
-- all layouts now ship with a default highlight theme
-- the default layout is now `github` 
-- better spec for layout authoring:
-    - `{{content}}`: renders the markdown content
-    - `{{asset "asset-path"}}`: renders a specific asset path (previously `{{assetsRelative}}` / `{{styles}}`)
-    - `{{toc}}`: renders the table of contents
-    - `{{title}}`: renders the title
 
 ## Quickstart
 
@@ -38,70 +41,94 @@ Create a markdown file and then convert it to html:
 
     mkdir input/
     echo "# Hello world\n YOLO" > input/index.md
-    generate-md --layout mixu-gray --input ./input --output ./output
+    generate-md --layout github --input ./input --output ./output
     google-chrome ./output/index.html
 
-Try out different layouts by changing the `--layout` parameter; screenshots at the bottom of this page.
+Try out different layouts by changing the `--layout` parameter; screenshots are at the bottom of this page.
 
 ![montage](https://github.com/mixu/markdown-styles/raw/master/screenshots/montage.png)
 
-If you want to make use of the bundled layouts stylesheets as a basis for your own site, copy the ./assets folder and point `--layout` to your own layout.
 
-For example:
+## Metadata sections
 
-    git clone https://github.com/mixu/markdown-styles.git ./markdown-styles
-    cp -Rv ./markdown-styles/layouts/mixu-gray ./my-layout
-    nano ./my-layout/page.html
+Each markdown file can have metadata associated with it. To set the metadata, start your markdown file with a metadata block that looks like this:
 
-Now edit the files `./my-layout/page.html` and run:
+```
+title: Page title
+---
+# Hello world
+YOLO
+```
 
-    generate-md --layout ./my-layout/page.html --input ./input --output ./output
+You can reference the metadata values in your template by name. The default layouts only make use of the `{{title}}` metadata value, but your custom layouts can refer to any additional fields you want.
 
-## What's new in v1.2.x
+`{{title}}` is used as the page title. If you do not set the value explicitly, it is automatically detected from the first heading in the markdown file.
 
-`v1.2.0`: Code syntax highlighting has been reworked so that syntax highlighters have become pluggable. See the relevant section below on how to use the new system.
 
-`v1.2.1`: added the `bootstrap3` style, thanks @MrJuliuss!
+## CLI
 
-`v1.2.2`: added the `github` style, based on [sindresorhus/github-markdown-css](https://github.com/sindresorhus/github-markdown-css).
+- `--input <path>` specifies the input directory (default: `./input/`).
+- `--output <path>` specifies the output directory (default: `./output/`).
+- `--layout <path>` specifies the layout. It can be:
+  - The name of a builtin layout, such as `github` or `mixu-page`.
+  - A path to a layout folder (full path, or path relative to `process.cwd`).
+  - A layout folder consists of:
+    - `./page.html`, the template to use in the layout
+    - `./assets`, the assets folder to copy over to the output
+    - `./partials`, the [partials](#partials) directory
+    - `./helpers`, the [helpers](#helpers) directory
+  - Note that `--template`, `--asset-dir`, `--partials` and `--helpers` are deprecated. This simplifies the loading logic. You need to put each of those resources in the same layout folder.
+- `--export <name>`: Exports a built-in layout to a directory. Use `--output <path>` to specify the location to write the built-in layout. For example, `--export github --output ./custom-layout` will copy the `github` builtin layout to `./custom-layout`.
+- `--highlight-<language> <module>`: Specifies a custom highlighter module to use for a specific language. For example, `--highlight-csv mds-csv` will highlight any `csv` code blocks using the `mds-csv` module.
 
-## Just using the stylesheets
+## Syntax highlighting
 
-Alternatively, if you just want the stylesheets for your own project, you can just copy the `./assets` folder from the layout you want.
+`v2.0` has syntax highlighting enabled by default. Every layout has also been updated to include a default [highlight.js](https://highlightjs.org/) syntax highlighting theme, which means everything works out of the box. For more highlighter themes, [check out this demo site](https://highlightjs.org/static/demo/) - you can find the [highlight.js CSS styles here](https://github.com/isagalaev/highlight.js/tree/master/src/styles).
 
-To preview the styles in the browser, clone this repo locally and then open `./output/index.html` or run `make preview` which opens that page in your default browser.
+To enable language-specific syntax highlighting, you need to specify the language of the code block, e.g.:
 
-## Using generate-md
+    ```js
+    var foo = bar;
+    ```
 
-This project also includes a small tool for generating HTML files from Markdown files.
+`v2.0` also supports additional language specific syntax highlighters - check out [mds-csv](https://github.com/mixu/mds-csv) for an example of a syntax highlighter for a specific language.
 
-The console tool is `generate-md`, e.g.
+To enable additional language-specific syntax highlighters, install the module (e.g. `mds-csv`), then add `--highlight-{languagename} {modulename}` to the command line. For example, `generate-md --highlight-csv mds-csv ...` to enable the CSV highlighter for `csv` code blocks.
 
-    generate-md --layout jasonm23-foghorn --output ./test/
+## Writing your own layout
 
-[Here is an example](https://github.com/zendesk/radar/blob/gh-pages/Makefile) of how I generated the project docs for [Radar](https://github.com/zendesk/radar) using generate-md, a Makefile and a few custom assets.
+`v2.0` makes it easier to get started with a custom layout via `--exports`, which exports a built in layout as a starting point. Just pick a reasonable built in layout and start customizing. For example:
 
-`--input` specifies the input directory (default: `./input/`).
+    generate-md --export github --output ./my-layout
 
-`--output` specifies the output directory (default: `./output/`).
+will export the `github` layout to `./my-layout`. To make use of your new layout:
 
-`--layout` specifies the layout to use. This can be either one of built in layouts, or a path to a custom template file with a set of custom assets.
+    generate-md --layout ./my-layout --input ./some-input --output ./output
 
-`--partials` specifies the [partials](#partials) directory. 
+If you look under `./my-layout`, you'll see that a layout folder consists of:
 
-`--helpers` specifies the [helpers](#helpers) directory. 
+- `./page.html`, the template to use in the layout
+- `./assets`, the assets folder to copy over to the output
+- `./partials`, the [partials](#partials) directory
+- `./helpers`, the [helpers](#helpers) directory
 
-To override the layout, simply create a directory, such as `./my-theme/`, with the following structure:
+See the next few sections for more details for how these features work.
 
-````bash
-├── my-theme
-│   ├── assets
-│   │   ├── css
-│   │   ├── img
-│   │   └── js
-│   └── page.html
 
-````
+### Template Evaluation (page.html)
+
+The [handlebars.js](https://github.com/wycats/handlebars.js) template language is used to evaluate both the template and the markdown.
+
+
+
+Together with the `meta.json`, partials and helpers both template and markdown can be enhanced.
+
+
+### Assets folder (./assets)
+
+All files in the assets folder are copied from the layout folder to the output folder.
+
+
 
 Then, running a command like:
 
@@ -117,28 +144,17 @@ This means that you could, for example, point a HTTP server at the root of `./te
 
 You can also use the current directory as the output (e.g. for Github pages).
 
-## Syntax highlighting support (changed in v1.2.x)
+- better spec for layout authoring:
+    - `{{> content}}`: renders the markdown content
+    - `{{asset 'asset-path'}}`: renders a specific asset path (previously `{{assetsRelative}}` / `{{styles}}`)
+    - `{{> toc}}`: renders the table of contents
+    - `{{title}}`: renders the title
+      - if the title is not set, it will be automatically detected from the headings
 
-`generate-md` supports syntax highlighting during the Markdown-to-HTML conversion process.
-
-Supported:
-
-- highlight.js via [mds-hljs](https://github.com/mixu/mds-hljs)
-- csv (using highlight.js css classes) via [mds-csv](https://github.com/mixu/mds-csv)
-
-To enable the syntax highlighting support, install the module (e.g. `mds-hljs`) and then use `--highlight` (e.g. `--highlight mds-hljs`) to activate the highlighter.
-
-For example, to use `highlight.js` to highlight all code blocks:
-
-    npm install -g markdown-styles mds-hljs
-    generate-md --highlight mds-hljs ...
-
-You will also need to include [one of the highlight.js CSS style sheets](http://softwaremaniacs.org/media/soft/highlight/test.html) in your assets folder/layout file CSS (e.g. by using a custom `--layout` file).
 
 
 ### Template Evaluation
 
-The [handlebars.js](https://github.com/wycats/handlebars.js) template language is used to evaluate both the template and the markdown. Together with the `meta.json`, partials and helpers both template and markdown can be enhanced.
 
 #### `meta.json`
 You can add a file named `meta.json` to the folder from which you run `generate-md`.
@@ -179,7 +195,7 @@ While in the html you may:
 </ul>
 ```
 
-Which will result in 
+Which will result in
 
 ```html
 <ul>
@@ -232,43 +248,12 @@ The result:
 </ul>
 ```
 
-### Language-specific syntax highlighting and custom highlighters
-
-You can use `--highlight-<language> <module>` to override the syntax highlighter for a specific language. `<module>` can also be a path to a file.
-
-For example, you might use the `mds-csv` highlighter for csv code blocks. Input code block with language:
-
-    ```csv
-    "EmployeeID","EmployeeName","PhoneNumber","ZipCode"
-    "1048","Jimmy Adams",5559876543,12345
-    ```
-
-Command:
-
-    generate-md --highlight-csv mds-csv ...
-
-You can write your own syntax highlighter wrappers. Have a look at [mds-hljs](https://github.com/mixu/mds-hljs) and [mds-csv](https://github.com/mixu/mds-csv) for examples. These come in two flavors:
-
-Asynchronous (three parameters):
-
-    module.exports = function(code, lang, onDone) {
-        return onDone(null, result);
-    };
-
-Synchronous (two parameters):
-
-    module.exports = function(code, lang) {
-        return require('highlight.js').highlightAuto(code).value;
-    };
-
-## --asset-dir
-
-`--asset-dir <path>`: Normally, the asset directory is assumed to be `./assets/` in the same folder the `--layout` file is. You can override it to a different asset directory explicitly with `--asset-dir`, which is useful for builds where several directories use the same layout but different asset directories.
-
 ## Acknowledgments
 
 I'd like to thank the authors the following CSS stylesheets:
 
+- the `github` style is based on [sindresorhus/github-markdown-css](https://github.com/sindresorhus/github-markdown-css)
+- the `bootstrap3` style was contributed by @MrJuliuss
 - jasonm23-dark, jasonm23-foghorn, jasonm23-markdown and jasonm23-swiss are based on https://github.com/jasonm23/markdown-css-themes by [jasonm23](https://github.com/jasonm23)
 - thomasf-solarizedcssdark and thomasf-solarizedcsslight are based on https://github.com/thomasf/solarized-css by [thomasf](https://github.com/thomasf)
 - markedapp-byword is based on the user-contributed stylesheet at http://bywordapp.com/extras/
@@ -278,6 +263,10 @@ I'd like to thank the authors the following CSS stylesheets:
 ## Screenshots of the layouts
 
 Note: these screenshots are generate via cutycapt, so they look worse than they do in a real browser.
+
+### github
+
+![github](https://github.com/mixu/markdown-styles/raw/master/screenshots/github.png)
 
 ### roryg-ghostwriter
 
@@ -339,15 +328,9 @@ Note: these screenshots are generate via cutycapt, so they look worse than they 
 
 ![bootstrap3](https://github.com/mixu/markdown-styles/raw/master/screenshots/bootstrap3.png)
 
-## Adding new styles
+## Contributing new styles to markdown-styles
 
-Create a new directory under `./output/themename`.
-
-If a file called `./layouts/themename/page.html` exists, it is used, otherwise the default footer and header in `./layouts/plain/` are used.
-
-The switcher is an old school frameset, you need to add a link in `./output/menu.html`.
-
-To regenerate the pages, you need node:
+Add new layouts to `./layouts/name`. To regenerate the pages, you need to run:
 
     git clone git://github.com/mixu/markdown-styles.git
     npm install

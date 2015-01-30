@@ -1,0 +1,38 @@
+USAGE
+
+    generate-md [options]
+
+OPTIONS
+
+    --input <path>     Path to the input directory.
+                       All markdown files in the directory and subdirectories
+                       are included. Any non-markdown files are copied from
+                       the input directory to the same relative location
+                       in the output directory.
+                       Defaults to `./input`
+
+    --output <path>    Path to use for writing the output.
+                       Defaults to `./output`
+
+    --layout <path>    Specifies the layout. It can be:
+                       - the name of a builtin layout
+                       - a path to a custom layout directory
+                       Defaults to `github`.
+
+    --layouts          Lists all the builtin layout names.
+
+    --export <name>    Exports a built-in layout to a directory.
+                       Use `--output <path>` to specify the location
+                       to write the built-in layout. For example,
+                       `--export github --output ./custom-layout`
+                       will copy the `github` builtin layout to
+                       `./custom-layout`.
+
+    --highlight-<lang> Specifies a custom highlighter module to
+      <module>         use for a specific language. For example,
+                       `--highlight-csv mds-csv` will highlight any
+                       `csv` code blocks using the `mds-csv` module.
+
+    --help, -h         Show this help.
+
+    --version, -v      Version info.

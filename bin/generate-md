@@ -23,6 +23,11 @@ if (argv.v || argv.version) {
   process.exit();
 }
 
+if (argv.help || argv.h) {
+  console.log(fs.readFileSync(__dirname + '/usage.txt').toString());
+  process.exit();
+}
+
 argv = resolveArgs(argv);
 
 var layoutDir = __dirname + '/../layouts/';
