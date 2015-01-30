@@ -75,7 +75,7 @@ The output HTML is fully static and uses relative paths to the asset files, whic
 To enable language-specific syntax highlighting, you need to specify the language of the code block, e.g.:
 
     ```js
-    var foo = bar;
+    var foo = 'bar';
     ```
 
 `v2.0` also supports additional language specific syntax highlighters - check out [mds-csv](https://github.com/mixu/mds-csv) for an example of a syntax highlighter for a specific language.
@@ -84,7 +84,16 @@ To enable additional language-specific syntax highlighters, install the module (
 
 ## Table of contents
 
-Most built in layouts include the `{{~> toc}}` partial, which generates a table of contents list. The list contains links to every header in your Markdown file. In addition, every Markdown header is automatically converted to a linkable anchor (e.g. `#table_of_contents`) when the page is generated. You can customize the table of contents markup by overriding the `[toc.hbs](./builtin/partials/toc.hbs)` partial in your custom layout.
+The following built in layouts include the `{{~> toc}}` partial:
+
+- mixu-book
+- mixu-bootstrap-2col
+- mixu-gray
+- mixu-radar
+
+These are mostly templates that have a sensible place to put this table of contents, such as a sidebar. I didn't want to default to putting a table of contents into the layouts that had no sidebar, but you can add it quite easily.
+
+The `{{~> toc}}` partial generates a table of contents list. The list contains links to every header in your Markdown file. In addition, every Markdown header is automatically converted to a linkable anchor (e.g. `#table_of_contents`) when the page is generated. You can customize the table of contents markup by overriding the ./partials/[toc.hbs](https://github.com/mixu/markdown-styles/blob/master/builtin/partials/toc.hbs) partial in your custom layout.
 
 ## Metadata sections
 
@@ -96,6 +105,8 @@ title: Page title
 # Hello world
 YOLO
 ```
+
+There must be at least three - characters that separate the header from the rest of the content (on a single line).
 
 You can reference the metadata values in your template by name. The default layouts only make use of the `{{title}}` metadata value, but your custom layouts can refer to any additional fields you want.
 
@@ -110,7 +121,7 @@ tags: ["handlebars", "template"]
 # Hello world
 ```
 
-... which can then be iterated over using the standard handlebars `{{#each}}` iterator:
+... which can then be [iterated over using the standard [Handlebars `{{#each}}` iterator](http://handlebarsjs.com/block_helpers.html):
 
 ```html
 <ul>
@@ -129,7 +140,7 @@ which will result in:
 </ul>
 ```
 
-If you take a look at the `{{~> toc}}` built in partial, you can see that it is actually iterating over a metadata field called `headings` using the same syntax. The `headings` metadata is an array of objects with an `id` field (the HTML anchor id), a `text` field (the heading text) and a `depth` field (the depth of the heading, e.g. the number of `#` characters in the heading).
+If you take a look at [the `{{~> toc}}` built in partial](https://github.com/mixu/markdown-styles/blob/master/builtin/partials/toc.hbs), you can see that it is actually iterating over a metadata field called `headings` using the same syntax. The `headings` metadata is an array of objects with an `id` field (the HTML anchor id), a `text` field (the heading text) and a `depth` field (the depth of the heading, e.g. the number of `#` characters in the heading).
 
 ## Writing your own layout
 
@@ -173,7 +184,16 @@ To refer to files in the assets folder, use the `{{asset 'path'}}` helper. For e
 
 ### Partials
 
-Partials are html files that can be included via handlebars `{{> partialName}}` style. Usually they are .html files. For example, if `footer.html` resides in the partials directory, `{{> footer}}` will be replaced with `footer.html`'s content. For more advanced topics, see [handlebars partials documentation](https://github.com/wycats/handlebars.js#partials). Don't use `content.html`, it is reserved to the html generated from the markdown. You can override the `toc` partial by adding `toc.html` as a partial in your custom layout.
+Partials are html files that can be included via handlebars `{{> partialName}}` style. Usually they are .html files. For example, if `footer.html` resides in the partials directory, `{{> footer}}` will be replaced with `footer.html`'s content. For more advanced topics, see [handlebars partials documentation](https://github.com/wycats/handlebars.js#partials). Don't use `content.html`, it is reserved to the html generated from the markdown. You can override the `toc` partial by adding `./partials/toc.html` as a partial in your custom layout, e.g.
+
+```html
+<h1>My Table of Contents</h1>
+<ul class="nav nav-list">
+  {{#each headings}}
+    <li><a href="#{{id}}">{{text}}</a></li>
+  {{/each}}
+</ul>
+```
 
 ### Helpers
 
@@ -187,6 +207,8 @@ module.exports = function(){
 };
 ```
 
+Next, in `./my-layout`, run `npm install handlebars` (since we're requiring handlebars) in the code.
+
 In your metadata heading:
 
 ```
@@ -194,7 +216,7 @@ links:
   - url: "/hello"
     body: "Hello"
   - url: "/world"
-    body": "World!"
+    body: "World!"
 ---
 # Hello world
 ```
@@ -209,10 +231,12 @@ links: [ { url: "/hello", body: "Hello"},
 and somewhere in your template:
 
 ```html
-<ul>{{#links}}<li>{{linkTo}}</li>{{/links}}</ul>
+<ul>{{#links}}<li>{{{linkTo}}}</li>{{/links}}</ul>
 ```
 
-will result in:
+Note the usage of the "triple-stash", e.g. `{{{` here. The technical reason for this is documented [in this issue in Handlebars](https://github.com/wycats/handlebars.js/issues/886) and will be apparently fixed in Handlebars `3.0`. For now, use triple-stash to invoke any helpers that generate HTML.
+
+... will result in:
 
 ```html
 <ul>
