@@ -7,11 +7,11 @@ https.get({
     path: '/repos/w0ng/googlefontdirectory/contents/fonts',
     headers: { 'user-agent': 'nodejs'}
   }, function(res) {
-  console.log("Got response: " + res.statusCode);
+  console.log('Got response: ' + res.statusCode);
   console.log(res.headers);
   var data = '';
   res.setEncoding('utf8');
-  res.on('data', function (chunk) {
+  res.on('data', function(chunk) {
     data += chunk;
   });
   res.on('end', function() {
@@ -23,12 +23,12 @@ https.get({
       });
       console.log('# Run the following commands to get the fonts: ');
       items.forEach(function(item) {
-        console.log('cd ~/.fonts && wget -N https://github.com/w0ng/googlefontdirectory/raw/master/'+item.path);
+        console.log('cd ~/.fonts && wget -N https://github.com/w0ng/googlefontdirectory/raw/master/' + item.path);
       });
-      console.log('fc-cache -fv')
+      console.log('fc-cache -fv');
     });
   });
 
 }).on('error', function(e) {
-  console.log("Got error: " + e.message);
+  console.log('Got error: ' + e.message);
 });

@@ -5,7 +5,7 @@ var assert = require('assert'),
 describe('set output path', function() {
 
   it('can set a basic output path', function(done) {
-    pi.fromArray([ { path: '/input/bar.md' }, { path: '/input/baz.md' } ])
+    pi.fromArray([{ path: '/input/bar.md' }, { path: '/input/baz.md' }])
       .pipe(setOutputPath({
         input: '/input',
         output: '/output',

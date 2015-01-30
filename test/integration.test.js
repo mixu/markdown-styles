@@ -66,6 +66,8 @@ describe('integration tests', function() {
       });
     });
 
+    it('If there is no first heading, the file name is used (without the file extension)');
+
     it('reads and scopes the meta.json based on the path relative to target directory', function(done) {
       var dir = fixture.dir({
         'meta.json': JSON.stringify({
@@ -74,7 +76,7 @@ describe('integration tests', function() {
         }),
         'foo.md': 'foo', // projectName foo
         'foo/bar.md': 'bar', // projectName foo
-        'abc/bar/baz.md': 'baz', // projectName abc/bar
+        'abc/bar/baz.md': 'baz' // projectName abc/bar
       });
 
       var templateDir = fixture.dir({
@@ -229,17 +231,10 @@ describe('integration tests', function() {
           'a<p>a</p>',
           '<h1 id="foo">foo</h1>',
           '<pre class="hljs"><code>' +
-          '<span class="hljs-keyword">var</span> foo = bar;</code></pre>b',
+          '<span class="hljs-keyword">var</span> foo = bar;</code></pre>b'
         ].join('\n'));
         done();
       });
     });
-
-    it('supports custom syntax highlighters for specific languages', function(done) {
-      done();
-    });
-
   });
-
-
 });

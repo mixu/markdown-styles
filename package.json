@@ -38,6 +38,7 @@
     "yargs": "~1.1.3"
   },
   "devDependencies": {
-    "file-fixture": "0.0.2"
+    "file-fixture": "0.0.2",
+    "mds-csv": "0.0.0"
   }
 }

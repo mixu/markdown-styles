@@ -7,27 +7,29 @@ var fs = require('fs'),
 
 opts.options({
     'layouts': { },
+    'help': { },
     'layout': { },
     'input': { },
     'output': { },
-    'runner': { },
-    'command': { },
-    'asset-dir': { },
-    'partials': { },
-    'helpers': { },
-    'highlight': { }
+    'v': { },
+    'version': { }
   })
-  .boolean('layouts');
+  .boolean('layouts').boolean('help').boolean('v').boolean('version');
 
 var argv = opts.parse(process.argv);
+
+if (argv.v || argv.version) {
+  console.log(require('../package.json').version);
+  process.exit();
+}
 
 argv = resolveArgs(argv);
 
 var layoutDir = __dirname + '/../layouts/';
 
-if(argv.layouts || !fs.existsSync(argv.input)) {
+if (argv.help || argv.layouts || !fs.existsSync(argv.input)) {
   if(!fs.existsSync(argv.input)) {
-    console.log(argv.input+' does not exist');
+    console.log(argv.input + ' does not exist');
   }
   // show layouts
   console.log('Available layouts:\n'+
@@ -40,7 +42,6 @@ if(argv.layouts || !fs.existsSync(argv.input)) {
 }
 
 console.log('Layout: ' + argv.layout);
-console.log('Template file: ' + argv.template);
 console.log('Input: ' + argv.input);
 console.log('Output: ' + argv.output);
 
