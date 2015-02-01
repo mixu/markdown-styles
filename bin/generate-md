@@ -32,7 +32,9 @@ argv = resolveArgs(argv);
 
 var layoutDir = __dirname + '/../layouts/';
 
-if (argv.help || argv.layouts || !fs.existsSync(argv.input)) {
+if (argv.help ||
+    argv.layouts ||
+    (!argv['export'] && !fs.existsSync(argv.input))) {
   if(!fs.existsSync(argv.input)) {
     console.log(argv.input + ' does not exist');
   }
