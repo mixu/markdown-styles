@@ -52,13 +52,12 @@ console.log('Layout: ' + argv.layout);
 console.log('Input: ' + argv.input);
 console.log('Output: ' + argv.output);
 
-/*
-if(Object.keys(hl).length > 0) {
+
+if(argv.highlight && Object.keys(argv.highlight).length > 0) {
   console.log('Highlighters:');
-  Object.keys(hl).forEach(function(ext) {
-    console.log('\t' + ext, (ext === 'default' ? argv['highlight'] : argv['highlight-' + ext]));
+  Object.keys(argv.highlight).forEach(function(ext) {
+    console.log('\t' + ext, argv['highlight-' + ext]);
   });
 }
-*/
 
 render(argv);
