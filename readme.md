@@ -121,7 +121,7 @@ tags: ["handlebars", "template"]
 # Hello world
 ```
 
-... which can then be [iterated over using the standard [Handlebars `{{#each}}` iterator](http://handlebarsjs.com/block_helpers.html):
+... which can then be [iterated over using the standard Handlebars `{{#each}}` iterator](http://handlebarsjs.com/block_helpers.html):
 
 ```html
 <ul>
@@ -144,7 +144,7 @@ If you take a look at [the `{{~> toc}}` built in partial](https://github.com/mix
 
 ## Writing your own layout
 
-`v2.0` makes it easier to get started with a custom layout via `--exports`, which exports a built in layout as a starting point. Just pick a reasonable built in layout and start customizing. For example:
+`v2.0` makes it easier to get started with a custom layout via `--export`, which exports a built in layout as a starting point. Just pick a reasonable built in layout and start customizing. For example:
 
     generate-md --export github --output ./my-layout
 
@@ -277,6 +277,7 @@ It exists, and uses the same options as `generate-md`. Docs TODO, see `bin/gener
 
 I'd like to thank the following people for either contributing to markdown-styles directly or making CSS stylesheets available with a permissive open source license:
 
+- the `witex` style is based on [AndrewBelt/WiTeX](https://github.com/AndrewBelt/WiTeX)
 - @iamdoron for contributing the initial implementation of the Handlebars templating integration
 - the `github` style is based on [sindresorhus/github-markdown-css](https://github.com/sindresorhus/github-markdown-css)
 - the `bootstrap3` style was contributed by @MrJuliuss
