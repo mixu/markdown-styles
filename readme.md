@@ -289,7 +289,11 @@ I'd like to thank the following people for either contributing to markdown-style
 
 ## Screenshots of the layouts
 
-Note: these screenshots are generate via cutycapt, so they look worse than they do in a real browser.
+Note: these screenshots are generated via phantomjs, so they look worse than they do in a real browser because the font rendering is just bad and lacks webfont support. For example, WiTeX actually uses the Latin Modern Roman font from TeX but the screenshots show the fallback font.
+
+### github
+
+![github](https://github.com/mixu/markdown-styles/raw/master/screenshots/github.png)
 
 ### github
 
@@ -372,3 +376,9 @@ You also need to install the web fonts locally so that cutycapt will find them, 
 Finally, run:
 
     make screenshots
+
+If you have phantomjs installed, run:
+
+    make phantomjs
+
+which will use a phantomjs script to capture the screenshots.
