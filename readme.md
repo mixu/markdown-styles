@@ -295,9 +295,9 @@ Note: these screenshots are generated via phantomjs, so they look worse than the
 
 ![github](https://github.com/mixu/markdown-styles/raw/master/screenshots/github.png)
 
-### github
+### witex
 
-![github](https://github.com/mixu/markdown-styles/raw/master/screenshots/github.png)
+![witex](https://github.com/mixu/markdown-styles/raw/master/screenshots/witex.png)
 
 ### roryg-ghostwriter
 
