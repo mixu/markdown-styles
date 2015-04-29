@@ -33,7 +33,7 @@
     "mkdirp": "0.3.5",
     "pipe-iterators": "~1.1.0",
     "resolve": "~0.6.1",
-    "wildglob": "0.0.1",
+    "wildglob": "0.0.2",
     "xtend": "~4.0.0",
     "yargs": "~1.1.3"
   },
