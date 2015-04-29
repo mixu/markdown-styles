@@ -275,6 +275,8 @@ It exists, and uses the same options as `generate-md`. Docs TODO, see `bin/gener
 
 ## Acknowledgments
 
+I'd like to thank @AaronJan for contributing a patch that adds support for Windows (for `v.2.2.0`+).
+
 I'd like to thank the following people for either contributing to markdown-styles directly or making CSS stylesheets available with a permissive open source license:
 
 - the `witex` style is based on [AndrewBelt/WiTeX](https://github.com/AndrewBelt/WiTeX)
