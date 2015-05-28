@@ -6,28 +6,30 @@ Looking for something to generate a blog from Markdown files? Check out [ghost-r
 
 ## Features
 
-- `v2.0` is a major rewrite, with significant usability improvements; the core has been rewritten to use object mode streams via [pipe-iterators](https://github.com/mixu/pipe-iterators).
+- `v2.3` adds one new feature: header hover anchor links. When you hover over a header, a hover anchor link appears to the side of the header. Clicking on that link or coyping its URL produces a link to that specific location on the page. All built-in layouts support this feature by default.
+- `v2.2` added Windows support (!)
 - Includes 15+ ready-made CSS stylesheets for Markdown, see the bottom of the readme for screenshots.
 - Reuse the stylesheets or use the `generate-md` tool to convert a folder of Markdown files to HTML using one of the built-in layouts or a custom layout.
 - Completely static output is easy to host anywhere.
-- Metadata support: Each file can include additional metadata in a header section (new in 2.0!), such as the page title and author name which can then be used in the layout.
-- Layout features:
-  - Built in support for code syntax highlighting via highlight.js (new in 2.0!)
-  - All layouts now include a Github-style code highlighting theme by default (new v2.0!)
-  - Built in table of contents generation from Markdown headings, now fully customizable by replacing the `{{> toc}}` partial in custom layout (new in 2.0!).
-  - Automatically detects the document title from the first heading in the Markdown markup (new in 2.0!)
-- Easier to get started with a custom layout via `--exports`, which exports a built in layout as a starting point for your custom layout (new in 2.0).
-- Create your own layout based on an existing layout via `--layout` with:
-  - Full [Handlebars](http://handlebarsjs.com/) support for layouts, helpers and partials (new in 2.0!)
-  - Fully customizable table of contents template via the `toc` partial (new in 2.0!)
-  - Support for relative path generation via the `{{asset 'path'}}` helper
-- API support: `markdown-styles` now has a public API (new in 2.0!)
-- Changes in 2.0:
-  - Deprecated `--command`, `{{styles}}`, `--template`, `--asset-dir`, `--partials`, `--helpers`, `--runner`. Most of this functionality can be easily replicated much more cleanly with the new features.
-  - Improved highlighter support. Every built in layout now includes a default highlight.js CSS stylesheet and you no longer need to add extra CLI options to enable highlighting.
-  - Layout partials and helpers have been renamed: `{{content}}` -> `{{> content}}`, `{{toc}}` -> `{{> toc}}`, `{{assetsRelative}}` -> `{{asset 'path'}}`
-  - The default layout is now `github`, which looks a lot like Github readmes.
+- Metadata support: Each file can include additional metadata in a header section, such as the page title and author name which can then be used in the layout.
 
+### Layout features
+
+- Built in support for code syntax highlighting via highlight.js
+- All layouts now include a Github-style code highlighting theme by default (new v2.0!)
+- Built in table of contents generation from Markdown headings, now fully customizable by replacing the `{{> toc}}` partial in custom layout .
+- Automatically detects the document title from the first heading in the Markdown markup
+
+## Features for creating your own layout
+
+- Easier to get started with a custom layout via `--exports`, which exports a built in layout as a starting point for your custom layout.
+- Create your own layout based on an existing layout via `--layout` with:
+  - Full [Handlebars](http://handlebarsjs.com/) support for layouts, helpers and partials
+  - Fully customizable table of contents template via the `toc` partial
+  - Support for relative path generation via the `{{asset 'path'}}` helper
+- API support: `markdown-styles` now has a public API
+
+For changes, see [the changelog](changelog.md).
 
 -----
 
@@ -63,6 +65,7 @@ Try out different layouts by changing the `--layout` parameter; screenshots are 
   - Note that `--template`, `--asset-dir`, `--partials` and `--helpers` are deprecated. This simplifies the loading logic. You need to put each of those resources in the same layout folder.
 - `--export <name>`: Exports a built-in layout to a directory. Use `--output <path>` to specify the location to write the built-in layout. For example, `--export github --output ./custom-layout` will copy the `github` builtin layout to `./custom-layout`.
 - `--highlight-<language> <module>`: Specifies a custom highlighter module to use for a specific language. For example, `--highlight-csv mds-csv` will highlight any `csv` code blocks using the `mds-csv` module.
+- `--no-header-links`: If this flag is passed, the HTML for header links will not be generated. The hover links are enabled by default.
 
 ## The resulting output
 
@@ -94,6 +97,10 @@ The following built in layouts include the `{{~> toc}}` partial:
 These are mostly templates that have a sensible place to put this table of contents, such as a sidebar. I didn't want to default to putting a table of contents into the layouts that had no sidebar, but you can add it quite easily.
 
 The `{{~> toc}}` partial generates a table of contents list. The list contains links to every header in your Markdown file. In addition, every Markdown header is automatically converted to a linkable anchor (e.g. `#table_of_contents`) when the page is generated. You can customize the table of contents markup by overriding the ./partials/[toc.hbs](https://github.com/mixu/markdown-styles/blob/master/builtin/partials/toc.hbs) partial in your custom layout.
+
+## Header hover links (v2.1)
+
+If you are reading this on Github, hover over the header above. You'll see a link appear on the side of the header. The same feature is supported by all of the layouts. The feature is implemented purely with CSS, and you can find the details in `pilcrow.css` in each layout's assets folder. To disable the feature, pass the `--no-header-links` flag.
 
 ## Metadata sections
 

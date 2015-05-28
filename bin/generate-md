@@ -8,13 +8,14 @@ var fs = require('fs'),
 opts.options({
     'layouts': { },
     'help': { },
+    'header-links': { 'default': true },
     'layout': { },
     'input': { },
     'output': { },
     'v': { },
     'version': { }
   })
-  .boolean('layouts').boolean('help').boolean('v').boolean('version');
+  .boolean('layouts').boolean('help').boolean('v').boolean('version').boolean('header-links');
 
 var argv = opts.parse(process.argv);
 
