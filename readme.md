@@ -69,7 +69,7 @@ Try out different layouts by changing the `--layout` parameter; screenshots are 
 
 ## The resulting output
 
-The output HTML is fully static and uses relative paths to the asset files, which are also copied into the output folder. This means that you could, for example, point a HTTP server at the root of `./test/` and be done with it or push the output folder to Amazon S3.
+The output HTML is fully static and uses relative paths to the asset files, which are also copied into the output folder. This means that you could, for example, point a HTTP server at the output folder and be done with it or push the output folder to Amazon S3.
 
 For example, here is how I deploy one of my books: `aws s3 sync ./output/ s3://some-s3-bucket/some-folder/ --delete --exclude "node_modules/*"  --exclude ".git"` (assuming credentials are in the necessary environment variables and that the AWS CLI is installed).
 
@@ -98,7 +98,7 @@ The following built in layouts include the `{{~> toc}}` partial:
 
 These are mostly templates that have a sensible place to put this table of contents, such as a sidebar. I didn't want to default to putting a table of contents into the layouts that had no sidebar, but you can add it quite easily.
 
-The `{{~> toc}}` partial generates a table of contents list. The list contains links to every header in your Markdown file. In addition, every Markdown header is automatically converted to a linkable anchor (e.g. `#table_of_contents`) when the page is generated. You can customize the table of contents markup by overriding the ./partials/[toc.hbs](https://github.com/mixu/markdown-styles/blob/master/builtin/partials/toc.hbs) partial in your custom layout.
+The `{{~> toc}}` partial generates a table of contents list. The list contains links to every header in your Markdown file. In addition, every Markdown header is automatically converted to a linkable anchor (e.g. `#table_of_contents`) when the page is generated. You can customize the table of contents markup by overriding the [./partials/toc.hbs](https://github.com/mixu/markdown-styles/blob/master/builtin/partials/toc.hbs) partial in your custom layout.
 
 ## Header hover links (v2.1)
 
@@ -115,7 +115,7 @@ title: Page title
 YOLO
 ```
 
-There must be at least three - characters that separate the header from the rest of the content (on a single line).
+There must be at least three `-` characters that separate the header from the rest of the content (on a single line).
 
 You can reference the metadata values in your template by name. The default layouts only make use of the `{{title}}` metadata value, but your custom layouts can refer to any additional fields you want.
 
@@ -177,7 +177,7 @@ The [handlebars.js](https://github.com/wycats/handlebars.js) template language i
 Here is a list of all the built in features:
 
 - `{{~> content}}`: renders the markdown content
-- `{{asset 'asset-path'}}`: renders a specific asset path (previously `{{assetsRelative}}` / `{{styles}}`)
+- `{{asset 'asset-path'}}`: renders a specific asset path
 - `{{~> toc}}`: renders the table of contents
 - `{{title}}`: renders the title from the metadata section
 
