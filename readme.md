@@ -6,7 +6,7 @@ Looking for something to generate a blog from Markdown files? Check out [ghost-r
 
 ## Features
 
-- `v2.3` adds one new feature: header hover anchor links. When you hover over a header, a hover anchor link appears to the side of the header. Clicking on that link or coyping its URL produces a link to that specific location on the page. All built-in layouts support this feature by default.
+- `v2.3` adds one new feature: header hover anchor links. When you hover over a header, a hover anchor link appears to the side of the header. Clicking on that link or copying its URL produces a link to that specific location on the page. All built-in layouts support this feature by default.
 - `v2.2` added Windows support (!)
 - Includes 15+ ready-made CSS stylesheets for Markdown, see the bottom of the readme for screenshots.
 - Reuse the stylesheets or use the `generate-md` tool to convert a folder of Markdown files to HTML using one of the built-in layouts or a custom layout.
@@ -15,14 +15,15 @@ Looking for something to generate a blog from Markdown files? Check out [ghost-r
 
 ### Layout features
 
-- Built in support for code syntax highlighting via highlight.js
-- All layouts now include a Github-style code highlighting theme by default (new v2.0!)
-- Built in table of contents generation from Markdown headings, now fully customizable by replacing the `{{> toc}}` partial in custom layout .
-- Automatically detects the document title from the first heading in the Markdown markup
+- Built in support for code syntax highlighting via highlight.js; all layouts include a Github-style code highlighting theme by default.
+- Built in table of contents generation from Markdown headings, fully customizable by replacing the `{{> toc}}` partial in custom layout.
+- Built in header id and anchor generation for headings written in Markdown; all layouts support revealing the URL via header hover links.
+- Support for custom logic for rendering code blocks via `--highlight-*`; this can be used to implement custom blocks that render the content of the code block in some interesting way.
+- Automatically detects the document title from the first heading in the Markdown markup.
 
-## Features for creating your own layout
+### Features for creating your own layout
 
-- Easier to get started with a custom layout via `--exports`, which exports a built in layout as a starting point for your custom layout.
+- To make it easier to get started, you can export an existing layout using `--exports` and use that as a starting point for your layouts.
 - Create your own layout based on an existing layout via `--layout` with:
   - Full [Handlebars](http://handlebarsjs.com/) support for layouts, helpers and partials
   - Fully customizable table of contents template via the `toc` partial
@@ -56,13 +57,12 @@ Try out different layouts by changing the `--layout` parameter; screenshots are 
 - `--output <path>` specifies the output directory (default: `./output/`).
 - `--layout <path>` specifies the layout. It can be:
   - The name of a builtin layout, such as `github` or `mixu-page`.
-  - A path to a layout folder (full path, or path relative to `process.cwd`).
+  - A path to a layout folder (full path, or a path relative to `process.cwd`).
   - A layout folder consists of:
     - `./page.html`, the template to use in the layout
     - `./assets`, the assets folder to copy over to the output
     - `./partials`, the [partials](#partials) directory
     - `./helpers`, the [helpers](#helpers) directory
-  - Note that `--template`, `--asset-dir`, `--partials` and `--helpers` are deprecated. This simplifies the loading logic. You need to put each of those resources in the same layout folder.
 - `--export <name>`: Exports a built-in layout to a directory. Use `--output <path>` to specify the location to write the built-in layout. For example, `--export github --output ./custom-layout` will copy the `github` builtin layout to `./custom-layout`.
 - `--highlight-<language> <module>`: Specifies a custom highlighter module to use for a specific language. For example, `--highlight-csv mds-csv` will highlight any `csv` code blocks using the `mds-csv` module.
 - `--no-header-links`: If this flag is passed, the HTML for header links will not be generated. The hover links are enabled by default.
@@ -70,6 +70,8 @@ Try out different layouts by changing the `--layout` parameter; screenshots are 
 ## The resulting output
 
 The output HTML is fully static and uses relative paths to the asset files, which are also copied into the output folder. This means that you could, for example, point a HTTP server at the root of `./test/` and be done with it or push the output folder to Amazon S3.
+
+For example, here is how I deploy one of my books: `aws s3 sync ./output/ s3://some-s3-bucket/some-folder/ --delete --exclude "node_modules/*"  --exclude ".git"` (assuming credentials are in the necessary environment variables and that the AWS CLI is installed).
 
 ## Syntax highlighting
 
