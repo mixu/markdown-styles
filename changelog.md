@@ -1,3 +1,7 @@
+## Changes in 2.3.1
+
+- Fixed a bug where the `render` function would not wait until all the assets were copied, thanks @joebain!
+
 ## Changes in 2.3:
 
 - Added the new header hover links feature, along with the relevant CSS for each built in layout.
