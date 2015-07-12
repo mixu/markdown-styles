@@ -104,6 +104,8 @@ The `{{~> toc}}` partial generates a table of contents list. The list contains l
 
 If you are reading this on Github, hover over the header above. You'll see a link appear on the side of the header. The same feature is supported by all of the layouts. The feature is implemented purely with CSS, and you can find the details in `pilcrow.css` in each layout's assets folder. To disable the feature, pass the `--no-header-links` flag.
 
+`v2.4` added support for having unique links for duplicated header names (e.g. using the same header text multiple times in the same file). The header id for the first occurrence stays the same as earlier (`#header-text`), but the second and subsequent headers get a counter appended (e.g. `#header-text-1`, `#header-text-2`). Thanks @xcv58!
+
 ## Metadata sections
 
 Each markdown file can have metadata associated with it. To set the metadata, start your markdown file with a metadata block that looks like this:
@@ -294,6 +296,8 @@ Here are a couple of additional examples:
 It exists, and uses the same options as `generate-md`. Docs TODO, see `bin/generate-md` and `test/api.test.js` for now.
 
 ## Acknowledgments
+
+Thanks @xcv58 for dealing with the case where the same header text is used multiple times in the same file!
 
 I'd like to thank @AaronJan for contributing a patch that adds support for Windows (for `v.2.2.0`+) and @joebain for a fix related to using markdown-styles with grunt.
 
