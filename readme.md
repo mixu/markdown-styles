@@ -6,6 +6,7 @@ Looking for something to generate a blog from Markdown files? Check out [ghost-r
 
 ## Features
 
+- `v2.4` adds better handling for when the same header text is used multiple times in the same file.
 - `v2.3` adds one new feature: header hover anchor links. When you hover over a header, a hover anchor link appears to the side of the header. Clicking on that link or copying its URL produces a link to that specific location on the page. All built-in layouts support this feature by default.
 - `v2.2` added Windows support (!)
 - Includes 15+ ready-made CSS stylesheets for Markdown, see the bottom of the readme for screenshots.
