@@ -19,7 +19,7 @@ Looking for something to generate a blog from Markdown files? Check out [ghost-r
 - Built in support for code syntax highlighting via highlight.js; all layouts include a Github-style code highlighting theme by default.
 - Built in table of contents generation from Markdown headings, fully customizable by replacing the `{{> toc}}` partial in custom layout.
 - Built in header id and anchor generation for headings written in Markdown; all layouts support revealing the URL via header hover links.
-- Support for custom logic for rendering code blocks via `--highlight-*`; this can be used to implement custom blocks that render the content of the code block in some interesting way.
+- Support for custom logic for rendering code blocks via `--highlight-*`; this can be used to implement custom blocks that render the content of the code block in some interesting way. For example, I used this in my CSS book to [implement](https://github.com/mixu/cssbook/blob/master/layout/highlighters/spoiler.js) hidden [spoiler texts](http://book.mixu.net/css/5-tricks.html#box-rendering-and-stacking-context).
 - Automatically detects the document title from the first heading in the Markdown markup.
 
 ### Features for creating your own layout
