@@ -110,6 +110,46 @@ describe('integration tests', function() {
       });
     });
 
+    it('when the same header is repeated, the header links are unique (within a particular file, but not across the render)', function(done) {
+      var dir = fixture.dir({
+        'foo.md': [
+          '# some heading',
+          'hello',
+          '# some heading',
+        ].join('\n'),
+        'bar.md': [
+          '# some heading',
+          'hello',
+          '# some heading',
+        ].join('\n')
+      });
+      var out = fixture.dirname();
+
+      var layoutDir = fixture.dir({
+        'page.html': '{{> content}}'
+      });
+
+      mds.render({
+        input: dir,
+        output: out,
+        layout: layoutDir
+      }, function() {
+        assert.equal(fs.readFileSync(out + '/foo.html', 'utf8'), [
+          '<h1 id="some-heading">some heading</h1>',
+          '<p>hello</p>',
+          '<h1 id="some-heading-1">some heading</h1>',
+          ''
+          ].join('\n'));
+        assert.equal(fs.readFileSync(out + '/bar.html', 'utf8'), [
+          '<h1 id="some-heading">some heading</h1>',
+          '<p>hello</p>',
+          '<h1 id="some-heading-1">some heading</h1>',
+          ''
+          ].join('\n'));
+        done();
+      });
+    });
+
   });
 
   describe('theme tests', function() {
