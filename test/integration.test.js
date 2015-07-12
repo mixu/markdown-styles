@@ -118,7 +118,7 @@ describe('integration tests', function() {
           md.parseMd(),
           md.annotateMdHeadings(),
           md.highlight(),
-          md.convertMd(),
+          mds.convertMd(),
 
           setOutputPath({
             input: '/fake/input',
@@ -229,9 +229,31 @@ describe('integration tests', function() {
       }, function(html) {
         assert.equal(html, [
           'a<p>a</p>',
-          '<h1 id="foo">foo</h1>',
+          '<h1 id="foo"><a class="header-link" href="#foo"></a>foo</h1>',
           '<pre class="hljs"><code>' +
           '<span class="hljs-keyword">var</span> foo = bar;</code></pre>b'
+        ].join('\n'));
+        done();
+      });
+    });
+
+    it('when the same header text is repeated, it produces ids with a number appended to them', function(done) {
+      render( { contents: [
+        '# some heading',
+        'hello',
+        '# some heading',
+        'world',
+        '# some heading',
+      ].join('\n') }, {
+        template: '{{> content}}'
+      }, function(html) {
+        assert.equal(html, [
+          '<h1 id="some-heading"><a class="header-link" href="#some-heading"></a>some heading</h1>',
+          '<p>hello</p>',
+          '<h1 id="some-heading-1"><a class="header-link" href="#some-heading-1"></a>some heading</h1>',
+          '<p>world</p>',
+          '<h1 id="some-heading-2"><a class="header-link" href="#some-heading-2"></a>some heading</h1>',
+          ''
         ].join('\n'));
         done();
       });
