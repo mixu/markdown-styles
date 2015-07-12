@@ -285,7 +285,7 @@ would make the metadata value `{{repoUrl}}` available in the template, for all f
 Here are a couple of additional examples:
 
 | meta.json content                 | `{{key}}` is available in: |
--------------------------------------------------------------------------------
+|-----------------------------------|-----------------------------------------
 | `{ "foo": {"key": "value" }}`     | `./input/foo.md`, `./input/foo/*`
 | `{ "abc/bar": {"key": "value" }}` | `./input/abc/bar/*`
 
