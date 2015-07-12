@@ -260,11 +260,15 @@ Note the usage of the "triple-stash", e.g. `{{{` here. The technical reason for 
 
 ### `meta.json`
 
-If you want to apply additional metadata to all Markdown files in a particular folder, you can add a file named `meta.json` to the input folder. (Note: in `v1.x`, `meta.json` was read from `process.cwd()`, e.g. the folder from which you ran `generate-md`).
+If you want to apply additional metadata to all Markdown files in a particular folder, you can add a file named `meta.json` to the root of the input folder.
+
+For example, if you run `generate-md --input foo`, the `meta.json` file should be located at `./foo/meta.json`.
+
+(Note: in `v1.x`, `meta.json` was read from `process.cwd()`, e.g. the folder from which you ran `generate-md`).
 
 `meta.json` will be read, and the values in it are added to the regular metadata. The values from `meta.json` act like default values, e.g. the per-file metadata section values will override the values from `meta.json`.
 
-The metadata is scoped by the top-level directory in `./input`.
+The keys in `meta.json` should refer to the file or folder names relative to the `--input`. See the bottom of the section for more examples.
 
 For example, a `./input/meta.json` file like this:
 
@@ -277,6 +281,13 @@ For example, a `./input/meta.json` file like this:
 ````
 
 would make the metadata value `{{repoUrl}}` available in the template, for all files that are in the directory `./input/foo`. If any markdown file in `./input/foo/` defines a metadata value called `repoUrl`, then that value will override the value from `meta.json`.
+
+Here are a couple of additional examples:
+
+| meta.json content                 | `{{key}}` is available in: |
+-------------------------------------------------------------------------------
+| `{ "foo": {"key": "value" }}`     | `./input/foo.md`, `./input/foo/*`
+| `{ "abc/bar": {"key": "value" }}` | `./input/abc/bar/*`
 
 ### API
 

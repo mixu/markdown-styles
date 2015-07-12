@@ -71,12 +71,13 @@ describe('integration tests', function() {
     it('reads and scopes the meta.json based on the path relative to target directory', function(done) {
       var dir = fixture.dir({
         'meta.json': JSON.stringify({
-          foo: { pn: 'foo' },
-          'abc/bar': { pn: 'abc/bar' }
+          foo: { pn: 'value-from-key-foo' },
+          'abc/bar': { pn: 'value-from-key-abc/bar' }
         }),
-        'foo.md': 'pn: aaa\nbase: keep\n---\nfoo', // projectName foo
-        'foo/bar.md': 'pn: bbb\n---\nbar', // projectName foo
-        'abc/bar/baz.md': 'pn: ccc\n---\nbaz' // projectName abc/bar
+        'foo.md': 'pn: aaa\nbase: keep\n---\nfoo.md', // projectName foo
+        'foo/bar.md': 'pn: bbb\n---\nfoo/bar.md', // projectName foo
+        'abc/bar.md': 'pn: ccc\n---\nabc/bar.md', // projectName abc
+        'abc/bar/baz.md': 'pn: ddd\n---\nabc/bar/baz.md' // projectName abc/bar
       });
 
       var layoutDir = fixture.dir({
@@ -90,16 +91,20 @@ describe('integration tests', function() {
         layout: layoutDir
       }, function() {
         assert.equal(fs.readFileSync(out + '/foo.html', 'utf8'), [
-            '"foo","keep"',
-            '<p>foo</p>\n'
+            '"value-from-key-foo","keep"',
+            '<p>foo.md</p>\n'
           ].join('\n'));
         assert.equal(fs.readFileSync(out + '/foo/bar.html', 'utf8'), [
-            '"foo",""',
-            '<p>bar</p>\n'
+            '"value-from-key-foo",""',
+            '<p>foo/bar.md</p>\n'
+          ].join('\n'));
+        assert.equal(fs.readFileSync(out + '/abc/bar.html', 'utf8'), [
+            '"ccc",""',
+            '<p>abc/bar.md</p>\n'
           ].join('\n'));
         assert.equal(fs.readFileSync(out + '/abc/bar/baz.html', 'utf8'), [
-            '"abc/bar",""',
-            '<p>baz</p>\n'
+            '"value-from-key-abc/bar",""',
+            '<p>abc/bar/baz.md</p>\n'
           ].join('\n'));
         done();
       });
