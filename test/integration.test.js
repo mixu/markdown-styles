@@ -71,17 +71,21 @@ describe('integration tests', function() {
     it('reads and scopes the meta.json based on the path relative to target directory', function(done) {
       var dir = fixture.dir({
         'meta.json': JSON.stringify({
-          foo: { pn: 'value-from-key-foo' },
-          'abc/bar': { pn: 'value-from-key-abc/bar' }
+          '*': { cascade: 'value-from-*' },
+          foo: { cascade: 'value-from-key-foo' },
+          'foo/*': { cascade: 'value-from-key-foo-*' },
+          'abc/bar': { cascade: 'value-from-key-abc/bar' },
+          'abc/bar/baz/*': { cascade: 'value-from-key-abc-bar-baz-*' }
         }),
-        'foo.md': 'pn: aaa\nbase: keep\n---\nfoo.md', // projectName foo
-        'foo/bar.md': 'pn: bbb\n---\nfoo/bar.md', // projectName foo
-        'abc/bar.md': 'pn: ccc\n---\nabc/bar.md', // projectName abc
-        'abc/bar/baz.md': 'pn: ddd\n---\nabc/bar/baz.md' // projectName abc/bar
+        'foo.md': 'file: foo.md\nbase: keep\n---\nfoo.md', // components: *, foo
+        'foo/bar.md': 'file: foo/bar.md\n---\nfoo/bar.md', // components: *, foo, bar
+        'abc/bar.md': 'file: abc/bar.md\n---\nabc/bar.md', // components: *, abc, bar
+        'abc/bar/baz.md': 'file: abc/bar/baz.md\n---\nabc/bar/baz.md', // components: *, abc, bar, baz
+        'abc/bar/baz/foo.md': 'file: abc/bar/baz/foo.md\n---\nabc/bar/baz.md' // components: *, abc, bar, baz, foo
       });
 
       var layoutDir = fixture.dir({
-        'page.html': '"{{pn}}","{{base}}"\n{{> content}}'
+        'page.html': '"{{file}}","{{cascade}}","{{base}}"\n{{> content}}'
       });
       var out = fixture.dirname();
 
@@ -91,19 +95,23 @@ describe('integration tests', function() {
         layout: layoutDir
       }, function() {
         assert.equal(fs.readFileSync(out + '/foo.html', 'utf8'), [
-            '"value-from-key-foo","keep"',
+            '"foo.md","value-from-key-foo","keep"',
             '<p>foo.md</p>\n'
           ].join('\n'));
         assert.equal(fs.readFileSync(out + '/foo/bar.html', 'utf8'), [
-            '"value-from-key-foo",""',
+            '"foo/bar.md","value-from-key-foo-*",""',
             '<p>foo/bar.md</p>\n'
           ].join('\n'));
         assert.equal(fs.readFileSync(out + '/abc/bar.html', 'utf8'), [
-            '"ccc",""',
+            '"abc/bar.md","value-from-key-abc/bar",""',
             '<p>abc/bar.md</p>\n'
           ].join('\n'));
         assert.equal(fs.readFileSync(out + '/abc/bar/baz.html', 'utf8'), [
-            '"value-from-key-abc/bar",""',
+            '"abc/bar/baz.md","value-from-*",""',
+            '<p>abc/bar/baz.md</p>\n'
+          ].join('\n'));
+        assert.equal(fs.readFileSync(out + '/abc/bar/baz/foo.html', 'utf8'), [
+            '"abc/bar/baz/foo.md","value-from-key-abc-bar-baz-*",""',
             '<p>abc/bar/baz.md</p>\n'
           ].join('\n'));
         done();

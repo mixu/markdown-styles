@@ -6,6 +6,7 @@ Looking for something to generate a blog from Markdown files? Check out [ghost-r
 
 ## Features
 
+- `v3.0` changes how the optional `meta.json` file works, adding support for setting per-directory and global metadata values (see the section further down).
 - `v2.4` adds better handling for when the same header text is used multiple times in the same file.
 - `v2.3` adds one new feature: header hover anchor links. When you hover over a header, a hover anchor link appears to the side of the header. Clicking on that link or copying its URL produces a link to that specific location on the page. All built-in layouts support this feature by default.
 - `v2.2` added Windows support (!)
@@ -261,7 +262,7 @@ Note the usage of the "triple-stash", e.g. `{{{` here. The technical reason for 
 </ul>
 ```
 
-### `meta.json`
+### `meta.json` (new behavior in 3.x)
 
 If you want to apply additional metadata to all Markdown files in a particular folder, you can add a file named `meta.json` to the root of the input folder.
 
@@ -269,32 +270,49 @@ For example, if you run `generate-md --input foo`, the `meta.json` file should b
 
 (Note: in `v1.x`, `meta.json` was read from `process.cwd()`, e.g. the folder from which you ran `generate-md`).
 
-`meta.json` will be read, and the values in it are added to the regular metadata. The values from `meta.json` act like default values, e.g. the per-file metadata section values will override the values from `meta.json`.
+Metadata handling has changed in v3.0.0. The metadata is now applied by sequentially merging keys which represent paths. This allows you to set default values for all of the files and then override those values for each subdirectory in `meta.json`
 
-The keys in `meta.json` should refer to the file or folder names relative to the `--input`. See the bottom of the section for more examples.
+The keys in meta.json represent file paths relative to the root of the input directory. Each file will be rendered with the merged metadata. The merge proceeds as follows:
+
+- Start with an empty object
+- Read the `*` key in `meta.json`
+- Take split the pathname of the current file relative to the input directory by the path separator (`/` in Linux/OSX and `\\` in Windows; note that the key lookup will always use `/` on all platforms). For example, if the filename is `./input/a/b/c.md` and the input directory is `./input`, then the path components would be `a`, `b`.
+- Concatenate the components one by one and look for keys that end with the concatenated path + `/*`. For example, for `./input/a/b/c.md`, the keys will be `a/*`, `a/b/*`.
+- Merge the metadata values from the keys in order of specificity, e.g. starting with the values under the `*` key, then `a/*`, then `a/b/*`.
+- Look for a key that matches the full relative file name without the extension. e.g. `a/b/c`, and merge that in.
+- Read the file, and overwrite the metadata values with the values set in the file.
+- Finally, if the title property is still not set, automatically set using the first heading in the markdown file.
 
 For example, a `./input/meta.json` file like this:
 
 ````json
 {
-  "foo": {
-    "repoUrl": "https://github.com/mixu/markdown-styles"
+  "*": {
+    "repoUrl": "DEFAULT"
+  }
+  "foo/*": {
+    "repoUrl": "MORE SPECIFIC"
   }
 }
 ````
 
-would make the metadata value `{{repoUrl}}` available in the template, for all files that are in the directory `./input/foo`. If any markdown file in `./input/foo/` defines a metadata value called `repoUrl`, then that value will override the value from `meta.json`.
+would make the metadata value `{{repoUrl}}` available in the template for all input files to `DEFAULT` except for input files in `./input/foo/`. For `./input/foo` and all subdirectories, `repoUrl` would be set to `MORE SPECIFIC`.
+
+If any markdown file in `./input/foo/` defines a metadata value called `repoUrl`, then that value will override the value from `meta.json`.
 
 Here are a couple of additional examples:
 
 | meta.json content                 | `{{key}}` is available in: |
 |-----------------------------------|-----------------------------------------
-| `{ "foo": {"key": "value" }}`     | `./input/foo.md`, `./input/foo/*`
-| `{ "abc/bar": {"key": "value" }}` | `./input/abc/bar/*`
+| `{ "*": {"key": "value" }}`       | all input files
+| `{ "foo": {"key": "value" }}`     | `./input/foo.md`
+| `{ "foo/*": {"key": "value" }}`   | `./input/foo/*` and subdirs
+| `{ "foo/bar": {"key": "value" }}` | `./input/foo/bar.md`
+| `{ "foo/bar/*": {"key": "value" }}` | `./input/foo/bar/*` and subdirs
 
 ### API
 
-It exists, and uses the same options as `generate-md`. Docs TODO, see `bin/generate-md` and `test/api.test.js` for now.
+It exists, and uses the same options as `generate-md`. Docs TODO, see `bin/generate-md` and `test/api.test.gjs` for now.
 
 ## Acknowledgments
 
