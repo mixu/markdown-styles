@@ -272,7 +272,19 @@ For example, if you run `generate-md --input foo`, the `meta.json` file should b
 
 Metadata handling has changed in v3.0.0. The metadata is now applied by sequentially merging keys which represent paths. This allows you to set default values for all of the files and then override those values for each subdirectory in `meta.json`
 
-The keys in meta.json represent file paths relative to the root of the input directory. Each file will be rendered with the merged metadata. The merge proceeds as follows:
+The keys in meta.json represent file paths relative to the root of the input directory. Each file will be rendered with the merged metadata.
+
+Here are a couple of quick examples:
+
+| meta.json content                 | `{{key}}` is available in: |
+|-----------------------------------|-----------------------------------------
+| `{ "*": {"key": "value" }}`       | all input files
+| `{ "foo": {"key": "value" }}`     | `./input/foo.md`
+| `{ "foo/*": {"key": "value" }}`   | `./input/foo/*` and subdirs
+| `{ "foo/bar": {"key": "value" }}` | `./input/foo/bar.md`
+| `{ "foo/bar/*": {"key": "value" }}` | `./input/foo/bar/*` and subdirs
+
+More specifically, the merge proceeds as follows:
 
 - Start with an empty object
 - Read the `*` key in `meta.json`
@@ -289,36 +301,51 @@ For example, a `./input/meta.json` file like this:
 {
   "*": {
     "repoUrl": "DEFAULT"
-  }
+  },
   "foo/*": {
     "repoUrl": "MORE SPECIFIC"
   }
 }
 ````
 
-would make the metadata value `{{repoUrl}}` available in the template for all input files to `DEFAULT` except for input files in `./input/foo/`. For `./input/foo` and all subdirectories, `repoUrl` would be set to `MORE SPECIFIC`.
+would make the metadata value `{{repoUrl}}` available in the template for all input files to `DEFAULT` except for input files in `./input/foo/`. For `./input/foo/*` and all subdirectories, `repoUrl` would be set to `MORE SPECIFIC`.
 
 If any markdown file in `./input/foo/` defines a metadata value called `repoUrl`, then that value will override the value from `meta.json`.
 
-Here are a couple of additional examples:
-
-| meta.json content                 | `{{key}}` is available in: |
-|-----------------------------------|-----------------------------------------
-| `{ "*": {"key": "value" }}`       | all input files
-| `{ "foo": {"key": "value" }}`     | `./input/foo.md`
-| `{ "foo/*": {"key": "value" }}`   | `./input/foo/*` and subdirs
-| `{ "foo/bar": {"key": "value" }}` | `./input/foo/bar.md`
-| `{ "foo/bar/*": {"key": "value" }}` | `./input/foo/bar/*` and subdirs
-
 ### API
 
-It exists, and uses the same options as `generate-md`. Docs TODO, see `bin/generate-md` and `test/api.test.gjs` for now.
+- `.resolveArgs(argv)`: given a hash containing command line args, returns the fully resolved arguments. This does two things: it takes care of relative paths and loads the modules passed via `highlight-*` so that they can be invoked as functions when highlighting a specific language.
+- `.render(argv, onDone)`: given a hash of resolved arguments, it processes every file just like the command line tool; this includes copying files.
+- `.pipeline(argv)`: given a hash of resolved arguments, it returns a writable object mode stream that accepts objects with the following keys:
+  - `path` (an absolute path to the input file name),
+  - `stat` (the fs.stat object associated with the input file),
+  - `contents` (a string with the content of the input file). The writable stream returns objects with the same properties, plus any metadata. The pipeline updates `path` to be the output path that generate-md would write the file to, and updates `contents` to be a string of HTML.
+
+To plug the equivalent of `generate-md` into your grunt/gulp etc. task, use the following code:
+
+```js
+var mds = require('markdown-styles'),
+    path = require('path');
+
+mds.render(mds.resolve({
+  input: path.normalize(process.cwd() + '/my-layout'),
+  output: path.normalize(process.cwd() + '/input'),
+  layout: path.normalize(process.cwd() + '/output'),
+}), function() {
+  console.log('All done!');
+})
+```
+
+If you
+
+
+See `bin/generate-md` and `test/api.test.js` for details.
 
 ## Acknowledgments
 
 Thanks @xcv58 for dealing with the case where the same header text is used multiple times in the same file!
 
-I'd like to thank @AaronJan for contributing a patch that adds support for Windows (for `v.2.2.0`+) and @joebain for a fix related to using markdown-styles with grunt.
+I'd like to thank @parmentelat for adding the cascading meta.json logic (for `v3.0`), @AaronJan for contributing a patch that adds support for Windows (for `v.2.2.0`+) and @joebain for a fix related to using markdown-styles with grunt.
 
 I'd like to thank the following people for either contributing to markdown-styles directly or making CSS stylesheets available with a permissive open source license:
 

@@ -118,7 +118,8 @@ describe('integration tests', function() {
       });
     });
 
-    it('when the same header is repeated, the header links are unique (within a particular file, but not across the render)', function(done) {
+    it('when the same header is repeated, ' +
+      'the header links are unique (within a particular file, but not across the render)', function(done) {
       var dir = fixture.dir({
         'foo.md': [
           '# some heading',
@@ -291,7 +292,7 @@ describe('integration tests', function() {
     });
 
     it('when the same header text is repeated, it produces ids with a number appended to them', function(done) {
-      render( { contents: [
+      render({ contents: [
         '# some heading',
         'hello',
         '# some heading',

@@ -7,8 +7,8 @@ var system = require('system');
  * @return Boolean
  */
 function isString(value) {
-    "use strict";
-    return isType(value, "string");
+    'use strict';
+    return isType(value, 'string');
 }
 /**
  * Checks if value is a javascript Number
@@ -17,8 +17,8 @@ function isString(value) {
  * @return Boolean
  */
 function isNumber(value) {
-    "use strict";
-    return isType(value, "number");
+    'use strict';
+    return isType(value, 'number');
 }
 
 /**
@@ -30,9 +30,9 @@ function isNumber(value) {
  * @return Boolean
  */
 function isType(what, typeName) {
-    "use strict";
-    if (typeof typeName !== "string" || !typeName) {
-        throw new Error("You must pass isType() a typeName string");
+    'use strict';
+    if (typeof typeName !== 'string' || !typeName) {
+        throw new Error('You must pass isType() a typeName string');
     }
     return betterTypeOf(what).toLowerCase() === typeName.toLowerCase();
 }
@@ -47,7 +47,7 @@ function isType(what, typeName) {
  * @return Object
  */
 function mergeObjects(origin, add, opts) {
-    "use strict";
+    'use strict';
 
     var options = opts || {},
         keepReferences = options.keepReferences;
@@ -86,7 +86,7 @@ function mergeObjects(origin, add, opts) {
  * @see    http://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
  */
 function betterTypeOf(input) {
-    "use strict";
+    'use strict';
     switch (input) {
         case undefined:
             return 'undefined';
@@ -96,7 +96,7 @@ function betterTypeOf(input) {
         try {
             var type = Object.prototype.toString.call(input).match(/^\[object\s(.*)\]$/)[1].toLowerCase();
             if (type === 'object' &&
-                phantom.casperEngine !== "phantomjs" &&
+                phantom.casperEngine !== 'phantomjs' &&
                 '__type' in input) {
                 type = input.__type;
             }
@@ -119,7 +119,7 @@ function betterTypeOf(input) {
  * @return Object
  */
 function parse(phantomArgs) {
-    "use strict";
+    'use strict';
     var extract = {
         args: [],
         options: {},
@@ -154,7 +154,7 @@ function parse(phantomArgs) {
                     delete this.raw.options[what];
                 }
             } else {
-                throw new Error("Cannot drop argument of type " + typeof what);
+                throw new Error('Cannot drop argument of type ' + typeof what);
             }
         },
         has: function has(what) {
@@ -164,7 +164,7 @@ function parse(phantomArgs) {
             if (isString(what)) {
                 return what in this.options;
             }
-            throw new Error("Unsupported cli arg tester " + typeof what);
+            throw new Error('Unsupported cli arg tester ' + typeof what);
         },
         get: function get(what, def) {
             if (isNumber(what)) {
@@ -173,7 +173,7 @@ function parse(phantomArgs) {
             if (isString(what)) {
                 return what in this.options ? this.options[what] : def;
             }
-            throw new Error("Unsupported cli arg getter " + typeof what);
+            throw new Error('Unsupported cli arg getter ' + typeof what);
         }
     };
     phantomArgs.forEach(function _forEach(arg) {
@@ -213,13 +213,13 @@ function parse(phantomArgs) {
  * @return Mixed
  */
 function castArgument(arg) {
-    "use strict";
+    'use strict';
     if (arg.match(/^-?\d+$/)) {
         return parseInt(arg, 10);
     } else if (arg.match(/^-?\d+\.\d+$/)) {
         return parseFloat(arg);
     } else if (arg.match(/^(true|false)$/i)) {
-        return arg.trim().toLowerCase() === "true" ? true : false;
+        return arg.trim().toLowerCase() === 'true' ? true : false;
     } else {
         return arg;
     }

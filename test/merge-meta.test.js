@@ -140,7 +140,7 @@ describe('merge meta', function() {
     pi.fromArray([{
         relative: '/a/b/c.md',
         file: 'file',
-        headings: [ { text: 'heading-name' } ],
+        headings: [{ text: 'heading-name' }],
       }])
       .pipe(mergeMeta({
         '*': {
@@ -168,7 +168,7 @@ describe('merge meta', function() {
             b: 'b',
             file: 'file',
             title: 'heading-name',
-            headings: [ { text: 'heading-name' } ],
+            headings: [{ text: 'heading-name' }],
           }
         ]);
         done();
