@@ -32,8 +32,6 @@ a, ins {
   text-decoration: none;
   }
 
-/* I was originally using Cantarell for the body text, but it just isn't as readable the usual suspects. */
-
 body {
   font-family: Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
   background-color: white;
@@ -98,13 +96,9 @@ div.clear hr {
 #wrapper {
   margin-left: auto;
   margin-right: auto;
-  width: 960px;
 }
 
 #container {
-  width: 72%;
-  display: inline;
-  float: left;
   margin-right: 5px;
   margin-left: 15px;
   overflow: visible;
@@ -119,15 +113,7 @@ div.clear hr {
   /* text-align: justify; */
   margin-bottom: 0;
   padding-bottom: 20px;
-  float: left;
-
   overflow: visible;
-  width: 100%;
-}
-
-#sidebar {
-  width: 24%;
-  float: left;
 }
 
 /* Date widget */
@@ -162,6 +148,11 @@ div.clear hr {
 
 .post p {
   margin: 0 0 1.5em;
+}
+
+.post p,
+.post ul,
+.post ol {
   max-width: 580px;
 }
 
@@ -270,4 +261,28 @@ div.notice {
 #bottom_navi {
   font-size: larger;
   margin: 8px;
+}
+
+#sidebar {
+  display: none;
+}
+
+@media (min-width: 43.75em) {
+}
+
+@media (min-width: 62em) {
+  #wrapper {
+    width: 960px;
+  }
+
+  #container {
+    width: 72%;
+    float: left;
+  }
+
+  #sidebar {
+    display: block;
+    width: 24%;
+    float: left;
+  }
 }

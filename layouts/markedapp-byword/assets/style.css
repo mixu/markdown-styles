@@ -312,3 +312,13 @@ mark {
         page-break-before: always;
     }
 }
+
+body {
+  padding: 0 1em;
+}
+
+@media (min-width: 43.75em) {
+  body {
+    padding: 0;
+  }
+}
