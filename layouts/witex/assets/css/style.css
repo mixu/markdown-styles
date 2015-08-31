@@ -88,6 +88,7 @@ ul {
 	-moz-hyphens: auto;
 	-webkit-hyphens: auto;
 	hyphens: auto;
+  padding: 0 1em;
 }
 
 dl dd {
@@ -95,3 +96,8 @@ dl dd {
 	text-align: center;
 }
 
+@media (min-width: 43.75em) {
+  .content {
+    padding: 0;
+  }
+}

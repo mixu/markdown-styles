@@ -96,6 +96,7 @@ div.clear hr {
 #wrapper {
   margin-left: auto;
   margin-right: auto;
+  width: 95%;
 }
 
 #container {

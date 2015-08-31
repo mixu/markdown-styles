@@ -6,7 +6,7 @@ Looking for something to generate a blog from Markdown files? Check out [ghost-r
 
 ## Features
 
-- `v3.0` changes how the optional `meta.json` file works, adding support for setting per-directory and global metadata values (see the section further down).
+- `v3.0` changes how the optional `meta.json` file works, adding support for setting per-directory and global metadata values (see the section further down). It also adds responsive markup tweaks to the github, markedapp-byword, mixu-book, mixu-page, mixu-radar and witex layouts and adds the responsive meta tag to all layouts.
 - `v2.4` adds better handling for when the same header text is used multiple times in the same file.
 - `v2.3` adds one new feature: header hover anchor links. When you hover over a header, a hover anchor link appears to the side of the header. Clicking on that link or copying its URL produces a link to that specific location on the page. All built-in layouts support this feature by default.
 - `v2.2` added Windows support (!)
@@ -319,7 +319,9 @@ If any markdown file in `./input/foo/` defines a metadata value called `repoUrl`
 - `.pipeline(argv)`: given a hash of resolved arguments, it returns a writable object mode stream that accepts objects with the following keys:
   - `path` (an absolute path to the input file name),
   - `stat` (the fs.stat object associated with the input file),
-  - `contents` (a string with the content of the input file). The writable stream returns objects with the same properties, plus any metadata. The pipeline updates `path` to be the output path that generate-md would write the file to, and updates `contents` to be a string of HTML.
+  - `contents` (a string with the content of the input file).
+
+The writable stream returns objects with the same properties, plus any metadata. The pipeline updates `path` to be the output path that generate-md would write the file to, and updates `contents` to be a string of HTML.
 
 To plug the equivalent of `generate-md` into your grunt/gulp etc. task, use the following code:
 
@@ -328,16 +330,13 @@ var mds = require('markdown-styles'),
     path = require('path');
 
 mds.render(mds.resolve({
-  input: path.normalize(process.cwd() + '/my-layout'),
-  output: path.normalize(process.cwd() + '/input'),
-  layout: path.normalize(process.cwd() + '/output'),
+  input: path.normalize(process.cwd() + '/input'),
+  output: path.normalize(process.cwd() + '/output'),
+  layout: path.normalize(process.cwd() + '/my-layout'),
 }), function() {
   console.log('All done!');
-})
+});
 ```
-
-If you
-
 
 See `bin/generate-md` and `test/api.test.js` for details.
 
