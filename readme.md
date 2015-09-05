@@ -1,6 +1,6 @@
 # markdown-styles
 
-Converts Markdown files to HTML, with over a dozen builtin themes. The new `v2.0` release includes a ton of enhancements!
+Converts Markdown files to HTML, with over a dozen builtin themes. 
 
 Looking for something to generate a blog from Markdown files? Check out [ghost-render](https://github.com/mixu/ghost-render).
 
