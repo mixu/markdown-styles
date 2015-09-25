@@ -109,26 +109,10 @@ div.clear hr {
 #content {
   font-size: 16px;
   line-height: 26px;
-  /* max-width: 540px; Optimal formula = 30 * font size in px. */
 
-  /* text-align: justify; */
   margin-bottom: 0;
   padding-bottom: 20px;
   overflow: visible;
-}
-
-/* Date widget */
-#content small{
-  font-size: 10px;
-  color: #CCC;
-  padding: 10px 20px 5px 0px;
-  float: left;
-  text-transform: uppercase;
-}
-#content span.date {
-  font-size: 32px;
-  line-height: 0.8;
-  color: #C00;
 }
 
 /* Post titles */
@@ -154,11 +138,11 @@ div.clear hr {
 .post p,
 .post ul,
 .post ol {
-  max-width: 580px;
+  max-width: 36em;
 }
 
 .post ul {
-list-style-type: disc;
+  list-style-type: disc;
 }
 
 .post ul, .post ol {
@@ -179,10 +163,10 @@ list-style-type: disc;
   background: #F8F8F8;
   border: 1px solid #E8E8E8;
   border-width: 1px 1px 1px 6px;
-  margin: -0.5em 0 1.1em;
+  margin: -1em 0 1em 0;
 }
 
-.post pre, .post table {
+.post table {
   margin: -1em 0 1em 0;
   padding: .5em 1em;
   background: #F6F6F6 repeat 0 0;
@@ -206,9 +190,11 @@ list-style-type: disc;
   margin-bottom: 1.25em;
 }
 
-.post p tt, .post p code {
-  background: ghostWhite;
-  border: 1px solid #DEDEDE;
+.post p tt,
+.post p code,
+.post ul code,
+.post ol code {
+  background: #eee;
   padding: 0 0.2em;
 }
 
@@ -231,7 +217,20 @@ list-style-type: disc;
 table { width: 100%; border-collapse: collapse; border-spacing: 0; }
 table caption { text-align: center; }
 table th { font-weight: bold; }
-table th, table td { padding: 0.3em; vertical-align: top; border: solid 0.1em; }
+table th, table td {
+  padding: 0.3em;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+
+table>thead:first-child>tr:first-child>td,
+table>thead:first-child>tr:first-child>th {
+  border-top: 0;
+}
+
+.post table>tbody>tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
 
 div.summary {
   border-top: 3px solid #EEE;

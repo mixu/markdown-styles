@@ -4,6 +4,7 @@
     <title>{{title}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href='http://fonts.googleapis.com/css?family=Andika|Droid+Sans+Mono|Cantarell:400,700,400italic' rel='stylesheet' type='text/css' />
     <script src="{{asset 'jquery-1.6.1.min.js'}}"></script>
     <link type="text/css" rel="stylesheet" href="{{asset 'style.css'}}"/>
@@ -24,18 +25,14 @@
       <hr>
     </div>
 
-     <!-- Main -->
-
     <div id="main">
       <div id="container">
         <div id="content" class="post">
+         {{~> content}}
 
-        {{~> content}}
-
-        <div id="bottom_navi">
+         <div id="bottom_navi">
           <a href="{{prev}}.html"> &lt; &lt; Previous Chapter</a> | <a href="{{next}}.html">Next Chapter &gt; &gt;</a>
-        </div>
-
+         </div>
         </div>
       </div>
     </div>
