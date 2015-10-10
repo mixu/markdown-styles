@@ -23,6 +23,7 @@
     "static",
     "highlight"
   ],
+  "license": "BSD-3-Clause",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha -R spec ./test/*.test.js"

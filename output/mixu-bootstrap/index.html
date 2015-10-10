@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Bootstrap</title>
+    <title>Strongly connected graph</title>
     <link type="text/css" rel="stylesheet" href="assets/css/bootstrap.css"/>
     <style>
       body {
@@ -10,7 +11,8 @@
       }
     </style>
     <link type="text/css" rel="stylesheet" href="assets/css/bootstrap-responsive.css"/>
-    
+    <link type="text/css" rel="stylesheet" href="assets/css/pilcrow.css"/>
+    <link type="text/css" rel="stylesheet" href="assets/css/hljs-github.min.css"/>
   </head>
 <body>
 
@@ -34,132 +36,132 @@
     </div>
   </div>
 
-  <div class="container">
-    <a name="github_flavored_markdown"></a><h1>GitHub Flavored Markdown<a class="anchorlink" href="#github_flavored_markdown"></a></h1>
-    <p><em>View the <a href="http://github.github.com/github-flavored-markdown/sample_content.html">source of this content</a>.</em></p>
-    <p>Let&#39;s get the whole &quot;linebreak&quot; thing out of the way. The next paragraph contains two phrases separated by a single newline character:</p>
-    <p>Roses are red
-    Violets are blue</p>
-    <p>The next paragraph has the same phrases, but now they are separated by two spaces and a newline character:</p>
-    <p>Roses are red
-    Violets are blue</p>
-    <p>Oh, and one thing I cannot stand is the mangling of words with multiple underscores in them like perform_complicated_task or do_this_and_do_that_and_another_thing.</p>
-    <a name="a_bit_of_the_github_spice"></a><h2>A bit of the GitHub spice<a class="anchorlink" href="#a_bit_of_the_github_spice"></a></h2>
-    <p>In addition to the changes in the previous section, certain references are auto-linked:</p>
-    <ul class="list">
-    <li>SHA: be6a8cc1c1ecfe9489fb51e4869af15a13fc2cd2</li>
-    <li>User@SHA ref: mojombo@be6a8cc1c1ecfe9489fb51e4869af15a13fc2cd2</li>
-    <li>User/Project@SHA: mojombo/god@be6a8cc1c1ecfe9489fb51e4869af15a13fc2cd2</li>
-    <li>#Num: #1</li>
-    <li>User/#Num: mojombo#1</li>
-    <li>User/Project#Num: mojombo/god#1</li>
-    </ul>
-    <p>These are dangerous goodies though, and we need to make sure email addresses don&#39;t get mangled:</p>
-    <p>My email addy is tom@github.com.</p>
-    <a name="math_is_hard__let__39_s_go_shopping"></a><h2>Math is hard, let&#39;s go shopping<a class="anchorlink" href="#math_is_hard__let__39_s_go_shopping"></a></h2>
-    <p>In first grade I learned that 5 &gt; 3 and 2 &lt; 7. Maybe some arrows. 1 -&gt; 2 -&gt; 3. 9 &lt;- 8 &lt;- 7.</p>
-    <p>Triangles man! a^2 + b^2 = c^2</p>
-    <a name="we_all_like_making_lists"></a><h2>We all like making lists<a class="anchorlink" href="#we_all_like_making_lists"></a></h2>
-    <p>The above header should be an H2 tag. Now, for a list of fruits:</p>
-    <ul class="list">
-    <li>Red Apples</li>
-    <li>Purple Grapes</li>
-    <li>Green Kiwifruits</li>
-    </ul>
-    <p>Let&#39;s get crazy:</p>
-    <ol class="list">
-    <li><p>This is a list item with two paragraphs. Lorem ipsum dolor
-    sit amet, consectetuer adipiscing elit. Aliquam hendrerit
-    mi posuere lectus.</p>
-    <p>Vestibulum enim wisi, viverra nec, fringilla in, laoreet
-    vitae, risus. Donec sit amet nisl. Aliquam semper ipsum
-    sit amet velit.</p>
-    </li>
-    <li><p>Suspendisse id sem consectetuer libero luctus adipiscing.</p>
-    </li>
-    </ol>
-    <p>What about some code <strong>in</strong> a list? That&#39;s insane, right?</p>
-    <ol class="list">
-    <li><p>In Ruby you can map like this:</p>
-    <pre class="prettyprint"> [&#39;a&#39;, &#39;b&#39;].map { |x| x.uppercase }</pre>
-    </li>
-    <li><p>In Rails, you can do a shortcut:</p>
-    <pre class="prettyprint"> [&#39;a&#39;, &#39;b&#39;].map(&amp;:uppercase)</pre>
-    </li>
-    </ol>
-    <p>Some people seem to like definition lists</p>
-    <dl>
-      <dt>Lower cost</dt>
-      <dd>The new version of this product costs significantly less than the previous one!</dd>
-      <dt>Easier to use</dt>
-      <dd>We&#39;ve changed the product so that it&#39;s much easier to use!</dd>
-    </dl>
-    
-    <a name="i_am_a_robot"></a><h2>I am a robot<a class="anchorlink" href="#i_am_a_robot"></a></h2>
-    <p>Maybe you want to print <code>robot</code> to the console 1000 times. Why not?</p>
-    <pre class="prettyprint">def robot_invasion
-      puts(&quot;robot &quot; * 1000)
-    end</pre>
-    <p>You see, that was formatted as code because it&#39;s been indented by four spaces.</p>
-    <p>How about we throw some angle braces and ampersands in there?</p>
-    <pre class="prettyprint">&lt;div class=&quot;footer&quot;&gt;
-        &amp;copy; 2004 Foo Corporation
-    &lt;/div&gt;</pre>
-    <p>CSV:</p>
-    <pre class="prettyprint">Year,Make,Model,Length
-    2/5/08,Ford,E350,2.34
-    1/2/06,Mercury,Cougar,2.38</pre>
-    <a name="set_in_stone"></a><h2>Set in stone<a class="anchorlink" href="#set_in_stone"></a></h2>
-    <p>Preformatted blocks are useful for ASCII art:</p>
-    <pre>
-                 ,-.
-        ,     ,-.   ,-.
-       / \   (   )-(   )
-       \ |  ,.>-(   )-<
-        \|,' (   )-(   )
-         Y ___`-'   `-'
-         |/__/   `-'
-         |
-         |
-         |    -hrr-
-      ___|_____________
-    </pre>
-    
-    <a name="playing_the_blame_game"></a><h2>Playing the blame game<a class="anchorlink" href="#playing_the_blame_game"></a></h2>
-    <p>If you need to blame someone, the best way to do so is by quoting them:</p>
-    <blockquote>
-    <p>I, at any rate, am convinced that He does not throw dice.</p>
-    </blockquote>
-    <p>Or perhaps someone a little less eloquent:</p>
-    <blockquote>
-    <p>I wish you&#39;d have given me this written question ahead of time so I
-    could plan for it... I&#39;m sure something will pop into my head here in
-    the midst of this press conference, with all the pressure of trying to
-    come up with answer, but it hadn&#39;t yet...</p>
-    <p>I don&#39;t want to sound like
-    I have made no mistakes. I&#39;m confident I have. I just haven&#39;t - you
-    just put me under the spot here, and maybe I&#39;m not as quick on my feet
-    as I should be in coming up with one.</p>
-    </blockquote>
-    <a name="table_for_two"></a><h2>Table for two<a class="anchorlink" href="#table_for_two"></a></h2>
-    <table>
-      <tr>
-        <th>ID</th><th>Name</th><th>Rank</th>
-      </tr>
-      <tr>
-        <td>1</td><td>Tom Preston-Werner</td><td>Awesome</td>
-      </tr>
-      <tr>
-        <td>2</td><td>Albert Einstein</td><td>Nearly as awesome</td>
-      </tr>
-    </table>
-    
-    <a name="crazy_linking_action"></a><h2>Crazy linking action<a class="anchorlink" href="#crazy_linking_action"></a></h2>
-    <p>I get 10 times more traffic from <a href="http://google.com/" title="Google">Google</a> than from
-    <a href="http://search.yahoo.com/" title="Yahoo Search">Yahoo</a> or <a href="http://search.msn.com/" title="MSN Search">MSN</a>.</p>
+  <div class="container"><h1 id="strongly-connected-graph"><a class="header-link" href="#strongly-connected-graph"></a>Strongly connected graph</h1>
+<p>In the mathematical theory of <a href="http://en.wikipedia.org/wiki/Directed_graph">directed graphs</a>, a graph is said to be <strong>strongly connected</strong> if every vertex is <a href="http://en.wikipedia.org/wiki/Reachable">reachable</a> from every other vertex. The <strong>strongly connected components</strong> of an arbitrary directed graph form a <a href="http://en.wikipedia.org/wiki/Partition">partition</a> into subgraphs that are themselves strongly connected. It is possible to test the strong connectivity of a graph, or to find its strongly connected components, in <a href="http://en.wikipedia.org/wiki/Linear_time">linear time</a>.</p>
+<h2 id="definitions"><a class="header-link" href="#definitions"></a>Definitions</h2>
+<p>A <a href="http://en.wikipedia.org/wiki/Directed_graph">directed graph</a> is called <strong>strongly connected</strong> if there is a <a href="http://en.wikipedia.org/wiki/Path">path</a> in each direction between each pair of vertices of the graph. In a directed graph <em>G</em> that may not itself be strongly connected, a pair of vertices <em>u</em> and <em>v</em> are said to be strongly connected to each other if there is a path in each direction between them.</p>
+<p>The <a href="http://en.wikipedia.org/wiki/Binary_relation">binary relation</a> of being strongly connected is an <a href="http://en.wikipedia.org/wiki/Equivalence_relation">equivalence relation</a>, and the <a href="http://en.wikipedia.org/wiki/Induced_subgraph">induced subgraphs</a> of its <a href="http://en.wikipedia.org/wiki/Induced_subgraph">equivalence classes</a> are called <strong>strongly connected components</strong>. Equivalently, a <strong>strongly connected component</strong> of a directed graph <em>G</em> is a subgraph that is strongly connected, and is <a href="http://en.wikipedia.org/wiki/Maximal">maximal</a> with this property: no additional edges or vertices from <em>G</em> can be included in the subgraph without breaking its property of being strongly connected. The collection of strongly connected components forms a <a href="http://google.com/" title="Google">partition</a> of the set of vertices of <em>G</em>.</p>
+<p>If each strongly connected component is <a href="http://en.wikipedia.org/wiki/Contracted">contracted</a> to a single vertex, the resulting graph is a <a href="http://en.wikipedia.org/wiki/DAG">directed acyclic graph</a>, the <strong>condensation</strong> of <em>G</em>. A directed graph is acyclic if and only if it has no strongly connected subgraphs with more than one vertex, because a directed cycle is strongly connected and every nontrivial strongly connected component contains at least one directed cycle.</p>
+<h2 id="algorithms"><a class="header-link" href="#algorithms"></a>Algorithms</h2>
+<p>Several algorithms can compute strongly connected components in <a href="http://en.wikipedia.org/wiki/Linear_time">linear
+time</a>.</p>
+<ul class="list">
+<li><a href="http://en.wikipedia.org/wiki/DAG">Kosaraju&#39;s algorithm</a> uses two passes of <a href="http://en.wikipedia.org/wiki/DAG">depth first search</a>. The first, in the original graph, is used to choose the order in which the outer loop of the second depth first search tests vertices for having been visited already and recursively explores them if not. The second depth first search is on the <a href="http://en.wikipedia.org/wiki/DAG">transpose graph</a> of the original graph, and each recursive exploration finds a single new strongly connected component. It is named after <a href="http://en.wikipedia.org/wiki/DAG">S. Rao Kosaraju</a>, who described it (but did not publish his results) in 1978; <a href="http://en.wikipedia.org/wiki/DAG">Micha Sharir</a> later published it in 1981.</li>
+<li><a href="http://en.wikipedia.org/wiki/DAG">Tarjan&#39;s strongly connected components algorithm</a>, published by <a href="http://en.wikipedia.org/wiki/DAG">Robert Tarjan</a> in 1972, performs a single pass of depth first search. It maintains a <a href="http://en.wikipedia.org/wiki/DAG">stack</a> of vertices that have been explored by the search but not yet assigned to a component, and calculates “low numbers” of each vertex (an index number of the highest ancestor reachable in one step from a descendant of the vertex) which it uses to determine when a set of vertices should be popped off the stack into a new component.</li>
+<li>The <a href="http://en.wikipedia.org/wiki/DAG">path-based strong component algorithm</a> uses a depth first search, like Tarjan&#39;s algorithm, but with two stacks. One of the stacks is used to keep track of the vertices not yet assigned to components, while the other keeps track of the current path in the depth first search tree. The first linear time version of this algorithm was published by <a href="http://en.wikipedia.org/wiki/DAG">Edsger W. Dijkstra</a> in 1976.</li>
+</ul>
+<p>Although Kosaraju&#39;s algorithm is conceptually simple, Tarjan&#39;s and the
+path-based algorithm are favoured in practice since they require only
+one <a href="http://en.wikipedia.org/wiki/DAG">depth-first search</a> rather than two.</p>
+<h2 id="applications"><a class="header-link" href="#applications"></a>Applications</h2>
+<p>Algorithms for finding strongly connected components may be used to
+solve <a href="http://en.wikipedia.org/wiki/DAG">2-satisfiability</a> problems (systems of Boolean variables with constraints on the values of pairs of variables): as showed, a <a href="http://en.wikipedia.org/wiki/DAG">2-satisfiability</a> instance is unsatisfiable if and only if there is a variable <em>v</em> such that <em>v</em> and its complement are both contained in the same strongly connected component of the <a href="http://en.wikipedia.org/wiki/DAG">implication graph</a> of the instance.</p>
+<p>Strongly connected components are also used to compute the <a href="http://en.wikipedia.org/wiki/DAG">Dulmage–Mendelsohn decomposition</a>, a classification of the edges of a <a href="http://en.wikipedia.org/wiki/DAG">bipartite graph</a>, according to whether or not they can be part of a <a href="http://en.wikipedia.org/wiki/DAG">perfect matching</a> in the graph.</p>
+<h2 id="related-results"><a class="header-link" href="#related-results"></a>Related results</h2>
+<p>A directed graph is strongly connected if and only if it has an <a href="http://en.wikipedia.org/wiki/DAG">ear decomposition</a>, a partition of the edges into a sequence of directed paths and cycles such that the first subgraph in the sequence is a cycle, and each subsequent subgraph is either a cycle sharing one vertex with previous subgraphs, or a path sharing its two endpoints with previous subgraphs.</p>
+<p>According to <a href="http://en.wikipedia.org/wiki/DAG">Robbins&#39; theorem</a>, an undirected graph may be <a href="http://en.wikipedia.org/wiki/Linear_time">oriented</a> in such a way that it becomes strongly connected, if and only if it is <a href="http://en.wikipedia.org/wiki/DAG">2-edge-connected</a>. One way to prove this result is to find an ear decomposition of the underlying undirected graph and then orient each ear consistently.</p>
+<h2 id="see-also"><a class="header-link" href="#see-also"></a>See also</h2>
+<ul class="list">
+<li><a href="http://en.wikipedia.org/wiki/DAG">Connected component</a></li>
+<li><a href="http://en.wikipedia.org/wiki/DAG">Modular decomposition</a></li>
+</ul>
+<h2 id="we-all-like-making-lists"><a class="header-link" href="#we-all-like-making-lists"></a>We all like making lists</h2>
+<p>The above header should be an H2 tag. Now, for a list of fruits:</p>
+<ul class="list">
+<li>Red Apples</li>
+<li>Purple Grapes</li>
+<li>Green Kiwifruits</li>
+</ul>
+<p>Let&#39;s get crazy:</p>
+<ol class="list">
+<li><p>This is a list item with two paragraphs. Lorem ipsum dolor
+sit amet, consectetuer adipiscing elit. Aliquam hendrerit
+mi posuere lectus.</p>
+<p>Vestibulum enim wisi, viverra nec, fringilla in, laoreet
+vitae, risus. Donec sit amet nisl. Aliquam semper ipsum
+sit amet velit.</p>
+</li>
+<li><p>Suspendisse id sem consectetuer libero luctus adipiscing.</p>
+</li>
+</ol>
+<p>What about some code <strong>in</strong> a list? That&#39;s insane, right?</p>
+<ol class="list">
+<li>In Ruby you can map like this:</li>
+</ol>
+<pre class="hljs"><code>[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>].map { |x| x.uppercase }</code></pre><ol class="list">
+<li>In Rails, you can do a shortcut:</li>
+</ol>
+<pre class="hljs"><code>[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>].map(&amp;<span class="hljs-symbol">:uppercase</span>)</code></pre><p>Some people seem to like definition lists</p>
+<dl>
+  <dt>Lower cost</dt>
+  <dd>The new version of this product costs significantly less than the previous one!</dd>
+  <dt>Easier to use</dt>
+  <dd>We&#39;ve changed the product so that it&#39;s much easier to use!</dd>
+</dl>
+
+<h2 id="i-am-a-robot"><a class="header-link" href="#i-am-a-robot"></a>I am a robot</h2>
+<p>Maybe you want to print <code>robot</code> to the console 1000 times. Why not?</p>
+<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Car</span> <span class="hljs-inheritance">&lt; <span class="hljs-parent">ActiveRecord::Base</span></span></span>
+  has_many <span class="hljs-symbol">:wheels</span>, <span class="hljs-symbol">class_name:</span> <span class="hljs-string">'Wheel'</span>, <span class="hljs-symbol">foreign_key:</span> <span class="hljs-string">'car_id'</span>
+  scope <span class="hljs-symbol">:available</span>, -&gt; { where(<span class="hljs-symbol">available:</span> <span class="hljs-keyword">true</span>) }
+<span class="hljs-keyword">end</span></code></pre><p>You see, that was formatted as code because it&#39;s been indented by four spaces.</p>
+<p>How about we throw some angle braces and ampersands in there?</p>
+<pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"footer"</span>&gt;</span>
+    &amp;copy; 2004 Foo Corporation
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre><p>CSV:</p>
+<pre class="hljs"><code>Year,Make,Model,Length
+<span class="hljs-number">2</span><span class="hljs-regexp">/5/</span><span class="hljs-number">08</span>,Ford,E350,<span class="hljs-number">2.34</span>
+<span class="hljs-number">1</span><span class="hljs-regexp">/2/</span><span class="hljs-number">06</span>,Mercury,Cougar,<span class="hljs-number">2.38</span></code></pre><h2 id="set-in-stone"><a class="header-link" href="#set-in-stone"></a>Set in stone</h2>
+<p>Preformatted blocks are useful for ASCII art:</p>
+<pre>
+             ,-.
+    ,     ,-.   ,-.
+   / \   (   )-(   )
+   \ |  ,.>-(   )-<
+    \|,' (   )-(   )
+     Y ___`-'   `-'
+     |/__/   `-'
+     |
+     |
+     |    -hrr-
+  ___|_____________
+</pre>
+
+<h2 id="playing-the-blame-game"><a class="header-link" href="#playing-the-blame-game"></a>Playing the blame game</h2>
+<p>If you need to blame someone, the best way to do so is by quoting them:</p>
+<blockquote>
+<p>I, at any rate, am convinced that He does not throw dice.</p>
+</blockquote>
+<p>Or perhaps someone a little less eloquent:</p>
+<blockquote>
+<p>I wish you&#39;d have given me this written question ahead of time so I
+could plan for it... I&#39;m sure something will pop into my head here in
+the midst of this press conference, with all the pressure of trying to
+come up with answer, but it hadn&#39;t yet...</p>
+<p>I don&#39;t want to sound like
+I have made no mistakes. I&#39;m confident I have. I just haven&#39;t - you
+just put me under the spot here, and maybe I&#39;m not as quick on my feet
+as I should be in coming up with one.</p>
+</blockquote>
+<h2 id="table-for-two"><a class="header-link" href="#table-for-two"></a>Table for two</h2>
+<table>
+  <tr>
+    <th>ID</th><th>Name</th><th>Rank</th>
+  </tr>
+  <tr>
+    <td>1</td><td>Tom Preston-Werner</td><td>Awesome</td>
+  </tr>
+  <tr>
+    <td>2</td><td>Albert Einstein</td><td>Nearly as awesome</td>
+  </tr>
+</table>
+
+<h2 id="crazy-linking-action"><a class="header-link" href="#crazy-linking-action"></a>Crazy linking action</h2>
+<p>I get 10 times more traffic from <a href="http://google.com/" title="Google">Google</a> than from
+<a href="http://search.yahoo.com/" title="Yahoo Search">Yahoo</a> or <a href="http://search.msn.com/" title="MSN Search">MSN</a>.</p>
   </div>
 
-  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
 </body>
 </html>

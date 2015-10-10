@@ -1,7 +1,6 @@
 @import url(//fonts.googleapis.com/css?family=PT+Sans);
 
 body {
-  padding:50px;
   font-family: 'PT Sans', Helvetica, 'Helvetica Neuve', Arial, Tahoma, sans-serif;
   font-size: 17px;
 
@@ -260,9 +259,7 @@ footer {
 #wrapper {
   margin-left: auto;
   margin-right: auto;
-  width: 940px;
   background-color: white;
-  padding: 50px;
 }
 
 .ca-menu {
@@ -309,4 +306,40 @@ ul.list, ol.list {
 
 .post h2 {
   border-bottom: 1px solid #EDEDED;
+}
+
+h1:nth-child(1),
+h2:nth-child(1),
+h3:nth-child(1),
+h4:nth-child(1),
+h5:nth-child(1),
+h6:nth-child(1) {
+  margin-top: 0;
+}
+
+body {
+  padding: 1em;
+}
+
+#wrapper {
+  padding: 1em;
+}
+
+@media (min-width: 43.75em) {
+  body {
+    padding: 2em;
+  }
+  #wrapper {
+    padding: 2em;
+  }
+}
+
+@media (min-width: 62em) {
+  body {
+    padding: 3em;
+  }
+  #wrapper {
+    max-width: 740px;
+    padding: 3em;
+  }
 }

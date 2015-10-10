@@ -257,10 +257,7 @@ footer {
 
 
 #wrapper {
-  width: 650px;
-  background-color: white;
-  padding: 20px 50px;
-
+  padding: 1em;
 }
 
 .ca-menu {
@@ -275,18 +272,12 @@ footer {
   bottom: 0;
   left: auto;
   width: 20%;
-
   background-color: #fff;
-  /*
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
-  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
-  -o-box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
-  */
   padding: 20px;
-
   position: fixed;
   z-index: 1;
+  display: none;
+  height: 100%;
 }
 
 
@@ -306,26 +297,28 @@ footer {
 }
 
 #toc-inner {
-  position: absolute;
-  width: 100%;
-  top: 20%;
+  display: table-cell;
+  vertical-align: middle;
 }
 
+.nav-list {
+  height: 50%;
+  margin: auto 0;
+}
 
 div.clear {
   clear: both;
 }
 
+h1 { font-size: 2.5em; line-height: 1; }
+h2 { font-size: 2em;   line-height: 1; }
+h3 { font-size: 1.5em; line-height: 1; }
+h4 { font-size: 1.2em; line-height: 1.25; }
+h5 { font-size: 1em;   line-height: 1; font-weight: bold; }
+h6 { font-size: 1em;   line-height: 1; font-weight: bold; }
 
-  h1 { font-size: 2.5em; line-height: 1; }
-  h2 { font-size: 2em;   line-height: 1; }
-  h3 { font-size: 1.5em; line-height: 1; }
-  h4 { font-size: 1.2em; line-height: 1.25; }
-  h5 { font-size: 1em;   line-height: 1; font-weight: bold; }
-  h6 { font-size: 1em;   line-height: 1; font-weight: bold; }
-
-  h1, h2, h3, h4, h5, h6 { font-weight: normal; margin-top: 1em; margin-bottom: 0.5em; }
-  h1, h2 { margin-bottom: 0.5em; }
+h1, h2, h3, h4, h5, h6 { font-weight: normal; margin-top: 1em; margin-bottom: 0.5em; }
+h1, h2 { margin-bottom: 0.5em; }
 
 .post p {
   max-width: 580px;
@@ -340,5 +333,24 @@ ul.list, ol.list {
   border-bottom: 1px solid #EDEDED;
 }
 
+h1:nth-child(1),
+h2:nth-child(1),
+h3:nth-child(1),
+h4:nth-child(1),
+h5:nth-child(1),
+h6:nth-child(1) {
+  margin-top: 0;
+}
 
+@media (min-width: 43.75em) {
+  #wrapper {
+    width: 650px;
+    padding: 20px 50px;
+  }
+}
 
+@media (min-width: 62em) {
+  #toc {
+    display: table;
+  }
+}

@@ -32,10 +32,9 @@ a, ins {
   text-decoration: none;
   }
 
-/* I was originally using Cantarell for the body text, but it just isn't as readable the usual suspects. */
-
 body {
   font-family: Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
+  background-color: white;
 }
 
 a {
@@ -97,13 +96,10 @@ div.clear hr {
 #wrapper {
   margin-left: auto;
   margin-right: auto;
-  width: 960px;
+  width: 95%;
 }
 
 #container {
-  width: 72%;
-  display: inline;
-  float: left;
   margin-right: 5px;
   margin-left: 15px;
   overflow: visible;
@@ -113,34 +109,10 @@ div.clear hr {
 #content {
   font-size: 16px;
   line-height: 26px;
-  /* max-width: 540px; Optimal formula = 30 * font size in px. */
 
-  /* text-align: justify; */
   margin-bottom: 0;
   padding-bottom: 20px;
-  float: left;
-
   overflow: visible;
-  width: 100%;
-}
-
-#sidebar {
-  width: 24%;
-  float: left;
-}
-
-/* Date widget */
-#content small{
-  font-size: 10px;
-  color: #CCC;
-  padding: 10px 20px 5px 0px;
-  float: left;
-  text-transform: uppercase;
-}
-#content span.date {
-  font-size: 32px;
-  line-height: 0.8;
-  color: #C00;
 }
 
 /* Post titles */
@@ -161,11 +133,16 @@ div.clear hr {
 
 .post p {
   margin: 0 0 1.5em;
-  max-width: 580px;
+}
+
+.post p,
+.post ul,
+.post ol {
+  max-width: 36em;
 }
 
 .post ul {
-list-style-type: disc;
+  list-style-type: disc;
 }
 
 .post ul, .post ol {
@@ -186,18 +163,18 @@ list-style-type: disc;
   background: #F8F8F8;
   border: 1px solid #E8E8E8;
   border-width: 1px 1px 1px 6px;
-  margin: -0.5em 0 1.1em;
+  margin: -1em 0 1em 0;
 }
 
-.post pre, .post table {
+.post table {
   margin: -1em 0 1em 0;
   padding: .5em 1em;
   background: #F6F6F6 repeat 0 0;
 }
 
 .post pre, .post code, .post tt {
-font: 0.8em 'droid sans mono', 'lucida console', monospace;
-line-height: 1.5;
+  font-family: 'droid sans mono', 'lucida console', monospace;
+  line-height: 1.5;
 }
 
 .post h3 {
@@ -213,9 +190,11 @@ line-height: 1.5;
   margin-bottom: 1.25em;
 }
 
-.post p tt, .post p code {
-  background: ghostWhite;
-  border: 1px solid #DEDEDE;
+.post p tt,
+.post p code,
+.post ul code,
+.post ol code {
+  background: #eee;
   padding: 0 0.2em;
 }
 
@@ -238,7 +217,20 @@ line-height: 1.5;
 table { width: 100%; border-collapse: collapse; border-spacing: 0; }
 table caption { text-align: center; }
 table th { font-weight: bold; }
-table th, table td { padding: 0.3em; vertical-align: top; border: solid 0.1em; }
+table th, table td {
+  padding: 0.3em;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+
+table>thead:first-child>tr:first-child>td,
+table>thead:first-child>tr:first-child>th {
+  border-top: 0;
+}
+
+.post table>tbody>tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
 
 div.summary {
   border-top: 3px solid #EEE;
@@ -269,4 +261,28 @@ div.notice {
 #bottom_navi {
   font-size: larger;
   margin: 8px;
+}
+
+#sidebar {
+  display: none;
+}
+
+@media (min-width: 43.75em) {
+}
+
+@media (min-width: 62em) {
+  #wrapper {
+    width: 960px;
+  }
+
+  #container {
+    width: 72%;
+    float: left;
+  }
+
+  #sidebar {
+    display: block;
+    width: 24%;
+    float: left;
+  }
 }
