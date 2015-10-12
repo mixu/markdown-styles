@@ -1,0 +1,15 @@
+- live reload server (+React) e.g. https://github.com/gatsbyjs/gatsby
+- better pluggability (e.g. via cli, via API, via package.json maybe via call)
+  - write watcher as plugin
+    - also watch layout
+  - allow plugins to add static files
+  - incremental single file pipeline
+  - other: minifiers, css preprocessors etc.
+- md5 and skip copy
+- ship integration: https://github.com/carrot/ship
+- emoji support
+- static asset revisioning via https://www.npmjs.com/package/rev-hash, https://github.com/galkinrost/gulp-rev-css-url
+- express plugin e.g. equivalent to express.static()
+- docco style
+- linkify .md links
+- as a lambda
