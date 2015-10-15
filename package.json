@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "handlebars": "~4.0.3",
-    "markdown-stream-utils": "~1.1.1",
+    "markdown-stream-utils": "~1.1.2",
     "mkdirp": "~0.5.1",
     "pipe-iterators": "~1.1.0",
     "resolve": "~1.1.6",
