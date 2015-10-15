@@ -29,14 +29,14 @@
     "test": "mocha -R spec ./test/*.test.js"
   },
   "dependencies": {
-    "handlebars": "~2.0.0",
-    "markdown-stream-utils": "~1.1.0",
+    "handlebars": "~4.0.3",
+    "markdown-stream-utils": "~1.1.1",
     "mkdirp": "~0.5.1",
     "pipe-iterators": "~1.1.0",
-    "resolve": "~0.6.1",
+    "resolve": "~1.1.6",
     "wildglob": "0.0.2",
     "xtend": "~4.0.0",
-    "yargs": "~1.1.3"
+    "yargs": "~3.27.0"
   },
   "devDependencies": {
     "file-fixture": "0.0.2",
