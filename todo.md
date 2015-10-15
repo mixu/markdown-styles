@@ -12,4 +12,27 @@
 - express plugin e.g. equivalent to express.static()
 - docco style
 - linkify .md links
-- as a lambda
+- themes
+  - https://github.com/nrbernard/droplr-markdown-css
+  - https://github.com/chrisopedia/base16-marked
+  - https://github.com/ttscoff/MarkedCustomStyles
+  - http://markedstyle.com/styles
+  - http://beautifuldocs.com/
+  - http://cabinjs.github.io/Candy/
+  - https://middlemanapp.com/basics/install/
+  - https://hexo.io/themes/
+  - http://octopressthemes.github.io/
+  - http://www.wptherightway.org/en/index.html
+  - http://www.pelicanthemes.com/
+  - http://themes.gohugo.io/
+  - http://octopressthemes.github.io/
+- widgets:
+  - responsive, expanding TOC menu
+  - top-corner TOC menu
+  - font size and background color selector
+  - social links
+  - scroll past bottom for next page (e.g. infinite pages)
+- specialized code blocks:
+  - quiz
+  - equations
+  - exercises
