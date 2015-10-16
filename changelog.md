@@ -1,3 +1,14 @@
+## Changes in 3.1.2
+
+- `v3.1.2` adds default classes that allow you to style headings in the table of contents.
+
+## Changes in 3.1.1
+
+- Minor patch
+
+## Changes in 3.1
+
+- Updated dependencies in package.json.
 
 ## Changes in 3.0
 

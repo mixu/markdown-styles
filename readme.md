@@ -6,7 +6,7 @@ Looking for something to generate a blog from Markdown files? Check out [ghost-r
 
 ## Features
 
-- `v3.1` adds default classes that allow you to [style headings in the table of contents](#table-of-contents). See [the changelog](./changelog.md) for changes made in older versions.
+- `v3.1.2` adds default classes that allow you to [style headings in the table of contents](#table-of-contents). See [the changelog](./changelog.md) for changes made in older versions.
 - Includes 15+ ready-made CSS stylesheets for Markdown, see the bottom of the readme for screenshots.
 - Reuse the stylesheets or use the `generate-md` tool to convert a folder of Markdown files to HTML using one of the built-in layouts or a custom layout.
 - Completely static output is easy to host anywhere.
@@ -109,7 +109,7 @@ You can customize the table of contents markup by overriding the [./partials/toc
 </ul>
 ```
 
-Note that by default (since v3.1.1), each heading list item has a class that depends on the level of the heading (`.sidebar-heading-1`, `.sidebar-heading-2`, ...). Thanks @mixinmax!
+Note that by default (since v3.1.2), each heading list item has a class that depends on the level of the heading (`.sidebar-heading-1`, `.sidebar-heading-2`, ...). Thanks @mixinmax!
 
 The `headings` metadata is an array of objects with:
 
