@@ -1,15 +1,12 @@
 # markdown-styles
 
-Converts Markdown files to HTML, with over a dozen builtin themes. 
+Converts Markdown files to HTML, with over a dozen builtin themes.
 
 Looking for something to generate a blog from Markdown files? Check out [ghost-render](https://github.com/mixu/ghost-render).
 
 ## Features
 
-- `v3.0` changes how the optional `meta.json` file works, adding support for setting per-directory and global metadata values (see the section further down). It also adds responsive markup tweaks to the github, markedapp-byword, mixu-book, mixu-page, mixu-radar and witex layouts and adds the responsive meta tag to all layouts.
-- `v2.4` adds better handling for when the same header text is used multiple times in the same file.
-- `v2.3` adds one new feature: header hover anchor links. When you hover over a header, a hover anchor link appears to the side of the header. Clicking on that link or copying its URL produces a link to that specific location on the page. All built-in layouts support this feature by default.
-- `v2.2` added Windows support (!)
+- `v3.1` adds default classes that allow you to [style headings in the table of contents](#table-of-contents). See [the changelog](./changelog.md) for changes made in older versions.
 - Includes 15+ ready-made CSS stylesheets for Markdown, see the bottom of the readme for screenshots.
 - Reuse the stylesheets or use the `generate-md` tool to convert a folder of Markdown files to HTML using one of the built-in layouts or a custom layout.
 - Completely static output is easy to host anywhere.
@@ -100,7 +97,25 @@ The following built in layouts include the `{{~> toc}}` partial:
 
 These are mostly templates that have a sensible place to put this table of contents, such as a sidebar. I didn't want to default to putting a table of contents into the layouts that had no sidebar, but you can add it quite easily.
 
-The `{{~> toc}}` partial generates a table of contents list. The list contains links to every header in your Markdown file. In addition, every Markdown header is automatically converted to a linkable anchor (e.g. `#table_of_contents`) when the page is generated. You can customize the table of contents markup by overriding the [./partials/toc.hbs](https://github.com/mixu/markdown-styles/blob/master/builtin/partials/toc.hbs) partial in your custom layout.
+The `{{~> toc}}` partial generates a table of contents list. The list contains links to every header in your Markdown file. In addition, every Markdown header is automatically converted to a linkable anchor (e.g. `#table_of_contents`) when the page is generated.
+
+You can customize the table of contents markup by overriding the [./partials/toc.hbs](https://github.com/mixu/markdown-styles/blob/master/builtin/partials/toc.hbs) partial in your custom layout. By default, it looks like this:
+
+```html
+<ul class="nav nav-list">
+  {{#each headings}}
+    <li class="sidebar-header-{{depth}}"><a href="#{{id}}">{{text}}</a></li>
+  {{/each}}
+</ul>
+```
+
+Note that by default (since v3.1.1), each heading list item has a class that depends on the level of the heading (`.sidebar-heading-1`, `.sidebar-heading-2`, ...). Thanks @mixinmax!
+
+The `headings` metadata is an array of objects with:
+
+- an `id` field (the HTML anchor id),
+- a `text` field (the heading text) and
+- a `depth` field (the depth of the heading, e.g. the number of `#` characters in the heading).
 
 ## Header hover links (v2.1)
 
@@ -153,17 +168,21 @@ which will result in:
 </ul>
 ```
 
-If you take a look at [the `{{~> toc}}` built in partial](https://github.com/mixu/markdown-styles/blob/master/builtin/partials/toc.hbs), you can see that it is actually iterating over a metadata field called `headings` using the same syntax. The `headings` metadata is an array of objects with an `id` field (the HTML anchor id), a `text` field (the heading text) and a `depth` field (the depth of the heading, e.g. the number of `#` characters in the heading).
+If you take a look at [the `{{~> toc}}` built in partial](https://github.com/mixu/markdown-styles/blob/master/builtin/partials/toc.hbs), you can see that it is actually [iterating over a metadata field](#table-of-contents) called `headings` using the same syntax.
 
 ## Writing your own layout
 
 `v2.0` makes it easier to get started with a custom layout via `--export`, which exports a built in layout as a starting point. Just pick a reasonable built in layout and start customizing. For example:
 
-    generate-md --export github --output ./my-layout
+```sh
+generate-md --export github --output ./my-layout
+```
 
 will export the `github` layout to `./my-layout`. To make use of your new layout:
 
-    generate-md --layout ./my-layout --input ./some-input --output ./output
+```sh
+generate-md --layout ./my-layout --input ./some-input --output ./output
+```
 
 If you look under `./my-layout`, you'll see that a layout folder consists of:
 
@@ -342,14 +361,18 @@ See `bin/generate-md` and `test/api.test.js` for details.
 
 ## Acknowledgments
 
-Thanks @xcv58 for dealing with the case where the same header text is used multiple times in the same file!
+I'd like to thank the following people for contributing new features:
 
-I'd like to thank @parmentelat for adding the cascading meta.json logic (for `v3.0`), @AaronJan for contributing a patch that adds support for Windows (for `v.2.2.0`+) and @joebain for a fix related to using markdown-styles with grunt.
+- @mixinmax for adding default class names to the table of contents
+- @parmentelat for adding the cascading meta.json logic
+- @AaronJan for contributing a patch that adds support for Windows
+- @joebain for a fix related to using markdown-styles with grunt
+- @xcv58 for dealing with the case where the same header text is used multiple times in the same file
+- @iamdoron for contributing the initial implementation of the Handlebars templating integration
 
-I'd like to thank the following people for either contributing to markdown-styles directly or making CSS stylesheets available with a permissive open source license:
+I'd like to thank the following people for making CSS stylesheets available with a permissive open source license:
 
 - the `witex` style is based on [AndrewBelt/WiTeX](https://github.com/AndrewBelt/WiTeX)
-- @iamdoron for contributing the initial implementation of the Handlebars templating integration
 - the `github` style is based on [sindresorhus/github-markdown-css](https://github.com/sindresorhus/github-markdown-css)
 - the `bootstrap3` style was contributed by @MrJuliuss
 - jasonm23-dark, jasonm23-foghorn, jasonm23-markdown and jasonm23-swiss are based on https://github.com/jasonm23/markdown-css-themes by [jasonm23](https://github.com/jasonm23)

@@ -1,7 +1,3 @@
-body {
-  background: url('{{asset "img/textured_paper.png"}}') repeat top left;
-  background-color: #f6f6f6;
-}
 .main {
   padding: 0px 40px;
   background: rgba(255,255,255,0.5);

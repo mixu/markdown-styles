@@ -1,10 +1,19 @@
+
+## Changes in 3.0
+
+- `v3.0` changes how the optional `meta.json` file works, adding support for setting per-directory and global metadata values (see the section further down). It also adds responsive markup tweaks to the github, markedapp-byword, mixu-book, mixu-page, mixu-radar and witex layouts and adds the responsive meta tag to all layouts.
+
+## Changes in 2.4
+
+- Better handling for when the same header text is used multiple times in the same file.
+
 ## Changes in 2.3.1
 
 - Fixed a bug where the `render` function would not wait until all the assets were copied, thanks @joebain!
 
 ## Changes in 2.3:
 
-- Added the new header hover links feature, along with the relevant CSS for each built in layout.
+- `v2.3` adds one new feature: header hover anchor links. When you hover over a header, a hover anchor link appears to the side of the header. Clicking on that link or copying its URL produces a link to that specific location on the page. All built-in layouts support this feature by default.
 - Added the `--no-header-links` flag.
 
 ## Changes in 2.2:
