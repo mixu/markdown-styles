@@ -339,6 +339,9 @@ If any markdown file in `./input/foo/` defines a metadata value called `repoUrl`
   - `path` (an absolute path to the input file name),
   - `stat` (the fs.stat object associated with the input file),
   - `contents` (a string with the content of the input file).
+- Since `v3.1.3`, the `pipeline` function supports a couple of arguments that are not exposed on the CLI (in addition to all the CLI args):
+  - `meta`: a hash of JSON (the contents of a meta.json file if you prefer to set that explicitly)
+  - `asset-path`: a full path to the `/assets` folder, defaults to `${output}/assets`.
 
 The writable stream returns objects with the same properties, plus any metadata. The pipeline updates `path` to be the output path that generate-md would write the file to, and updates `contents` to be a string of HTML.
 

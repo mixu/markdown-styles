@@ -177,7 +177,7 @@ describe('integration tests', function() {
           setOutputPath({
             input: '/fake/input',
             output: '/fake/output',
-            assetDir: '/fake/output/assets/'
+            'asset-path': '/fake/output/assets/'
           }),
 
           applyTemplate(opts),
@@ -213,8 +213,8 @@ describe('integration tests', function() {
       }, { template: 'a{{> toc}}b' }, function(html) {
         assert.equal(html, [
           'a<ul class="nav nav-list">',
-          '    <li><a href="#foo">foo</a></li>',
-          '    <li><a href="#bar">bar</a></li>',
+          '    <li class="sidebar-header-1"><a href="#foo">foo</a></li>',
+          '    <li class="sidebar-header-2"><a href="#bar">bar</a></li>',
           '</ul>',
           'b'
         ].join('\n'));

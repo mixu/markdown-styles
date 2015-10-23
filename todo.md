@@ -36,3 +36,16 @@
   - quiz
   - equations
   - exercises
+- sidebar menu component
+  - responsive (e.g. top-level hamburger icon on mobile)
+  - toggleable (e.g. tablet)
+  - https://dribbble.com/shots/1830513-Tumblr-Free-PSD-Template
+  - https://dribbble.com/shots/1590417-Portfolio-Review-Page
+- scrollable, expanding TOC
+  - sticky on side
+  - scrollable on overflow
+  - expands to match specific targets
+  - has buttons to expand specific sections
+- full site TOC views / helpers ??
+- better preview system (e.g. theme switcher, hosted online)
+
