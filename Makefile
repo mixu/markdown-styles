@@ -14,38 +14,20 @@ ifeq ($(UNAME), Darwin)
 	open output/index.html
 endif
 
-# Note: for fonts to render you need to download them first
-screenshots: build
-	rm -f ./screenshots/*.png
+# Note: on OSX, run brew install ghostscript as well to get the fonts needed for montage
+screenshots:
+	rm -f ./screenshots/*.jpg
 	for name in `find ./output -mindepth 1 -maxdepth 1 -type d | sed -e 's/.\/output\///'` ; do \
-				cutycapt --url=file://$(CURDIR)/output/$$name/index.html --out=./screenshots/$$name.png ; \
-				convert ./screenshots/$$name.png -resize "800x" -crop 800x600+0+0  +repage ./screenshots/$$name-cropped.png ; \
-				rm ./screenshots/$$name.png ; \
-				mv ./screenshots/$$name-cropped.png ./screenshots/$$name.png ; \
+		./node_modules/.bin/electroshot $(CURDIR)/output/$$name/index.html 800x600 --format jpg --quality 60 --force-device-scale-factor 1 --filename ./screenshots/$$name.jpg; \
 	done
-	rm ./screenshots/montage.png || true
-	montage -tile 4x -label '%t'  -geometry 120x120\>+20+5  ./screenshots/*.png  ./screenshots/montage.png
-
-phantomjs:
-	rm -f ./screenshots/*.png
-	for name in `find ./output -mindepth 1 -maxdepth 1 -type d | sed -e 's/.\/output\///'` ; do \
-				phantomjs ./screenshots/screenshot.js --url=file://$(CURDIR)/output/$$name/index.html --out=./screenshots/$$name.png ; \
-				convert ./screenshots/$$name.png -resize "800x" -crop 800x600+0+0  +repage ./screenshots/$$name-cropped.png ; \
-				rm ./screenshots/$$name.png ; \
-				mv ./screenshots/$$name-cropped.png ./screenshots/$$name.png ; \
-	done
-	rm ./screenshots/montage.png || true
-	montage -tile 4x -label '%t'  -geometry 120x120\>+20+5  ./screenshots/*.png  ./screenshots/montage.png
+	rm ./screenshots/montage.jpg || true
+	montage -tile 4x -label '%t'  -geometry 120x120\>+20+5  ./screenshots/*.jpg  ./screenshots/montage.jpg
 
 montage:
-	rm ./screenshots/montage.png || true
-	montage -tile 4x -label '%t'  -geometry 120x120\>+20+5  ./screenshots/*.png  ./screenshots/montage.png
+	rm ./screenshots/montage.jpg || true
+	montage -tile 4x -label '%t'  -geometry 120x120\>+20+5  ./screenshots/*.jpg  ./screenshots/montage.jpg
 
-# Download google fonts for cutycapt
-get-fonts:
-	node screenshots/font-download.js
-
-.PHONY: build screenshots get-fonts montage
+.PHONY: build screenshots montage
 
 lint:
 	fixjsstyle $(GJSLINT) -r .

@@ -39,6 +39,7 @@
     "yargs": "~3.27.0"
   },
   "devDependencies": {
+    "electroshot": "~1.0.0",
     "file-fixture": "0.0.2",
     "mds-csv": "0.0.0"
   }

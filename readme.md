@@ -48,7 +48,7 @@ Create a markdown file and then convert it to html:
 
 Try out different layouts by changing the `--layout` parameter; screenshots are at the bottom of this page.
 
-![montage](https://github.com/mixu/markdown-styles/raw/master/screenshots/montage.png)
+![montage](https://github.com/mixu/markdown-styles/raw/master/screenshots/montage.jpg)
 
 ## generate-md CLI options
 
@@ -386,75 +386,75 @@ I'd like to thank the following people for making CSS stylesheets available with
 
 ## Screenshots of the layouts
 
-Note: these screenshots are generated via phantomjs, so they look worse than they do in a real browser because the font rendering is just bad and lacks webfont support. For example, WiTeX actually uses the Latin Modern Roman font from TeX but the screenshots show the fallback font.
+Thanks to [electroshot](https://github.com/mixu/electroshot), the screenshots now look about right (e.g. web fonts render correctly).
 
 ### github
 
-![github](https://github.com/mixu/markdown-styles/raw/master/screenshots/github.png)
+![github](https://github.com/mixu/markdown-styles/raw/master/screenshots/github.jpg)
 
 ### witex
 
-![witex](https://github.com/mixu/markdown-styles/raw/master/screenshots/witex.png)
+![witex](https://github.com/mixu/markdown-styles/raw/master/screenshots/witex.jpg)
 
 ### roryg-ghostwriter
 
-![roryg-ghostwriter](https://github.com/mixu/markdown-styles/raw/master/screenshots/roryg-ghostwriter.png)
+![roryg-ghostwriter](https://github.com/mixu/markdown-styles/raw/master/screenshots/roryg-ghostwriter.jpg)
 
 ### mixu-bootstrap
 
-![mixu-bootstrap](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-bootstrap.png)
+![mixu-bootstrap](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-bootstrap.jpg)
 
 ### mixu-bootstrap-2col
 
-![mixu-bootstrap-2col](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-bootstrap-2col.png)
+![mixu-bootstrap-2col](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-bootstrap-2col.jpg)
 
 ### mixu-gray
 
-![mixu-gray](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-gray.png)
+![mixu-gray](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-gray.jpg)
 
 ### jasonm23-dark
 
-![jasonm23-dark](https://github.com/mixu/markdown-styles/raw/master/screenshots/jasonm23-dark.png)
+![jasonm23-dark](https://github.com/mixu/markdown-styles/raw/master/screenshots/jasonm23-dark.jpg)
 
 ### jasonm23-foghorn
 
-![jasonm23-foghorn](https://github.com/mixu/markdown-styles/raw/master/screenshots/jasonm23-foghorn.png)
+![jasonm23-foghorn](https://github.com/mixu/markdown-styles/raw/master/screenshots/jasonm23-foghorn.jpg)
 
 ### jasonm23-markdown
 
-![jasonm23-markdown](https://github.com/mixu/markdown-styles/raw/master/screenshots/jasonm23-markdown.png)
+![jasonm23-markdown](https://github.com/mixu/markdown-styles/raw/master/screenshots/jasonm23-markdown.jpg)
 
 ### jasonm23-swiss
 
-![jasonm23-swiss](https://github.com/mixu/markdown-styles/raw/master/screenshots/jasonm23-swiss.png)
+![jasonm23-swiss](https://github.com/mixu/markdown-styles/raw/master/screenshots/jasonm23-swiss.jpg)
 
 ### markedapp-byword
 
-![markedapp-byword](https://github.com/mixu/markdown-styles/raw/master/screenshots/markedapp-byword.png)
+![markedapp-byword](https://github.com/mixu/markdown-styles/raw/master/screenshots/markedapp-byword.jpg)
 
 ### mixu-book
 
-![mixu-book](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-book.png)
+![mixu-book](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-book.jpg)
 
 ### mixu-page
 
-![mixu-page](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-page.png)
+![mixu-page](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-page.jpg)
 
 ### mixu-radar
 
-![mixu-radar](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-radar.png)
+![mixu-radar](https://github.com/mixu/markdown-styles/raw/master/screenshots/mixu-radar.jpg)
 
 ### thomasf-solarizedcssdark
 
-![thomasf-solarizedcssdark](https://github.com/mixu/markdown-styles/raw/master/screenshots/thomasf-solarizedcssdark.png)
+![thomasf-solarizedcssdark](https://github.com/mixu/markdown-styles/raw/master/screenshots/thomasf-solarizedcssdark.jpg)
 
 ### thomasf-solarizedcsslight
 
-![thomasf-solarizedcsslight](https://github.com/mixu/markdown-styles/raw/master/screenshots/thomasf-solarizedcsslight.png)
+![thomasf-solarizedcsslight](https://github.com/mixu/markdown-styles/raw/master/screenshots/thomasf-solarizedcsslight.jpg)
 
 ### bootstrap3
 
-![bootstrap3](https://github.com/mixu/markdown-styles/raw/master/screenshots/bootstrap3.png)
+![bootstrap3](https://github.com/mixu/markdown-styles/raw/master/screenshots/bootstrap3.jpg)
 
 ## Contributing new styles to markdown-styles
 
