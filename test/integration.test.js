@@ -312,5 +312,37 @@ describe('integration tests', function() {
         done();
       });
     });
+
+    it('replaces .md in local links but not in remote links ', function(done) {
+      render({
+        contents: [
+          'title: Hello world',
+          'author: Anonymous',
+          '----',
+          '# Test',
+          '[foo](./foo.md)',
+          '[bar](bar.md)',
+          '[baz](/baz.md)',
+          '[multi](./multi.md.md)',
+          '[http](http://foo.md)',
+          '[https](https://foo.md)',
+          '[ftp](ftp://foo.md)',
+          '[javascript](javascript://foo.md)',
+        ].join('\n')
+       }, { template: '{{> content}}' }, function(html) {
+        assert.equal(html, [
+            '<h1 id="test"><a class="header-link" href="#test"></a>Test</h1>',
+            '<p><a href="./foo.html">foo</a>',
+            '<a href="./bar.html">bar</a>',
+            '<a href="/baz.html">baz</a>',
+            '<a href="./multi.md.html">multi</a>',
+            '<a href="http://foo.md">http</a>',
+            '<a href="https://foo.md">https</a>',
+            '<a href="ftp://foo.md">ftp</a>',
+            '<a href="javascript://foo.md">javascript</a></p>\n',
+          ].join('\n'));
+        done();
+      });
+    });
   });
 });

@@ -9,9 +9,40 @@
 - ship integration: https://github.com/carrot/ship
 - emoji support
 - static asset revisioning via https://www.npmjs.com/package/rev-hash, https://github.com/galkinrost/gulp-rev-css-url
+- better theming:
+  - grid system: bootstrap (grid only)
+  - typography:
+    - heading font
+    - body font
+    - code font
+  - color palette
+    - material design shades, e.g. https://www.materialpalette.com/pink/indigo
+    - background color
+    - text color
+      - heading text
+      - body text
+      - link color
+      - emphasis
+        - styles for bold text
+        - styles for italic text
+  - components
+    - CSS
+      - headings
+      - paragraphs
+      - blockquotes
+      - ordered lists
+      - unordered lists
+      - nested lists
+      - inline code blocks
+      - code blocks
+      - images
+      - tables
+      - horizontal rule
+    - nav bar
+    - menu
+    - headings (hover link)
 - express plugin e.g. equivalent to express.static()
 - docco style
-- linkify .md links
 - themes
   - https://github.com/nrbernard/droplr-markdown-css
   - https://github.com/chrisopedia/base16-marked
