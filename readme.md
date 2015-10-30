@@ -4,6 +4,8 @@ Converts Markdown files to HTML, with over a dozen builtin themes.
 
 Looking for something to generate a blog from Markdown files? Check out [ghost-render](https://github.com/mixu/ghost-render).
 
+Looking to automatically render your Markdown site on `git push`? Check out [markdown-styles-lambda](https://github.com/mixu/markdown-styles-lambda)
+
 ## Features
 
 - `v3.1.4` adds linkification for relative links to markdown files, e.g. `[link](./foo.md)` -> `<a href="./foo.html">link</a>`.
