@@ -355,7 +355,7 @@ To plug the equivalent of `generate-md` into your grunt/gulp etc. task, use the 
 var mds = require('markdown-styles'),
     path = require('path');
 
-mds.render(mds.resolve({
+mds.render(mds.resolveArgs({
   input: path.normalize(process.cwd() + '/input'),
   output: path.normalize(process.cwd() + '/output'),
   layout: path.normalize(process.cwd() + '/my-layout'),
