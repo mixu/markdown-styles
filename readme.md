@@ -8,7 +8,8 @@ Looking to automatically render your Markdown site on `git push`? Check out [mar
 
 ## Features
 
-- `v3.1.4` adds linkification for relative links to markdown files, e.g. `[link](./foo.md)` -> `<a href="./foo.html">link</a>`.
+- `v3.1.5` updates some dependencies to add YAML syntax highlighting, thanks @omnibs!
+- `v3.1.4` added linkification for relative links to markdown files, e.g. `[link](./foo.md)` -> `<a href="./foo.html">link</a>`.
 - `v3.1.3` added a few additional properties to the programmatic API.
 - `v3.1.2` added default classes that allow you to [style headings in the table of contents](#table-of-contents). See [the changelog](./changelog.md) for changes made in older versions.
 - Includes 15+ ready-made CSS stylesheets for Markdown, see the bottom of the readme for screenshots.
