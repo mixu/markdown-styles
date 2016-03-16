@@ -81,17 +81,17 @@ sit amet velit.</p>
 
 <h2 id="i-am-a-robot"><a class="header-link" href="#i-am-a-robot"></a>I am a robot</h2>
 <p>Maybe you want to print <code>robot</code> to the console 1000 times. Why not?</p>
-<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Car</span> <span class="hljs-inheritance">&lt; <span class="hljs-parent">ActiveRecord::Base</span></span></span>
+<pre class="hljs"><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Car</span> &lt; ActiveRecord::Base</span>
   has_many <span class="hljs-symbol">:wheels</span>, <span class="hljs-symbol">class_name:</span> <span class="hljs-string">'Wheel'</span>, <span class="hljs-symbol">foreign_key:</span> <span class="hljs-string">'car_id'</span>
   scope <span class="hljs-symbol">:available</span>, -&gt; { where(<span class="hljs-symbol">available:</span> <span class="hljs-keyword">true</span>) }
 <span class="hljs-keyword">end</span></code></pre><p>You see, that was formatted as code because it&#39;s been indented by four spaces.</p>
 <p>How about we throw some angle braces and ampersands in there?</p>
-<pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"footer"</span>&gt;</span>
+<pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"footer"</span>&gt;</span>
     &amp;copy; 2004 Foo Corporation
-<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre><p>CSV:</p>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre><p>CSV:</p>
 <pre class="hljs"><code>Year,Make,Model,Length
-<span class="hljs-number">2</span>/<span class="hljs-number">5</span>/<span class="hljs-number">08</span>,Ford,E350,<span class="hljs-number">2.34</span>
-<span class="hljs-number">1</span>/<span class="hljs-number">2</span>/<span class="hljs-number">06</span>,Mercury,Cougar,<span class="hljs-number">2.38</span></code></pre><h2 id="set-in-stone"><a class="header-link" href="#set-in-stone"></a>Set in stone</h2>
+<span class="hljs-number">2</span><span class="hljs-regexp">/5/</span><span class="hljs-number">08</span>,Ford,E350,<span class="hljs-number">2.34</span>
+<span class="hljs-number">1</span><span class="hljs-regexp">/2/</span><span class="hljs-number">06</span>,Mercury,Cougar,<span class="hljs-number">2.38</span></code></pre><h2 id="set-in-stone"><a class="header-link" href="#set-in-stone"></a>Set in stone</h2>
 <p>Preformatted blocks are useful for ASCII art:</p>
 <pre>
              ,-.
