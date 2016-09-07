@@ -32,11 +32,11 @@
     "handlebars": "~4.0.3",
     "markdown-stream-utils": "~1.2.0",
     "mkdirp": "~0.5.1",
-    "pipe-iterators": "~1.1.0",
+    "pipe-iterators": "~1.3.0",
     "resolve": "~1.1.6",
-    "wildglob": "~0.1.0",
+    "wildglob": "~0.1.1",
     "xtend": "~4.0.0",
-    "yargs": "~3.27.0"
+    "yargs": "~5.0.0"
   },
   "devDependencies": {
     "electroshot": "~1.0.0",
