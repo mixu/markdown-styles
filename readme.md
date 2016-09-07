@@ -8,6 +8,7 @@ Looking to automatically render your Markdown site on `git push`? Check out [mar
 
 ## Features
 
+- `v3.1.7` fixes an issue with links that consist of internal anchors, thanks @a7madgamal & @nazrhyn!
 - `v3.1.6` fixes a compatibility issue with Node 6, thanks @maximumstock!
 - `v3.1.5` updates some dependencies to add YAML syntax highlighting, thanks @omnibs!
 - `v3.1.4` added linkification for relative links to markdown files, e.g. `[link](./foo.md)` -> `<a href="./foo.html">link</a>`.
