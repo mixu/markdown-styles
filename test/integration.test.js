@@ -328,6 +328,7 @@ describe('integration tests', function() {
           '[https](https://foo.md)',
           '[ftp](ftp://foo.md)',
           '[javascript](javascript://foo.md)',
+          '[Connections](#connections)', // Issue #45
         ].join('\n')
        }, { template: '{{> content}}' }, function(html) {
         assert.equal(html, [
@@ -339,7 +340,8 @@ describe('integration tests', function() {
             '<a href="http://foo.md">http</a>',
             '<a href="https://foo.md">https</a>',
             '<a href="ftp://foo.md">ftp</a>',
-            '<a href="javascript://foo.md">javascript</a></p>\n',
+            '<a href="javascript://foo.md">javascript</a>',
+            '<a href="#connections">Connections</a>' + '</p>\n',
           ].join('\n'));
         done();
       });
