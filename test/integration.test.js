@@ -60,6 +60,10 @@ describe('integration tests', function() {
 
       var out = fixture.dirname();
 
+      var layoutDir = fixture.dir({
+        'page.html': '"{{title}}" by {{author}}\n{{> toc}}{{> content}}'
+      });
+
       mds.render({
         input: dir,
         output: out,
@@ -67,6 +71,14 @@ describe('integration tests', function() {
       }, function() {
         assert.equal(fs.readFileSync(out + '/foo.html', 'utf8'), [
             '"你好 世界" by Anonymous',
+            '<ul class="nav nav-list">',
+            '    <li class="sidebar-header-1"><a href="#世界因我而不同">世界因我而不同</a></li>',
+            '    <li class="sidebar-header-2"><a href="#世界因我而不同-1">世界因我而不同</a></li>',
+            '    <li class="sidebar-header-3"><a href="#世界因我而不同-2">世界因我而不同</a></li>',
+            '    <li class="sidebar-header-1"><a href="#一个世界，一个梦想">一个世界，一个梦想</a></li>',
+            '    <li class="sidebar-header-2"><a href="#一个世界，一个梦想-1">一个世界，一个梦想</a></li>',
+            '    <li class="sidebar-header-3"><a href="#世界因我而不同-3">世界因我而不同</a></li>',
+            '</ul>',
             '<h1 id="世界因我而不同">世界因我而不同</h1>',
             '<h2 id="世界因我而不同-1">世界因我而不同</h2>',
             '<h3 id="世界因我而不同-2">世界因我而不同</h3>',
