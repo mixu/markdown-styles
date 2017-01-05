@@ -43,6 +43,41 @@ describe('integration tests', function() {
       });
     });
 
+    it('reads and renders metadata stored in a file with Chinese characters and the same heading used multiple times', function(done) {
+      var dir = fixture.dir({
+        'foo.md': [
+          'title: 你好 世界',
+          'author: Anonymous',
+          '----',
+          '# 世界因我而不同',
+          '## 世界因我而不同',
+          '### 世界因我而不同',
+          '# 一个世界，一个梦想',
+          '## 一个世界，一个梦想',
+          '### 世界因我而不同'
+        ].join('\n')
+      });
+
+      var out = fixture.dirname();
+
+      mds.render({
+        input: dir,
+        output: out,
+        layout: layoutDir
+      }, function() {
+        assert.equal(fs.readFileSync(out + '/foo.html', 'utf8'), [
+            '"你好 世界" by Anonymous',
+            '<h1 id="世界因我而不同">世界因我而不同</h1>',
+            '<h2 id="世界因我而不同-1">世界因我而不同</h2>',
+            '<h3 id="世界因我而不同-2">世界因我而不同</h3>',
+            '<h1 id="一个世界，一个梦想">一个世界，一个梦想</h1>',
+            '<h2 id="一个世界，一个梦想-1">一个世界，一个梦想</h2>',
+            '<h3 id="世界因我而不同-3">世界因我而不同</h3>\n'
+          ].join('\n'));
+        done();
+      });
+    });
+
     it('will implicitly pick up the first heading as the title if no meta title is set', function(done) {
       var dir = fixture.dir({
         'foo.md': [
