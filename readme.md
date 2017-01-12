@@ -118,7 +118,7 @@ You can customize the table of contents markup by overriding the [./partials/toc
 </ul>
 ```
 
-Note that by default (since v3.1.2), each heading list item has a class that depends on the level of the heading (`.sidebar-heading-1`, `.sidebar-heading-2`, ...). Thanks @mixinmax!
+Note that by default (since v3.1.2), each heading list item has a class that depends on the level of the heading (`.sidebar-header-1`, `.sidebar-header-2`, ...). Thanks @mixinmax!
 
 The `headings` metadata is an array of objects with:
 
