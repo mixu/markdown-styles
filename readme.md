@@ -8,6 +8,7 @@ Looking to automatically render your Markdown site on `git push`? Check out [mar
 
 ## Features
 
+- `v3.1.10` fixes an issue with single file inputs, thanks @josimard!
 - `v3.1.9` adds support for Chinese characters in heading link ids, thanks @weihong1028! Also includes a fix by @csandor for metadata with Windows line endings.
 - `v3.1.8` fixes an issue with links that consist of internal anchors, thanks @a7madgamal & @nazrhyn!
 - `v3.1.7` fixes an issue with paths on Windows and a default font protocol in mixu-page, thanks @hakkanicko and wirmar!
