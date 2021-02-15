@@ -37,20 +37,20 @@ describe('api tests', function() {
   });
 
   it('--input defaults to process.cwd() + ./input', function() {
-    assert.equal(mds.resolveArgs({ }).input, process.cwd() + '/input');
-    assert.equal(mds.resolveArgs({ input: 'foo' }).input, process.cwd() + '/foo');
-    assert.equal(mds.resolveArgs({ input: './foo' }).input, process.cwd() + '/foo');
+    assert.strictEqual(mds.resolveArgs({ }).input, process.cwd() + '/input');
+    assert.strictEqual(mds.resolveArgs({ input: 'foo' }).input, process.cwd() + '/foo');
+    assert.strictEqual(mds.resolveArgs({ input: './foo' }).input, process.cwd() + '/foo');
   });
 
   it('--output defaults to process.cwd() + ./output', function() {
-    assert.equal(mds.resolveArgs({ }).output, process.cwd() + '/output');
-    assert.equal(mds.resolveArgs({ output: 'foo' }).output, process.cwd() + '/foo');
-    assert.equal(mds.resolveArgs({ output: './foo' }).output, process.cwd() + '/foo');
+    assert.strictEqual(mds.resolveArgs({ }).output, process.cwd() + '/output');
+    assert.strictEqual(mds.resolveArgs({ output: 'foo' }).output, process.cwd() + '/foo');
+    assert.strictEqual(mds.resolveArgs({ output: './foo' }).output, process.cwd() + '/foo');
   });
 
   it('--layout specifies the layout to use', function() {
-    assert.equal(mds.resolveArgs({ }).layout, layoutDir + 'github/');
-    assert.equal(mds.resolveArgs({ layout: 'roryg-ghostwriter' }).layout, layoutDir + 'roryg-ghostwriter/');
+    assert.strictEqual(mds.resolveArgs({ }).layout, layoutDir + 'github/');
+    assert.strictEqual(mds.resolveArgs({ layout: 'roryg-ghostwriter' }).layout, layoutDir + 'roryg-ghostwriter/');
   });
 
   it('loads page.html, assets, partials and helpers given --layout', function(done) {
@@ -147,7 +147,7 @@ describe('api tests', function() {
         output: out,
         template: templateDir + '/page.html'
       }, function() {
-        assert.equal(fs.readFileSync(out + '/foo.html', 'utf8'), [
+        assert.strictEqual(fs.readFileSync(out + '/foo.html', 'utf8'), [
             '"Some title" by ',
             '<h1 id="some-title">Some title</h1>',
             '<p>abcdef</p>\n'

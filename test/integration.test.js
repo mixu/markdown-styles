@@ -34,7 +34,7 @@ describe('integration tests', function() {
         output: out,
         layout: layoutDir
       }, function() {
-        assert.equal(fs.readFileSync(out + '/foo.html', 'utf8'), [
+        assert.strictEqual(fs.readFileSync(out + '/foo.html', 'utf8'), [
             '"Hello world" by Anonymous',
             '<h1 id="test">Test</h1>',
             '<p>abcdef</p>\n'
@@ -69,7 +69,7 @@ describe('integration tests', function() {
         output: out,
         layout: layoutDir
       }, function() {
-        assert.equal(fs.readFileSync(out + '/foo.html', 'utf8'), [
+        assert.strictEqual(fs.readFileSync(out + '/foo.html', 'utf8'), [
             '"你好 世界" by Anonymous',
             '<ul class="nav nav-list">',
             '    <li class="sidebar-header-1"><a href="#世界因我而不同">世界因我而不同</a></li>',
@@ -104,7 +104,7 @@ describe('integration tests', function() {
         output: out,
         layout: layoutDir
       }, function() {
-        assert.equal(fs.readFileSync(out + '/foo.html', 'utf8'), [
+        assert.strictEqual(fs.readFileSync(out + '/foo.html', 'utf8'), [
             '"Some title" by ',
             '<h1 id="some-title">Some title</h1>',
             '<p>abcdef</p>\n'
@@ -141,23 +141,23 @@ describe('integration tests', function() {
         output: out,
         layout: layoutDir
       }, function() {
-        assert.equal(fs.readFileSync(out + '/foo.html', 'utf8'), [
+        assert.strictEqual(fs.readFileSync(out + '/foo.html', 'utf8'), [
             '"foo.md","value-from-key-foo","keep"',
             '<p>foo.md</p>\n'
           ].join('\n'));
-        assert.equal(fs.readFileSync(out + '/foo/bar.html', 'utf8'), [
+        assert.strictEqual(fs.readFileSync(out + '/foo/bar.html', 'utf8'), [
             '"foo/bar.md","value-from-key-foo-*",""',
             '<p>foo/bar.md</p>\n'
           ].join('\n'));
-        assert.equal(fs.readFileSync(out + '/abc/bar.html', 'utf8'), [
+        assert.strictEqual(fs.readFileSync(out + '/abc/bar.html', 'utf8'), [
             '"abc/bar.md","value-from-key-abc/bar",""',
             '<p>abc/bar.md</p>\n'
           ].join('\n'));
-        assert.equal(fs.readFileSync(out + '/abc/bar/baz.html', 'utf8'), [
+        assert.strictEqual(fs.readFileSync(out + '/abc/bar/baz.html', 'utf8'), [
             '"abc/bar/baz.md","value-from-*",""',
             '<p>abc/bar/baz.md</p>\n'
           ].join('\n'));
-        assert.equal(fs.readFileSync(out + '/abc/bar/baz/foo.html', 'utf8'), [
+        assert.strictEqual(fs.readFileSync(out + '/abc/bar/baz/foo.html', 'utf8'), [
             '"abc/bar/baz/foo.md","value-from-key-abc-bar-baz-*",""',
             '<p>abc/bar/baz.md</p>\n'
           ].join('\n'));
@@ -190,13 +190,13 @@ describe('integration tests', function() {
         output: out,
         layout: layoutDir
       }, function() {
-        assert.equal(fs.readFileSync(out + '/foo.html', 'utf8'), [
+        assert.strictEqual(fs.readFileSync(out + '/foo.html', 'utf8'), [
           '<h1 id="some-heading">some heading</h1>',
           '<p>hello</p>',
           '<h1 id="some-heading-1">some heading</h1>',
           ''
           ].join('\n'));
-        assert.equal(fs.readFileSync(out + '/bar.html', 'utf8'), [
+        assert.strictEqual(fs.readFileSync(out + '/bar.html', 'utf8'), [
           '<h1 id="some-heading">some heading</h1>',
           '<p>hello</p>',
           '<h1 id="some-heading-1">some heading</h1>',
@@ -237,14 +237,14 @@ describe('integration tests', function() {
 
     it('renders {{> content}}', function(done) {
       render({ contents: 'Hello world' }, { template: 'a{{> content}}b' }, function(html) {
-        assert.equal(html, 'a<p>Hello world</p>\nb');
+        assert.strictEqual(html, 'a<p>Hello world</p>\nb');
         done();
       });
     });
 
     it('renders {{title}}', function(done) {
       render({ title: 'foo', contents: 'a' }, { template: 'a{{title}}b' }, function(html) {
-        assert.equal(html, 'afoob');
+        assert.strictEqual(html, 'afoob');
         done();
       });
     });
@@ -258,7 +258,7 @@ describe('integration tests', function() {
         'c'
       ].join('\n')
       }, { template: 'a{{> toc}}b' }, function(html) {
-        assert.equal(html, [
+        assert.strictEqual(html, [
           'a<ul class="nav nav-list">',
           '    <li class="sidebar-header-1"><a href="#foo">foo</a></li>',
           '    <li class="sidebar-header-2"><a href="#bar">bar</a></li>',
@@ -271,7 +271,7 @@ describe('integration tests', function() {
 
     it('renders {{asset "css/style.css"}}', function(done) {
       render({ contents: 'a' }, { template: 'src="{{asset "css/style.css"}}"' }, function(html) {
-        assert.equal(html, 'src="assets/css/style.css"');
+        assert.strictEqual(html, 'src="assets/css/style.css"');
         done();
       });
     });
@@ -281,7 +281,7 @@ describe('integration tests', function() {
         template: 'a{{> sample-partial}}b',
         partials: __dirname + '/fixtures/partials'
       }, function(html) {
-        assert.equal(html, 'aSample partial\nb');
+        assert.strictEqual(html, 'aSample partial\nb');
         done();
       });
     });
@@ -297,7 +297,7 @@ describe('integration tests', function() {
         template: 'a{{> toc}}b',
         partials: __dirname + '/fixtures/partials'
       }, function(html) {
-        assert.equal(html, [
+        assert.strictEqual(html, [
             'aTOC:',
             '  - Hello foo!',
             '  - Hello bar!',
@@ -312,7 +312,7 @@ describe('integration tests', function() {
         template: 'a{{sample-helper "world"}}b',
         helpers: __dirname + '/fixtures/helpers'
       }, function(html) {
-        assert.equal(html, 'aHello world!b');
+        assert.strictEqual(html, 'aHello world!b');
         done();
       });
     });
@@ -328,7 +328,7 @@ describe('integration tests', function() {
       ].join('\n') }, {
         template: 'a{{> content}}b'
       }, function(html) {
-        assert.equal(html, [
+        assert.strictEqual(html, [
           'a<p>a</p>',
           '<h1 id="foo"><a class="header-link" href="#foo"></a>foo</h1>',
           '<pre class="hljs"><code>' +
@@ -348,7 +348,7 @@ describe('integration tests', function() {
       ].join('\n') }, {
         template: '{{> content}}'
       }, function(html) {
-        assert.equal(html, [
+        assert.strictEqual(html, [
           '<h1 id="some-heading"><a class="header-link" href="#some-heading"></a>some heading</h1>',
           '<p>hello</p>',
           '<h1 id="some-heading-1"><a class="header-link" href="#some-heading-1"></a>some heading</h1>',
@@ -378,7 +378,7 @@ describe('integration tests', function() {
           '[Connections](#connections)', // Issue #45
         ].join('\n')
        }, { template: '{{> content}}' }, function(html) {
-        assert.equal(html, [
+        assert.strictEqual(html, [
             '<h1 id="test"><a class="header-link" href="#test"></a>Test</h1>',
             '<p><a href="./foo.html">foo</a>',
             '<a href="./bar.html">bar</a>',
