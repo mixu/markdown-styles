@@ -1,7 +1,7 @@
 {
   "name": "markdown-styles",
   "description": "Markdown to HTML generator and multiple CSS themes for Markdown",
-  "version": "3.1.10",
+  "version": "3.2.0",
   "author": {
     "name": "Mikito Takada",
     "email": "mixu@mixu.net",
@@ -12,7 +12,7 @@
     "url": "git://github.com/mixu/markdown-styles.git"
   },
   "bin": {
-    "generate-md": "./bin/generate-md"
+    "generate-md": "bin/generate-md"
   },
   "keywords": [
     "markdown",
